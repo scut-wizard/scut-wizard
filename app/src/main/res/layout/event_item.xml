@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="15dp"
-    android:gravity="center_horizontal"
-    android:id="@+id/event_name"/>
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="180dp"
+        android:layout_height="37dp"
+        android:layout_margin="15dp"
+        android:gravity="center_horizontal" />
+
+    <ProgressBar
+        android:id="@+id/event_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="354dp"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:progress="80" />
+</LinearLayout>
+
+
 

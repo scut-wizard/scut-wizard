@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <com.rey.material.widget.ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/main_bg_scut"
-        />
+        android:background="@drawable/main_bg_scut" />
 
     <com.rey.material.widget.LinearLayout
         android:layout_width="match_parent"
