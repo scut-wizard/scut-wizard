@@ -1,17 +1,12 @@
 package com.scut.scutwizard;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +30,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_memo:
                 Intent intent_Note = new Intent(MainActivity.this, NoteActivity.class);
                 startActivity(intent_Note);
+                break;
+            case R.id.navigation_helper:
+                Intent intent_Helper = new Intent(MainActivity.this, HelperActivity.class);
+                startActivity(intent_Helper);
+                break;
             case R.id.navigation_tool:
                 Intent intent_Map = new Intent(MainActivity.this, NoteActivity.class);
                 startActivity(intent_Map);
+                break;
         }
         return true;
     }

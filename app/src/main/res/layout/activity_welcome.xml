@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:letterSpacing="0.2"
-            android:text="华工助手"
+            android:text="@string/scut_wizard_zh"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="64sp"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:letterSpacing="0.8"
-            android:text="SCUTwizard"
+            android:text="@string/scut_wizard_en"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
@@ -48,7 +48,7 @@
         android:layout_marginEnd="30sp"
         android:background="@drawable/btn_selector"
         android:textColor="@android:color/white"
-        android:text=" 跳过 > "
+        android:text="@string/skip_btn_text"
         android:textSize="16sp"
         android:letterSpacing="0.15" />
 

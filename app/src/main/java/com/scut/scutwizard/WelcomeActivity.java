@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class WelcomeActivity extends AppCompatActivity {
 
     private VideoView videoView;
+    private Timer skipTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +38,25 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         final Intent skipIntent = new Intent(WelcomeActivity.this, MainActivity.class);
-        Button skipBtn = findViewById(R.id.skip_btn);
-        skipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(skipIntent);
-            }
-        });
 
-        Timer timer = new Timer();
-        TimerTask skipTask = new TimerTask() {
+        skipTimer = new Timer();
+        final TimerTask skipTask = new TimerTask() {
             @Override
             public void run() {
                 startActivity(skipIntent);
             }
         };
-        timer.schedule(skipTask, 5000);
+        skipTimer.schedule(skipTask, 5 * 1000);
+
+        // 跳过键
+        Button skipBtn = findViewById(R.id.skip_btn);
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                skipTimer.cancel();
+                startActivity(skipIntent);
+            }
+        });
     }
 
 

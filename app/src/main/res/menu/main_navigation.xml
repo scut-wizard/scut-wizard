@@ -7,6 +7,9 @@
             android:icon="@drawable/ic_nav_memo"
             android:title="@string/navigation_memo" />
         <item
+            android:id="@+id/navigation_helper"
+            android:title="@string/navigation_helper" />
+        <item
             android:id="@+id/navigation_tool"
             android:icon="@drawable/ic_nav_tool"
             android:title="@string/navigation_tool" />
