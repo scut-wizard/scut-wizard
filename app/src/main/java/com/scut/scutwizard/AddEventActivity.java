@@ -41,7 +41,7 @@ public class AddEventActivity extends AppCompatActivity {
                 ContentValues values = new ContentValues();
                 values.put("name", name);
                 values.put("progress", progress);
-                note_db.insert("event_db", null, values);
+                note_db.insert("event_table", null, values);
 
                 startActivity(new Intent(AddEventActivity.this, NoteActivity.class));
             }
