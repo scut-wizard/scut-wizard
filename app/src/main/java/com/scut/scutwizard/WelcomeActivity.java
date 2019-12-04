@@ -46,7 +46,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(skipIntent);
             }
         };
-        skipTimer.schedule(skipTask, 5*1000);
+        skipTimer.schedule(skipTask, 5 * 1000);
 
         // 跳过键
         Button skipBtn = findViewById(R.id.skip_btn);

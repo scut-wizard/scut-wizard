@@ -2,6 +2,8 @@
     <string name="app_name">SCUTwizard</string>
     <string name="title_activity_note">NoteActivity</string>
 
+    <string name="button_name_edit">+</string>
+
     <string name="menu_course_share">分享到</string>
     <string name="menu_course_sync">同步课表信息</string>
     <string name="menu_course_week_change">切换当前周数</string>

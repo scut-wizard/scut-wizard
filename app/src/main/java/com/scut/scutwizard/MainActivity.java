@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent_Note);
                 break;
             case R.id.navigation_helper:
-                Intent intent_Helper=new Intent(MainActivity.this,HelperActivity.class);
+                Intent intent_Helper = new Intent(MainActivity.this, HelperActivity.class);
                 startActivity(intent_Helper);
                 break;
             case R.id.navigation_tool:
@@ -40,4 +40,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }

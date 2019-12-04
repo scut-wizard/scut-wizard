@@ -50,6 +50,6 @@
         android:textColor="@android:color/white"
         android:text="@string/skip_btn_text"
         android:textSize="16sp"
-        android:letterSpacing="0.15"/>
+        android:letterSpacing="0.15" />
 
 </RelativeLayout>
