@@ -22,7 +22,8 @@
         <activity android:name=".HelperActivity" />
         <activity
             android:name=".NoteActivity"
-            android:label="@string/title_activity_note" />
+            android:label="@string/title_activity_note"></activity>
+        <activity android:name=".AddEventActivity"></activity>
         <activity
             android:name=".MapActivity"
             android:label="MapActivity" />
