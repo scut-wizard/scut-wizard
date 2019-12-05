@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -27,15 +28,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NoteActivity extends AppCompatActivity {
 
     private List<Event> eventList = new ArrayList<>();
-    public Button add_btn;
+    public ImageView add_IV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-        add_btn = (Button) findViewById(R.id.add_btn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
+        add_IV = (ImageView) findViewById(R.id.add_IV);
+        add_IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(NoteActivity.this, AddEventActivity.class));
@@ -46,7 +47,7 @@ public class NoteActivity extends AppCompatActivity {
         noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
-        Cursor cursor = note_db.query("event_table", null, null, null, null, null, null);
+        Cursor cursor = note_db.query("event_table", null, null, null, null, null, "rating desc");
         //利用游标遍历所有数据对象
         if(cursor.moveToFirst()){
             do {
@@ -135,8 +136,9 @@ public class NoteActivity extends AppCompatActivity {
                     SQLiteDatabase note_db = dbHelper.getWritableDatabase();
 
                     ContentValues values = new ContentValues();
-                    values.put("progress",event.progress);
-                    values.put("finish",event.finish);
+                    values.put("progress",event.getProgress());
+                    values.put("finish",event.getFinish());
+                    values.put("finish",event.getRating());
 
                     note_db.update("event_table",values,"id=?",new String[]{event_id});
 

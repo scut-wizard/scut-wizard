@@ -7,26 +7,22 @@ public class Event {
     public int daysLeft;
     public double rating;
     public int id;
+    public int step;
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
 
-
     public int getStep() {
         return step;
     }
-
     public void setStep(int step) {
         this.step = step;
     }
-
-    public int step;
 
     public void setName(String name) {
         this.name = name;
@@ -38,16 +34,14 @@ public class Event {
     public double getProgress() {
         return progress;
     }
-
     public void setProgress(double progress) {
         this.progress = progress;
         this.calcuRating();
     }
 
-    public int isfinish() {
+    public int getFinish() {
         return finish;
     }
-
     public void setfinish(int finish) {
         this.finish = finish;
         this.calcuRating();
@@ -56,8 +50,6 @@ public class Event {
     public int getDaysLeft() {
         return daysLeft;
     }
-
-
     public void setDaysLeft(int daysLeft) {
         this.daysLeft = daysLeft;
         this.calcuRating();
@@ -66,13 +58,13 @@ public class Event {
     public double getRating() {
         return rating;
     }
-
     public Event(String _name) {
         this.name = _name;
         this.daysLeft = 30;
         this.progress = 0;
         this.step = 1;
         this.finish = 0;
+        this.rating = 0.5;
         this.calcuRating();
     }
     public Event(String _name,int _daysLeft,double _progress,int _step) {
@@ -95,7 +87,5 @@ public class Event {
         }else{
             this.rating=0;
         }
-
     }
-
 }

@@ -25,6 +25,7 @@
             android:name=".NoteActivity"
             android:label="DDL助手"></activity>
         <activity android:name=".AddEventActivity"></activity>
+        <activity android:name=".ShowEventActivity"></activity>
         <activity
             android:name=".MapActivity"
             android:label="MapActivity" />

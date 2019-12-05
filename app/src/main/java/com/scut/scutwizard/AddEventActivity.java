@@ -53,9 +53,10 @@ public class AddEventActivity extends AppCompatActivity {
                     double progress = parseDouble(add_event_et_progress.getText().toString());
                     int step = parseInt(add_event_et_step.getText().toString());
                     int daysLeft = parseInt(add_event_et_daysLeft.getText().toString());
+                    double rating;
 
-                    if(progress<0||progress>100){
-                        Toast.makeText(AddEventActivity.this,"完成进度输入0-100的数字",Toast.LENGTH_SHORT).show();
+                    if(progress<0||progress>99){
+                        Toast.makeText(AddEventActivity.this,"完成进度输入0-99的数字",Toast.LENGTH_SHORT).show();
                     }else if(step<1||step>10){
                         Toast.makeText(AddEventActivity.this,"步数输入1-10的整数",Toast.LENGTH_SHORT).show();
                     }else if(daysLeft<1||daysLeft>365){
@@ -69,8 +70,14 @@ public class AddEventActivity extends AppCompatActivity {
                         values.put("daysLeft", daysLeft);
                         values.put("progress", progress);
                         values.put("step",step);
-                        if(progress>=100)values.put("finish",1);
-                        else values.put("finish",0);
+                        if(daysLeft>30) rating=0.5;
+                        else{
+                            double temp = 30/daysLeft*(100-progress)/100;
+                            if(temp>5) rating=5;
+                            else rating = temp;
+                        }
+                        values.put("rating",rating);
+                        values.put("finish",0);
                         note_db.insert("event_table", null, values);
 
                         startActivity(new Intent(AddEventActivity.this, NoteActivity.class));

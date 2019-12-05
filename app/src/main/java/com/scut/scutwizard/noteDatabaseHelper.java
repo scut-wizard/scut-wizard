@@ -16,6 +16,7 @@ public class noteDatabaseHelper extends SQLiteOpenHelper {
             + " daysLeft int,"
             + " progress real,"
             + " step int,"
+            + " rating double,"
             + " finish int)";
 
     @Override
