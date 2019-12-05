@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HelperActivity">
+    tools:context=".ScoreHelper.HelperActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/helper_tab_layout"
