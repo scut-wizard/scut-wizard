@@ -38,16 +38,22 @@
 
     <com.rey.material.widget.Button
         android:id="@+id/skip_btn"
-        android:layout_width="60sp"
-        android:layout_height="30sp"
+        android:layout_width="100sp"
+        android:layout_height="33sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="30sp"
+        android:layout_marginStart="40sp"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="40sp"
+        android:layout_marginEnd="40sp"
+        android:layout_marginRight="40sp"
+        android:layout_marginBottom="40sp"
         android:background="@drawable/btn_selector"
-        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:letterSpacing="0.15"
         android:text="@string/skip_btn_text"
-        android:textSize="16sp"
-        android:letterSpacing="0.15" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>
