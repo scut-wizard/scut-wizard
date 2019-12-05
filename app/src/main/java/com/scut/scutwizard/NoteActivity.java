@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +52,15 @@ public class NoteActivity extends AppCompatActivity {
             double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
             int daysLeft = cursor.getInt(cursor.getColumnIndex("daysLeft"));
             int finish = cursor.getInt(cursor.getColumnIndex("finish"));
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int step = cursor.getInt(cursor.getColumnIndex("step"));
             if(finish==0){
                 Event event = new Event(name);
                 event.setProgress(progress);
                 event.setDaysLeft(daysLeft);
                 event.setfinish(finish);
+                event.setId(id);
+                event.setStep(step);
                 eventList.add(event);
             }
 
@@ -97,12 +102,55 @@ public class NoteActivity extends AppCompatActivity {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
             final ViewHolder holder = new ViewHolder(view);
+
+            holder.event_done_btn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    int position = holder.getAdapterPosition();
+                    Event event = mEventList.get(position);
+                    String event_id = String.valueOf(event.id);
+
+                    double newProgress = (100/event.getStep())+event.getProgress();
+                    if(newProgress>=100){
+                        event.setProgress(100.0);
+                        event.setfinish(1);
+                        holder.event_progressbar.setProgress((int)newProgress);
+                        Toast.makeText(NoteActivity.this,event.getName()+"任务完成！",Toast.LENGTH_SHORT).show();
+                    }else{
+                        event.setProgress(newProgress);
+                        event.setfinish(0);
+                        holder.event_progressbar.setProgress((int)newProgress);
+                        Toast.makeText(NoteActivity.this,event.getName()+"打卡成功！再接再厉",Toast.LENGTH_SHORT).show();
+                    }
+                    //更新数据库
+                    noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
+                    SQLiteDatabase note_db = dbHelper.getWritableDatabase();
+
+                    ContentValues values = new ContentValues();
+                    values.put("progress",event.progress);
+                    values.put("finish",event.finish);
+
+                    note_db.update("event_table",values,"id=?",new String[]{event_id});
+
+                    /*if(newProgress>=100){
+                        //删除已完成的活动
+                        for (int i = 0; i < mEventList.size(); i++) {
+                            if(event_id.equals(eventList.get(i).getId()) )
+                                eventList.remove(i);
+                            //Toast.makeText(NoteActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }*/
+
+
+                }
+            });
             return holder;
         }
 
         public void onBindViewHolder(ViewHolder holder, int position) {
             Event event = mEventList.get(position);
-            String days_left_str = event.getDaysLeft()+" days left";
+            String days_left_str = event.getDaysLeft()+" days";
             holder.event_name_tv.setText(event.getName());
             holder.event_progressbar.setProgress((int)event.getProgress());
             holder.event_daysLeft_tv.setText(days_left_str);

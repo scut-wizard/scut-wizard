@@ -6,6 +6,26 @@ public class Event {
     public int finish;
     public int daysLeft;
     public double rating;
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     public int step;
 
     public void setName(String name) {
