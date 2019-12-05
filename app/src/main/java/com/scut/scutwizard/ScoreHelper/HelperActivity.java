@@ -2,6 +2,7 @@ package com.scut.scutwizard.ScoreHelper;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,17 +22,35 @@ public class HelperActivity extends AppCompatActivity implements StatsFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helper);
         setTitle(R.string.helper);
+        initView();
+    }
 
+    private void initView() {
         tabLayout = findViewById(R.id.helper_tab_layout);
         vp = findViewById(R.id.helper_vp);
 
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(StatsFragment.newInstance("德"), getString(R.string.deyu));
-        adapter.addFragment(StatsFragment.newInstance("智"), getString(R.string.zhiyu));
-        adapter.addFragment(StatsFragment.newInstance("体"), getString(R.string.wenti));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_DE), getString(R.string.deyu));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_ZHI), getString(R.string.zhiyu));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_TI), getString(R.string.wenti));
 
         vp.setAdapter(adapter);
         tabLayout.setupWithViewPager(vp);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("TAG", "" + tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
     @Override

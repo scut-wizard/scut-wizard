@@ -3,13 +3,19 @@ package com.scut.scutwizard.ScoreHelper;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.scut.scutwizard.R;
 
+import java.util.List;
+
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -21,12 +27,13 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class StatsFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
     private static final String ARG_CATEGORY = "category";
-
-    private String mCategory;
-
+    private int mCategory;
+    private List<Score> mScores;
     private OnFragmentInteractionListener mListener;
+    private RecyclerView mRowsView;
+    private View view;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -38,10 +45,10 @@ public class StatsFragment extends Fragment {
      *
      * @return A new instance of fragment StatsFragment.
      */
-    public static StatsFragment newInstance(String category) {
+    public static StatsFragment newInstance(int category) {
         StatsFragment fragment = new StatsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_CATEGORY, category);
+        args.putInt(ARG_CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +57,8 @@ public class StatsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mCategory = getArguments().getString(ARG_CATEGORY);
+            mCategory = getArguments().getInt(ARG_CATEGORY);
+            Log.d(TAG, "onCreate: " + mCategory);
         }
     }
 
@@ -58,7 +66,14 @@ public class StatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stats, container, false);
+        view = inflater.inflate(R.layout.fragment_stats, container, false);
+        mRowsView = view.findViewById(R.id.score_rows_view);
+        refresh();
+        return view;
+    }
+
+    public void refresh() {
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,6 +99,7 @@ public class StatsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
