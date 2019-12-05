@@ -41,31 +41,39 @@ public class NoteActivity extends AppCompatActivity {
                 startActivity(new Intent(NoteActivity.this, AddEventActivity.class));
             }
         });
+
         //从数据库中读取所有event，生成 event list
         noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
         Cursor cursor = note_db.query("event_table", null, null, null, null, null, null);
         //利用游标遍历所有数据对象
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex("name"));
-            double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
-            int daysLeft = cursor.getInt(cursor.getColumnIndex("daysLeft"));
-            int finish = cursor.getInt(cursor.getColumnIndex("finish"));
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
-            int step = cursor.getInt(cursor.getColumnIndex("step"));
-            if(finish==0){
-                Event event = new Event(name);
-                event.setProgress(progress);
-                event.setDaysLeft(daysLeft);
-                event.setfinish(finish);
-                event.setId(id);
-                event.setStep(step);
-                eventList.add(event);
-            }
+        if(cursor.moveToFirst()){
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
+                int daysLeft = cursor.getInt(cursor.getColumnIndex("daysLeft"));
+                int finish = cursor.getInt(cursor.getColumnIndex("finish"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int step = cursor.getInt(cursor.getColumnIndex("step"));
+                if (finish == 0) {
+                    Event event = new Event(name);
+                    event.setProgress(progress);
+                    event.setDaysLeft(daysLeft);
+                    event.setfinish(finish);
+                    event.setId(id);
+                    event.setStep(step);
+                    eventList.add(event);
 
+                }
+
+            } while (cursor.moveToNext());
         }
         cursor.close();
+
+        if(eventList.size()==0){
+            Toast.makeText(NoteActivity.this,"暂无任务,点击按钮添加吧",Toast.LENGTH_LONG).show();
+        }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
