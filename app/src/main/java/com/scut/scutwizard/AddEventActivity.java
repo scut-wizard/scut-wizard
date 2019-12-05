@@ -75,10 +75,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                         startActivity(new Intent(AddEventActivity.this, NoteActivity.class));
                     }
-
                 }
-
-
             }
         });
         return_btn.setOnClickListener(new View.OnClickListener(){

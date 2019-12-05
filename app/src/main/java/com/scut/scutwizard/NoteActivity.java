@@ -147,10 +147,7 @@ public class NoteActivity extends AppCompatActivity {
                                 eventList.remove(i);
                             //Toast.makeText(NoteActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
                         }
-
                     }*/
-
-
                 }
             });
             return holder;
