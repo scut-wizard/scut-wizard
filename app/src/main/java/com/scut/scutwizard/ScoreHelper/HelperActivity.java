@@ -26,9 +26,9 @@ public class HelperActivity extends AppCompatActivity implements StatsFragment.O
         vp = findViewById(R.id.helper_vp);
 
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(StatsFragment.newInstance("德"), getString(R.string.deyu));
-        adapter.addFragment(StatsFragment.newInstance("智"), getString(R.string.zhiyu));
-        adapter.addFragment(StatsFragment.newInstance("体"), getString(R.string.wenti));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_DE), getString(R.string.deyu));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_ZHI), getString(R.string.zhiyu));
+        adapter.addFragment(StatsFragment.newInstance(StatsFragment.CATEGORY_TI), getString(R.string.wenti));
 
         vp.setAdapter(adapter);
         tabLayout.setupWithViewPager(vp);

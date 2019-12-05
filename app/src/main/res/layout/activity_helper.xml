@@ -15,17 +15,14 @@
         app:tabGravity="fill">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_deyu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_zhiyu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_wenti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
