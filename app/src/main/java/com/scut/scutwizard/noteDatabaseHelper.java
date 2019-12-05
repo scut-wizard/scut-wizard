@@ -13,7 +13,10 @@ public class noteDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_EVENT = "create table event_table("
             + "id integer primary key autoincrement,"
             + " name varchar(20),"
-            + " progress real)";
+            + " daysLeft int,"
+            + " progress real,"
+            + " step int,"
+            + " finish int)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {

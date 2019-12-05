@@ -22,7 +22,7 @@
         <activity android:name=".HelperActivity" />
         <activity
             android:name=".NoteActivity"
-            android:label="@string/title_activity_note"></activity>
+            android:label="DDL助手"></activity>
         <activity android:name=".AddEventActivity"></activity>
         <activity
             android:name=".MapActivity"

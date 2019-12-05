@@ -9,7 +9,7 @@
     android:padding="10dp">
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/event_ratingbar"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_name_tv"
             android:layout_width="139dp"
             android:layout_height="37dp"
             android:layout_gravity="start"
@@ -35,7 +35,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/event_daysLeft_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/event_done_btn"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/event_progress"
+        android:id="@+id/event_progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="354dp"
         android:layout_height="0dp"

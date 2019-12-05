@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <EditText
         android:id="@+id/add_event_et_name"
@@ -10,18 +11,40 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="任务名称"/>
+
+    <EditText
+        android:id="@+id/add_event_et_daysLeft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="距离ddl天数（0-365）"/>
 
     <EditText
         android:id="@+id/add_event_et_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        android:hint="任务进度（0-100）%"/>
 
-    <Button
-        android:id="@+id/confirm_add_btn"
+    <EditText
+        android:id="@+id/add_event_et_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="添加" />
+        android:ems="10"
+        android:inputType="number"
+        android:hint="任务步数"/>
+
+    <Button
+    android:id="@+id/confirm_add_btn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="添加" />
+    <Button
+        android:id="@+id/return_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回" />
 </LinearLayout>
