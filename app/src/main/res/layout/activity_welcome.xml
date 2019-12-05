@@ -38,14 +38,12 @@
 
     <com.rey.material.widget.Button
         android:id="@+id/skip_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="60sp"
         android:layout_height="30sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="30sp"
-        android:layout_marginBottom="30sp"
-        android:layout_marginEnd="30sp"
+        android:layout_margin="30sp"
         android:background="@drawable/btn_selector"
         android:textColor="@android:color/white"
         android:text="@string/skip_btn_text"
