@@ -32,6 +32,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+
     <string name="deyu">德育</string>
     <string name="zhiyu">智育</string>
     <string name="wenti">文体</string>

@@ -1,5 +1,6 @@
 package com.scut.scutwizard;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,9 +14,7 @@ import com.rey.material.widget.Button;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends Activity {
 
     private VideoView videoView;
     private Timer skipTimer;
@@ -24,7 +23,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        getSupportActionBar().hide();
 
         videoView = findViewById(R.id.video_view);
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.welcome));

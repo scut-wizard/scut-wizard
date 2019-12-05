@@ -8,6 +8,7 @@ public class Score {
     private double value;
     private Date createDate, lastModifiedDate, eventDate;
     private String specificCategory;
+    // TODO: 存证明材料图片
 
     public Score() {
     }
