@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_nav_note">
+        <item
+            android:id="@+id/navigation_add"
+            android:title="增添" />
+        <item
+            android:id="@+id/navigation_cnt"
+            android:title="统计" />
+        <item
+            android:id="@+id/navigation_sort"
+            android:checked="true"
+            android:title="切换" />
+        <item
+            android:id="@+id/navigation_note_return"
+            android:checked="true"
+            android:title="返回" />
+
+    </group>
+
+</menu>

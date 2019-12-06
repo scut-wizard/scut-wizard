@@ -42,7 +42,7 @@ public class Event {
     public int getFinish() {
         return finish;
     }
-    public void setfinish(int finish) {
+    public void setFinish(int finish) {
         this.finish = finish;
         this.calcuRating();
     }

@@ -25,7 +25,7 @@ public class AddEventActivity extends AppCompatActivity {
     public EditText add_event_et_name;
     public EditText add_event_et_progress;
     public Button confirmAdd_btn;
-    public Button return_btn;
+    public Button add_event_return_btn;
     public EditText add_event_et_daysLeft;
     public EditText add_event_et_step;
 
@@ -34,7 +34,7 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         confirmAdd_btn = (Button) findViewById(R.id.confirm_add_btn);
-        return_btn= (Button) findViewById(R.id.return_btn);
+        add_event_return_btn= (Button) findViewById(R.id.add_event_return_btn);
         add_event_et_name = (EditText) findViewById(R.id.add_event_et_name);
         add_event_et_progress = (EditText) findViewById(R.id.add_event_et_progress);
         add_event_et_daysLeft = (EditText) findViewById(R.id.add_event_et_daysLeft);
@@ -85,7 +85,7 @@ public class AddEventActivity extends AppCompatActivity {
                 }
             }
         });
-        return_btn.setOnClickListener(new View.OnClickListener(){
+        add_event_return_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AddEventActivity.this, NoteActivity.class));

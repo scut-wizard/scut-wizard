@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,9 +19,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scut.scutwizard.ScoreHelper.HelperActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,26 +33,21 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NoteActivity extends AppCompatActivity {
 
     private List<Event> eventList = new ArrayList<>();
-    public ImageView add_IV;
+    private String sortStr="rating desc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-        add_IV = (ImageView) findViewById(R.id.add_IV);
-        add_IV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NoteActivity.this, AddEventActivity.class));
-            }
-        });
+        Intent intent = getIntent();
+        if(intent.hasExtra("extra_data")) sortStr = intent.getStringExtra("extra_data");
 
         //从数据库中读取所有event，生成 event list
         noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
-        Cursor cursor = note_db.query("event_table", null, null, null, null, null, "rating desc");
+        Cursor cursor = note_db.query("event_table", null, null, null, null, null, sortStr);
         //利用游标遍历所有数据对象
         if(cursor.moveToFirst()){
             do {
@@ -61,7 +61,7 @@ public class NoteActivity extends AppCompatActivity {
                     Event event = new Event(name);
                     event.setProgress(progress);
                     event.setDaysLeft(daysLeft);
-                    event.setfinish(finish);
+                    event.setFinish(finish);
                     event.setId(id);
                     event.setStep(step);
                     eventList.add(event);
@@ -122,12 +122,12 @@ public class NoteActivity extends AppCompatActivity {
                     double newProgress = (100/event.getStep())+event.getProgress();
                     if(newProgress>=100){
                         event.setProgress(100.0);
-                        event.setfinish(1);
+                        event.setFinish(1);
                         holder.event_progressbar.setProgress((int)newProgress);
                         Toast.makeText(NoteActivity.this,event.getName()+"任务完成！",Toast.LENGTH_SHORT).show();
                     }else{
                         event.setProgress(newProgress);
-                        event.setfinish(0);
+                        event.setFinish(0);
                         holder.event_progressbar.setProgress((int)newProgress);
                         Toast.makeText(NoteActivity.this,event.getName()+"打卡成功！再接再厉",Toast.LENGTH_SHORT).show();
                     }
@@ -138,7 +138,7 @@ public class NoteActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put("progress",event.getProgress());
                     values.put("finish",event.getFinish());
-                    values.put("finish",event.getRating());
+                    values.put("rating",event.getRating());
 
                     note_db.update("event_table",values,"id=?",new String[]{event_id});
 
@@ -167,6 +167,49 @@ public class NoteActivity extends AppCompatActivity {
         public int getItemCount() {
             return mEventList.size();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.note_navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_add:
+                Intent intent_add = new Intent(NoteActivity.this, AddEventActivity.class);
+                finish();
+                startActivity(intent_add);
+                break;
+            case R.id.navigation_cnt:
+                Intent intent_cnt = new Intent(NoteActivity.this, ShowEventActivity.class);
+                finish();
+                startActivity(intent_cnt);
+                break;
+            case R.id.navigation_sort:
+                Intent intent_sort = new Intent(NoteActivity.this, NoteActivity.class);
+               if(sortStr.equals("rating desc")){
+                   intent_sort.putExtra("extra_data","daysLeft");
+                   Toast.makeText(NoteActivity.this,"按剩余天数排序",Toast.LENGTH_SHORT).show();
+               }
+                else if(sortStr.equals("daysLeft")){
+                   intent_sort.putExtra("extra_data","progress");
+                   Toast.makeText(NoteActivity.this,"按剩余进度排序",Toast.LENGTH_SHORT).show();
+               }
+                else if(sortStr.equals("progress")){
+                   intent_sort.putExtra("extra_data","rating desc");
+                   Toast.makeText(NoteActivity.this,"按紧急度排序",Toast.LENGTH_SHORT).show();
+               }
+                startActivity(intent_sort);
+                break;
+            case R.id.navigation_note_return:
+                Intent intent_return = new Intent(NoteActivity.this, MainActivity.class);
+                startActivity(intent_return);
+                break;
+        }
+        return true;
     }
 
 

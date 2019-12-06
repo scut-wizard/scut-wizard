@@ -113,7 +113,7 @@
         android:text="添加" />
 
     <Button
-        android:id="@+id/return_btn"
+        android:id="@+id/add_event_return_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
