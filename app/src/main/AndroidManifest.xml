@@ -20,12 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".ScoreHelper.HelperActivity" />
+        <activity
+            android:name=".ScoreHelper.HelperActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NoteActivity"
-            android:label="DDL助手"></activity>
-        <activity android:name=".AddEventActivity"></activity>
-        <activity android:name=".ShowEventActivity"></activity>
+            android:label="DDL助手" />
+        <activity android:name=".AddEventActivity" />
+        <activity android:name=".ShowEventActivity" />
         <activity
             android:name=".MapActivity"
             android:label="MapActivity" />

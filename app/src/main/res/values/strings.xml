@@ -36,11 +36,10 @@
     <string name="deyu">德育</string>
     <string name="zhiyu">智育</string>
     <string name="wenti">文体</string>
-    <string name="helper">综测助手</string>
     <string name="scut_wizard_zh">华工助手</string>
     <string name="scut_wizard_en">SCUTwizard</string>
     <string name="skip_btn_text"><![CDATA[跳过 >]]></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_value">0.0</string>
+    <string name="helper">综测助手</string>
 </resources>

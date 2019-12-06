@@ -39,6 +39,8 @@ dependencies {
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'top.zibin:Luban:1.1.8' // compress image
+    implementation 'com.robinhood.ticker:ticker:2.0.2'
+    implementation 'com.lxj:xpopup:1.8.10-x'
     // implementation 'com.android.support:design:27.1.1'
     // implementation 'com.android.support:support-v4:27.1.1'
 }
