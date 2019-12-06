@@ -18,11 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:alpha="0.95"
         android:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="12dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="5dp" />
+        app:fabCradleVerticalOffset="5dp"
+        app:hideOnScroll="true" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

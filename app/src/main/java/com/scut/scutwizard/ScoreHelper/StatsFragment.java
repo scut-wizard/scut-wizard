@@ -8,14 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.scut.scutwizard.R;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -33,6 +36,7 @@ public class StatsFragment extends Fragment {
     private List<Score> mScores;
     private OnFragmentInteractionListener mListener;
     private RecyclerView mRowsView;
+    private BottomAppBar mStatsBar;
     private View view;
 
     public StatsFragment() {
@@ -58,7 +62,7 @@ public class StatsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mCategory = getArguments().getInt(ARG_CATEGORY);
-            Log.d(TAG, "onCreate: " + mCategory);
+            Log.d("StatsFragment", "onCreate: " + mCategory);
         }
     }
 
@@ -68,12 +72,66 @@ public class StatsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_stats, container, false);
         mRowsView = view.findViewById(R.id.score_rows_view);
+//        mRowsView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
+        mStatsBar = view.findViewById(R.id.bottomStatsBar);
         refresh();
         return view;
     }
 
     public void refresh() {
+        /* RecyclerView */
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRowsView.setLayoutManager(layoutManager);
 
+        List<Score> scoreList = new ArrayList<>();
+        Random random = new Random();
+        final Date now = new Date();
+        for (int i = 0; i < 20; ++i) {
+            Score tmp = new Score();
+            final int category = random.nextInt(3);
+            switch (category) {
+                case 0:
+                    tmp.setCategory(Score.Category.DEYU);
+                    tmp.setDescription("灾后清扫");
+                    break;
+                case 1:
+                    tmp.setCategory(Score.Category.ZHIYU);
+                    tmp.setDescription("阅读核心期刊论文");
+                    break;
+                case 2:
+                    tmp.setCategory(Score.Category.WENTI);
+                    tmp.setDescription("使用共享单车");
+                    break;
+            }
+            tmp.setCreateDate(now);
+            tmp.setEventDate(now);
+            tmp.setLastModifiedDate(now);
+            tmp.setSpecificCategory("国家级");
+            tmp.setValue(random.nextDouble() * 10 - 5);
+            scoreList.add(tmp);
+        }
+        ScoreRowAdapter adapter = new ScoreRowAdapter(scoreList);
+        mRowsView.setAdapter(adapter);
+
+        /* BottomBar */
+//        mStatsBar.setSubtitle(getCategoryName(mCategory));
+//        double totalValue = 0;
+//        for (Score s : scoreList) totalValue += s.getValue();
+//        mStatsBar.setTitle(String.format("总计: %+.1f", totalValue));
+//        mStatsBar.setTitleTextColor(0xFFFFFF);
+    }
+
+    public String getCategoryName(int category) {
+        switch (category) {
+            case CATEGORY_DE:
+                return "德育";
+            case CATEGORY_ZHI:
+                return "智育";
+            case CATEGORY_TI:
+                return "文体";
+            default:
+                return "";
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

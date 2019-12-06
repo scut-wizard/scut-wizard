@@ -26,6 +26,7 @@ public class HelperActivity extends AppCompatActivity implements StatsFragment.O
     }
 
     private void initView() {
+
         tabLayout = findViewById(R.id.helper_tab_layout);
         vp = findViewById(R.id.helper_vp);
 
