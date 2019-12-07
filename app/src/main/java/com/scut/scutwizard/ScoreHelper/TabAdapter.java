@@ -1,4 +1,4 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.ScoreHelper;
 
 import java.util.ArrayList;
 import java.util.List;

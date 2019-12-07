@@ -1,4 +1,4 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.Note;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,18 +11,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
-import org.w3c.dom.Text;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.scut.scutwizard.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import static java.lang.Double.parseDouble;
-import static java.lang.Double.valueOf;
 import static java.lang.Integer.parseInt;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -72,7 +66,7 @@ public class AddEventActivity extends AppCompatActivity {
                     }else if(daysLeft<1){
                         Toast.makeText(AddEventActivity.this,"输入日期要是将来哟",Toast.LENGTH_SHORT).show();
                     }else{
-                        noteDatabaseHelper dbHelper = new noteDatabaseHelper(AddEventActivity.this, "event_db", null, 1);
+                        NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(AddEventActivity.this, "event_db", null, 1);
                         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
 
                         ContentValues values = new ContentValues();

@@ -1,12 +1,10 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.Note;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,13 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scut.scutwizard.ScoreHelper.HelperActivity;
+import com.scut.scutwizard.MainActivity;
+import com.scut.scutwizard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class NoteActivity extends AppCompatActivity {
         if(intent.hasExtra("extra_data")) sortStr = intent.getStringExtra("extra_data");
 
         //从数据库中读取所有event，生成 event list
-        noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
+        NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
         Cursor cursor = note_db.query("event_table", null, null, null, null, null, sortStr);
@@ -78,7 +76,7 @@ public class NoteActivity extends AppCompatActivity {
             Toast.makeText(NoteActivity.this,"暂无任务,点击按钮添加吧",Toast.LENGTH_LONG).show();
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         EventAdapter adapter = new EventAdapter(eventList);
@@ -138,7 +136,7 @@ public class NoteActivity extends AppCompatActivity {
                         Toast.makeText(NoteActivity.this,event.getName()+"打卡成功！再接再厉",Toast.LENGTH_SHORT).show();
                     }
                     //更新数据库
-                    noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
+                    NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
                     SQLiteDatabase note_db = dbHelper.getWritableDatabase();
 
                     ContentValues values = new ContentValues();
@@ -174,7 +172,7 @@ public class NoteActivity extends AppCompatActivity {
                                     Event event = mEventList.get(position);
                                     String event_id = String.valueOf(event.id);
                                     //更新数据库
-                                    noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
+                                    NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
                                     SQLiteDatabase note_db = dbHelper.getWritableDatabase();
 
                                     event.setFinish(1);

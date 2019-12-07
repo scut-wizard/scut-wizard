@@ -24,4 +24,6 @@
         <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
     </style>
 
+    <style name="HelperActivityTheme" parent="AppTheme.NoActionBar" />
+
 </resources>
