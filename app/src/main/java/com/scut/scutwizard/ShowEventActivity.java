@@ -76,9 +76,9 @@ public class ShowEventActivity extends AppCompatActivity {
 
         cnt_events_tv.setText(String.valueOf(cnt_events)+" 件");
         cnt_complete_events_tv.setText(String.valueOf(cnt_complete_events)+ " 件");
-        cnt_complete_per_tv.setText(String.valueOf(cnt_complete_per*100)+" %");
-        cnt_finish_progress_tv.setText(String.valueOf(cnt_finish_progress)+" %");
-        cnt_finish_daysleft_tv.setText(String.valueOf(cnt_finish_daysleft)+" 天");
+        cnt_complete_per_tv.setText(String.valueOf((int)(cnt_complete_per*100))+" %");
+        cnt_finish_progress_tv.setText(String.valueOf((int)cnt_finish_progress)+" %");
+        cnt_finish_daysleft_tv.setText(String.valueOf((int)cnt_finish_daysleft)+" 天");
 
 
     }

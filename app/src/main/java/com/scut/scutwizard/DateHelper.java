@@ -59,7 +59,7 @@ public class DateHelper {
                         ContentValues values = new ContentValues();
                         values.put("daysLeft",newDaysLeft);
                         values.put("finish",finish);
-                        note_db.update("note_db",values,"id=?",new String[]{String.valueOf(id)});
+                        note_db.update("event_table",values,"id=?",new String[]{String.valueOf(id)});
                     }
                 }
 
