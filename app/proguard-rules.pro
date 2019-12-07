@@ -26,6 +26,9 @@
 
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
+
+# xpopup
+-dontwarn com.lxj.xpopup.widget.**
 -keep class com.lxj.xpopup.widget.**{*;}
 
 -obfuscationdictionary dic.txt

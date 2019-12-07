@@ -8,13 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.scut.scutwizard.R;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,10 +29,10 @@ public class StatsFragment extends Fragment {
     public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
     private static final String ARG_CATEGORY = "category";
     private int mCategory;
-    private List<Score> mScores;
+    private ArrayList<Score> mScores;
     private OnFragmentInteractionListener mListener;
     private RecyclerView mRowsView;
-    private BottomAppBar mStatsBar;
+    //    private BottomAppBar mStatsBar;
     private View view;
 
     public StatsFragment() {
@@ -57,6 +53,10 @@ public class StatsFragment extends Fragment {
         return fragment;
     }
 
+    public void setData(ArrayList<Score> data) {
+        mScores = data;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,46 +71,50 @@ public class StatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_stats, container, false);
+
         mRowsView = view.findViewById(R.id.score_rows_view);
+        // Layout Manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRowsView.setLayoutManager(layoutManager);
 //        mRowsView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
-        mStatsBar = view.findViewById(R.id.bottomStatsBar);
+//        mStatsBar = view.findViewById(R.id.bottomStatsBar);
+
         refresh();
         return view;
     }
 
-    public void refresh() {
+    private void refresh() {
         /* RecyclerView */
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRowsView.setLayoutManager(layoutManager);
 
-        List<Score> scoreList = new ArrayList<>();
-        Random random = new Random();
-        final Date now = new Date();
-        for (int i = 0; i < 20; ++i) {
-            Score tmp = new Score();
-            final int category = random.nextInt(3);
-            switch (category) {
-                case 0:
-                    tmp.setCategory(Score.Category.DEYU);
-                    tmp.setDescription("灾后清扫");
-                    break;
-                case 1:
-                    tmp.setCategory(Score.Category.ZHIYU);
-                    tmp.setDescription("阅读核心期刊论文");
-                    break;
-                case 2:
-                    tmp.setCategory(Score.Category.WENTI);
-                    tmp.setDescription("使用共享单车");
-                    break;
-            }
-            tmp.setCreateDate(now);
-            tmp.setEventDate(now);
-            tmp.setLastModifiedDate(now);
-            tmp.setSpecificCategory("国家级");
-            tmp.setValue(random.nextDouble() * 10 - 5);
-            scoreList.add(tmp);
-        }
-        ScoreRowAdapter adapter = new ScoreRowAdapter(scoreList);
+        // Test Data
+//        List<Score> scoreList = new ArrayList<>();
+//        Random random = new Random();
+//        final Date now = new Date();
+//        for (int i = 0; i < 20; ++i) {
+//            Score tmp = new Score();
+//            final int category = random.nextInt(3);
+//            switch (category) {
+//                case 0:
+//                    tmp.setCategory(Score.Category.DEYU);
+//                    tmp.setDescription("灾后清扫");
+//                    break;
+//                case 1:
+//                    tmp.setCategory(Score.Category.ZHIYU);
+//                    tmp.setDescription("阅读核心期刊论文");
+//                    break;
+//                case 2:
+//                    tmp.setCategory(Score.Category.WENTI);
+//                    tmp.setDescription("使用共享单车");
+//                    break;
+//            }
+//            tmp.setCreateDate(now);
+//            tmp.setEventDate(now);
+//            tmp.setLastModifiedDate(now);
+//            tmp.setSpecificCategory("国家级");
+//            tmp.setValue(random.nextDouble() * 10 - 5);
+//            scoreList.add(tmp);
+//        }
+        ScoreRowAdapter adapter = new ScoreRowAdapter(mScores);
         mRowsView.setAdapter(adapter);
 
         /* BottomBar */

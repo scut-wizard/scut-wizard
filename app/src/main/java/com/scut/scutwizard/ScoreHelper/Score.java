@@ -1,14 +1,41 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Score {
-    private String description;
-    private Category category;
-    private double value;
-    private Date createDate, lastModifiedDate, eventDate;
-    private String specificCategory;
-    // TODO: 存证明材料图片
+    private int id;
+    private String description; // des text
+    private Category category; // category integer
+    private double value; // value real
+    private Date createDate, lastModifiedDate, eventDate; // ~Date real
+    private String specificCategory; // detail text
+    private int subtable; // subtable integer
+    private ArrayList<String> imagePaths; // images text
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSubtable() {
+        return subtable;
+    }
+
+    public void setSubtable(int subtable) {
+        this.subtable = subtable;
+    }
+
+    public ArrayList<String> getImagePaths() {
+        return imagePaths;
+    }
+
+    public void setImagePaths(ArrayList<String> imagePaths) {
+        this.imagePaths = imagePaths;
+    }
 
     public Score() {
     }

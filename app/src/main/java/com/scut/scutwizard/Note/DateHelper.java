@@ -1,4 +1,4 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.Note;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -30,7 +30,7 @@ public class DateHelper {
     //传入活动的context
     public  void updateDaysLeft(Context context){
         //从数据库中读取所有event，生成 event list
-        noteDatabaseHelper dbHelper = new noteDatabaseHelper(context, "event_db", null, 1);
+        NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(context, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
         Cursor cursor = note_db.query("event_table", null, null, null, null, null, null);

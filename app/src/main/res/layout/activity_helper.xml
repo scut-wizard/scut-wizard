@@ -4,74 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/helper_coord_layout"
+    android:fitsSystemWindows="true"
     tools:context=".ScoreHelper.HelperActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll"
-            app:title="@string/helper"
-            app:titleEnabled="true">
+            android:fitsSystemWindows="true"
+            android:minHeight="@dimen/helper_tab_height"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll">
 
-            <LinearLayout
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
 
-                <TextView
+                <com.ocnyang.contourview.ContourView
+                    android:id="@+id/contour_view"
                     android:layout_width="match_parent"
-                    android:layout_height="100sp"
-                    android:layout_margin="20sp"
-                    android:text="合计: 1"
-                    android:textColor="#fff" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:shader_endcolor="@color/colorPrimaryDarkTransparent"
+                    app:shader_mode="RadialGradient"
+                    app:shader_startcolor="@color/colorPrimaryTransparent"
+                    app:shader_style="Center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="14sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="120sp"
+                        android:layout_margin="20sp"
+                        android:text="合计: 1"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <com.rey.material.widget.Spinner
+                        android:id="@+id/subtable_spinner"
+                        style="@style/Material.Widget.Spinner"
+                        android:layout_width="145dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="10dp"
+                        android:dropDownWidth="wrap_content"
+                        app:spn_arrowAnimDuration="200"
+                        app:spn_arrowColor="@color/white_transparent"
+                        app:spn_arrowSwitchMode="true"
+                        app:spn_dividerColor="@android:color/transparent" />
+
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/helper_tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/helper_tab_height"
+                        app:tabBackground="@android:color/transparent"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/colorAccent"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@color/colorPrimaryDarkTransparent"
+                        app:tabSelectedTextColor="#fff"
+                        app:tabTextColor="@color/white_transparent">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.tabs.TabLayout>
+                </LinearLayout>
+            </FrameLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <!--    <FrameLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
+
+    <!--        <androidx.core.widget.NestedScrollView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:descendantFocusability="blocksDescendants"-->
+    <!--            android:orientation="vertical">-->
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/helper_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <!--        </LinearLayout>-->
+    <!--        </androidx.core.widget.NestedScrollView>-->
+    <!--    </FrameLayout>-->
 
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/helper_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@color/colorPrimary"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="#fff"
-                app:tabTextColor="#fff">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.tabs.TabLayout>
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/helper_vp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add_white_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

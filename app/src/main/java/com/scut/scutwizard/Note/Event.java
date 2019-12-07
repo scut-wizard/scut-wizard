@@ -1,4 +1,4 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.Note;
 
 public class Event {
     public String name;

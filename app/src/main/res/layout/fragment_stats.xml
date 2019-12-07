@@ -9,37 +9,22 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/score_rows_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomStatsBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:alpha="0.95"
-        android:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="end"
-        app:fabCradleMargin="12dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="5dp"
-        app:hideOnScroll="true" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_24dp"
-        app:layout_anchor="@id/bottomStatsBar"
-        app:layout_anchorGravity="bottom|right|end" />
-
-    <!--    <com.rey.material.widget.FloatingActionButton-->
-    <!--        android:layout_width="wrap_content"-->
+    <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
+    <!--        android:id="@+id/bottomStatsBar"-->
+    <!--        style="@style/Widget.MaterialComponents.BottomAppBar"-->
+    <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="20dp"-->
-    <!--        app:fab_iconSrc="@drawable/ic_add_white_24dp"-->
-    <!--        app:layout_anchor="@id/bottomStatsBar"-->
-    <!--        app:layout_anchorGravity="bottom|right|end" />-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:alpha="0.95"-->
+    <!--        android:backgroundTint="@color/colorPrimary"-->
+    <!--        app:fabAlignmentMode="end"-->
+    <!--        app:fabCradleMargin="12dp"-->
+    <!--        app:fabCradleRoundedCornerRadius="10dp"-->
+    <!--        app:fabCradleVerticalOffset="5dp"-->
+    <!--        app:hideOnScroll="true" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

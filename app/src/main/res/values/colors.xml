@@ -6,4 +6,7 @@
     <color name="colorPrimary">#3f53b5</color>
     <color name="colorPrimaryDark">#2C387D</color>
     <color name="colorAccent">#2ba81e</color>
+    <color name="colorPrimaryTransparent">#bf3f53b5</color>
+    <color name="colorPrimaryDarkTransparent">#bf2C387D</color>
+    <color name="white_transparent">#90ffffff</color>
 </resources>

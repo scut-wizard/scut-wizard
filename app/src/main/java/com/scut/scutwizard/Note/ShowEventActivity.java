@@ -1,4 +1,4 @@
-package com.scut.scutwizard;
+package com.scut.scutwizard.Note;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,7 +39,7 @@ public class ShowEventActivity extends AppCompatActivity {
         cnt_finish_daysleft_tv = findViewById(R.id.cnt_finish_daysleft_tv);
 
         //从数据库中读取所有event，生成 event list
-        noteDatabaseHelper dbHelper = new noteDatabaseHelper(ShowEventActivity.this, "event_db", null, 1);
+        NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(ShowEventActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
         //创建游标对象
         Cursor cursor = note_db.query("event_table", null, null, null, null, null, null);
@@ -74,11 +74,11 @@ public class ShowEventActivity extends AppCompatActivity {
             }
         }
 
-        cnt_events_tv.setText(String.valueOf(cnt_events)+" 件");
-        cnt_complete_events_tv.setText(String.valueOf(cnt_complete_events)+ " 件");
-        cnt_complete_per_tv.setText(String.valueOf((int)(cnt_complete_per*100))+" %");
-        cnt_finish_progress_tv.setText(String.valueOf((int)cnt_finish_progress)+" %");
-        cnt_finish_daysleft_tv.setText(String.valueOf((int)cnt_finish_daysleft)+" 天");
+        cnt_events_tv.setText(cnt_events + " 件");
+        cnt_complete_events_tv.setText(cnt_complete_events + " 件");
+        cnt_complete_per_tv.setText(cnt_complete_per * 100 + " %");
+        cnt_finish_progress_tv.setText(cnt_finish_progress + " %");
+        cnt_finish_daysleft_tv.setText(cnt_finish_daysleft + " 天");
 
 
     }

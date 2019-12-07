@@ -22,12 +22,12 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".ScoreHelper.HelperActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/HelperActivityTheme" />
         <activity
-            android:name=".NoteActivity"
+            android:name=".Note.NoteActivity"
             android:label="DDL助手" />
-        <activity android:name=".AddEventActivity" />
-        <activity android:name=".ShowEventActivity" />
+        <activity android:name=".Note.AddEventActivity" />
+        <activity android:name=".Note.ShowEventActivity" />
         <activity
             android:name=".MapActivity"
             android:label="MapActivity" />
