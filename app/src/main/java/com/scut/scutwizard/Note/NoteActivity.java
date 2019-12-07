@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,8 +34,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NoteActivity extends AppCompatActivity {
 
+    @NonNull
     private List<Event> eventList = new ArrayList<>();
-    private String sortStr="rating desc";
+    @Nullable
+    private String      sortStr   = "rating desc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,31 +97,8 @@ public class NoteActivity extends AppCompatActivity {
 
         private List<Event> mEventList;
 
-        class ViewHolder extends RecyclerView.ViewHolder {
-            TextView event_name_tv;
-            ProgressBar event_progressbar;
-            Button event_done_btn;
-            Button event_giveup_btn;
-            TextView event_daysLeft_tv;
-            RatingBar event_ratingbar;
-
-
-            public ViewHolder(View view) {
-                super(view);
-                event_name_tv =  view.findViewById(R.id.event_name_tv);
-                event_progressbar =  view.findViewById(R.id.event_progressbar);
-                event_done_btn = view.findViewById(R.id.event_done_btn);
-                event_daysLeft_tv =  view.findViewById(R.id.event_daysLeft_tv);
-                event_ratingbar = view.findViewById(R.id.event_ratingbar);
-                event_giveup_btn = view.findViewById(R.id.event_giveup_btn);
-            }
-        }
-
-        public EventAdapter(List<Event> eventList) {
-            mEventList = eventList;
-        }
-
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        @NonNull
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
             final ViewHolder holder = new ViewHolder(view);
 
@@ -206,13 +186,37 @@ public class NoteActivity extends AppCompatActivity {
             return holder;
         }
 
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public EventAdapter(List<Event> eventList) {
+            mEventList = eventList;
+        }
+
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Event event = mEventList.get(position);
             String days_left_str = event.getDaysLeft()+" days";
             holder.event_name_tv.setText(event.getName());
             holder.event_progressbar.setProgress((int)event.getProgress());
             holder.event_daysLeft_tv.setText(days_left_str);
             holder.event_ratingbar.setRating((float)event.getRating());
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView    event_name_tv;
+            ProgressBar event_progressbar;
+            Button      event_done_btn;
+            Button      event_giveup_btn;
+            TextView    event_daysLeft_tv;
+            RatingBar   event_ratingbar;
+
+
+            public ViewHolder(@NonNull View view) {
+                super(view);
+                event_name_tv = view.findViewById(R.id.event_name_tv);
+                event_progressbar = view.findViewById(R.id.event_progressbar);
+                event_done_btn = view.findViewById(R.id.event_done_btn);
+                event_daysLeft_tv = view.findViewById(R.id.event_daysLeft_tv);
+                event_ratingbar = view.findViewById(R.id.event_ratingbar);
+                event_giveup_btn = view.findViewById(R.id.event_giveup_btn);
+            }
         }
 
         public int getItemCount() {

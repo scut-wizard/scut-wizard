@@ -12,6 +12,8 @@ import com.scut.scutwizard.R;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,13 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class StatsFragment extends Fragment {
     public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
-    private static final String ARG_CATEGORY = "category";
-    private int mCategory;
-    private ArrayList<Score> mScores;
-    private OnFragmentInteractionListener mListener;
-    private RecyclerView mRowsView;
+    private static final String                        ARG_CATEGORY = "category";
+    private              int                           mCategory;
+    private              ArrayList<Score>              mScores;
+    @Nullable
+    private              OnFragmentInteractionListener mListener;
+    private              RecyclerView                  mRowsView;
     //    private BottomAppBar mStatsBar;
-    private View view;
+    private              View                          view;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -45,6 +48,7 @@ public class StatsFragment extends Fragment {
      *
      * @return A new instance of fragment StatsFragment.
      */
+    @NonNull
     public static StatsFragment newInstance(int category) {
         StatsFragment fragment = new StatsFragment();
         Bundle args = new Bundle();
@@ -67,7 +71,7 @@ public class StatsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_stats, container, false);
@@ -125,6 +129,7 @@ public class StatsFragment extends Fragment {
 //        mStatsBar.setTitleTextColor(0xFFFFFF);
     }
 
+    @NonNull
     public String getCategoryName(int category) {
         switch (category) {
             case CATEGORY_DE:

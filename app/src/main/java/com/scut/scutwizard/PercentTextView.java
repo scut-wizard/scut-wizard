@@ -7,24 +7,26 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 public final class PercentTextView extends TextView {
     private static int baseScreenHeight = 1920;
     private float mTextSizePercent = 1f;
 
-    public PercentTextView(Context context) {
+    public PercentTextView(@NonNull Context context) {
         super(context);
         setDefaultPercent(context);
         setTextSize(getTextSize());
     }
 
-    public PercentTextView(Context context, AttributeSet attrs) {
+    public PercentTextView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         getAttrs(context, attrs);
         setDefaultPercent(context);
         setTextSize(getTextSize());
     }
 
-    public PercentTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PercentTextView(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         getAttrs(context, attrs);
         setDefaultPercent(context);
@@ -37,7 +39,7 @@ public final class PercentTextView extends TextView {
      * @param context
      * @return
      */
-    public static int getScreenHeight(Context context) {
+    public static int getScreenHeight(@NonNull Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
@@ -80,7 +82,7 @@ public final class PercentTextView extends TextView {
      * @param context
      * @param attrs
      */
-    private void getAttrs(Context context, AttributeSet attrs) {
+    private void getAttrs(@NonNull Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PercentTextView);
         baseScreenHeight = ta.getInt(R.styleable.PercentTextView_baseScreenHeight, baseScreenHeight);
         ta.recycle();
@@ -91,7 +93,7 @@ public final class PercentTextView extends TextView {
      *
      * @param context
      */
-    private void setDefaultPercent(Context context) {
+    private void setDefaultPercent(@NonNull Context context) {
         float screenHeight = getScreenHeight(context);
         mTextSizePercent = screenHeight / baseScreenHeight;
     }

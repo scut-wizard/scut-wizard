@@ -44,6 +44,12 @@
     <string name="helper">综测助手</string>
     <string name="default_subtable_name">默认表</string>
 
+    <string name="empty_subtable_text">😀暂无数据，快点击按钮添加吧！</string>
+    <string name="nonempty_subtable_text">😁切换成功，左右滑动查看吧！</string>
+    <string name="empty_tab_selected_text">😭暂无%s数据！</string>
+    <string name="empty_tab_reselected_text">😥都说了暂无%s数据了！</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="del_btn_desc">Delete Button</string>
 </resources>

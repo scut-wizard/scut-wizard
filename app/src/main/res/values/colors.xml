@@ -9,4 +9,5 @@
     <color name="colorPrimaryTransparent">#bf3f53b5</color>
     <color name="colorPrimaryDarkTransparent">#bf2C387D</color>
     <color name="white_transparent">#90ffffff</color>
+    <color name="app_color_f6">#f6f6f6</color>
 </resources>

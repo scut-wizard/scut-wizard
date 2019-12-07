@@ -10,14 +10,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public class DateHelper {
-    public int calcuDateDiffFromToday(Date date2){
+    public int calcuDateDiffFromToday(@NonNull Date date2) {
 
         Date date1 = new Date();
         long days = (date2.getTime() - date1.getTime()) / (24*3600*1000);
         return (int)days;
     }
-    public Date strToDate(String date_str){
+
+    @Nullable
+    public Date strToDate(@NonNull String date_str) {
         SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
