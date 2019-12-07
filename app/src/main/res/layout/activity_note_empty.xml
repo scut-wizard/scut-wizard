@@ -12,7 +12,7 @@
         android:id="@+id/coffee_gif"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        app:srcCompat="@drawable/coffee_bg" />
+        app:srcCompat="@drawable/coffee" />
 
     <TextView
         android:id="@+id/textView4"

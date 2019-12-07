@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,17 +12,19 @@
         android:paddingBottom="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
             android:text="历史任务总数"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cnt_events_tv"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -34,17 +35,19 @@
         android:paddingBottom="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
             android:text="已完成任务总数"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cnt_complete_events_tv"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -55,17 +58,19 @@
         android:paddingBottom="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
             android:text="任务完成率"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cnt_complete_per_tv"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -76,17 +81,19 @@
         android:paddingBottom="20dp">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
             android:text="已结束任务平均完成进度"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cnt_finish_progress_tv"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -103,23 +110,25 @@
             android:layout_weight="1"
             android:gravity="start"
             android:text="已结束任务平均剩余天数"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cnt_finish_daysleft_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_weight="1" />
 
     </LinearLayout>
 
-    <Button
+    <com.rey.material.widget.Button
+        android:layout_width="wrap_content"
         android:id="@+id/show_event_return_btn"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp"
+        android:layout_margin="10dp"
         android:background="@android:drawable/btn_default"
+        android:theme="@style/Material.Widget"
         android:text="返回" />
 </LinearLayout>
