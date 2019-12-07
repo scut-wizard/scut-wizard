@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.robinhood.ticker:ticker:2.0.2'
     implementation 'com.lxj:xpopup:1.8.10-x'
     implementation 'com.ocnyang:contourview:1.0.1'
+
     // implementation 'com.android.support:design:27.1.1'
     // implementation 'com.android.support:support-v4:27.1.1'
 }

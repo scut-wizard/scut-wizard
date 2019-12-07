@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+
 public class NoteActivity extends AppCompatActivity {
 
     private List<Event> eventList = new ArrayList<>();
@@ -38,7 +39,7 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+
 
         Intent intent = getIntent();
         if(intent.hasExtra("extra_data")) sortStr = intent.getStringExtra("extra_data");
@@ -73,14 +74,19 @@ public class NoteActivity extends AppCompatActivity {
         cursor.close();
 
         if(eventList.size()==0){
-            Toast.makeText(NoteActivity.this,"暂无任务,点击按钮添加吧",Toast.LENGTH_LONG).show();
+            //Toast.makeText(NoteActivity.this,"暂无任务",Toast.LENGTH_LONG).show();
+            setContentView(R.layout.activity_note_empty);
+
+        }else if(eventList.size()>0){
+            setContentView(R.layout.activity_note);
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            EventAdapter adapter = new EventAdapter(eventList);
+            recyclerView.setAdapter(adapter);
         }
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        EventAdapter adapter = new EventAdapter(eventList);
-        recyclerView.setAdapter(adapter);
+
     }
 
 
