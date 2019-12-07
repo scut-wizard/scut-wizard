@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="任务总数"
+            android:text="历史任务总数"
             android:textSize="18sp" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/cnt_finish_events_tv"
+            android:id="@+id/cnt_complete_events_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -63,7 +63,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/cnt_finish_per_tv"
+            android:id="@+id/cnt_complete_per_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -78,13 +78,13 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:gravity="start"
-            android:text="任务完成百分比"
+            android:text="已结束任务平均完成进度"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/cnt_finish_aver_tv"
+            android:id="@+id/cnt_finish_progress_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -102,11 +102,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="已完成任务平均剩余天数"
+            android:text="已结束任务平均剩余天数"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/cnt_daysleft_aver_tv"
+            android:id="@+id/cnt_finish_daysleft_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

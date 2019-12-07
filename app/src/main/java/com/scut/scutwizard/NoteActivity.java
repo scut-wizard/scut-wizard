@@ -2,6 +2,7 @@ package com.scut.scutwizard;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,15 +94,19 @@ public class NoteActivity extends AppCompatActivity {
             TextView event_name_tv;
             ProgressBar event_progressbar;
             Button event_done_btn;
+            Button event_giveup_btn;
             TextView event_daysLeft_tv;
             RatingBar event_ratingbar;
+
+
             public ViewHolder(View view) {
                 super(view);
-                event_name_tv = (TextView) view.findViewById(R.id.event_name_tv);
-                event_progressbar = (ProgressBar) view.findViewById(R.id.event_progressbar);
-                event_done_btn = (Button) view.findViewById(R.id.event_done_btn);
-                event_daysLeft_tv = (TextView) view.findViewById(R.id.event_daysLeft_tv);
-                event_ratingbar = (RatingBar) view.findViewById(R.id.event_ratingbar);
+                event_name_tv =  view.findViewById(R.id.event_name_tv);
+                event_progressbar =  view.findViewById(R.id.event_progressbar);
+                event_done_btn = view.findViewById(R.id.event_done_btn);
+                event_daysLeft_tv =  view.findViewById(R.id.event_daysLeft_tv);
+                event_ratingbar = view.findViewById(R.id.event_ratingbar);
+                event_giveup_btn = view.findViewById(R.id.event_giveup_btn);
             }
         }
 
@@ -150,6 +156,47 @@ public class NoteActivity extends AppCompatActivity {
                             //Toast.makeText(NoteActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
                         }
                     }*/
+                }
+            });
+            holder.event_giveup_btn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder normalDialog =
+                            new AlertDialog.Builder(NoteActivity.this);
+                    //normalDialog.setIcon(R.drawable.icon_dialog);
+                    normalDialog.setTitle("");
+                    normalDialog.setMessage("你真的要半途而废吗？");
+                    normalDialog.setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    int position = holder.getAdapterPosition();
+                                    Event event = mEventList.get(position);
+                                    String event_id = String.valueOf(event.id);
+                                    //更新数据库
+                                    noteDatabaseHelper dbHelper = new noteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
+                                    SQLiteDatabase note_db = dbHelper.getWritableDatabase();
+
+                                    event.setFinish(1);
+
+                                    ContentValues values = new ContentValues();
+
+                                    values.put("finish",event.getFinish());
+                                    values.put("rating",event.getRating());
+
+                                    note_db.update("event_table",values,"id=?",new String[]{event_id});
+                                    startActivity(new Intent(NoteActivity.this,NoteActivity.class));
+                                }
+                            });
+                    normalDialog.setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //...To-do
+                                }
+                            });
+                    // 显示对话框
+                    normalDialog.show();
                 }
             });
             return holder;
@@ -202,10 +249,12 @@ public class NoteActivity extends AppCompatActivity {
                    intent_sort.putExtra("extra_data","rating desc");
                    Toast.makeText(NoteActivity.this,"按紧急度排序",Toast.LENGTH_SHORT).show();
                }
+                finish();
                 startActivity(intent_sort);
                 break;
             case R.id.navigation_note_return:
                 Intent intent_return = new Intent(NoteActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent_return);
                 break;
         }

@@ -40,17 +40,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="天数"
+            android:text="DDL"
             android:textSize="18sp" />
 
-        <EditText
+        <DatePicker
             android:id="@+id/add_event_et_daysLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:ems="10"
-            android:hint="距离ddl天数（0-365）"
-            android:inputType="number" />
+            android:calendarViewShown="false"
+            android:theme="@android:style/Theme.Holo.Light">
+
+        </DatePicker>
+
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="任务进度（0-100）%"
+            android:text="0"
+            android:hint="当前任务进度（0-99）%"
             android:inputType="number" />
     </LinearLayout>
 
@@ -97,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
+            android:text="1"
             android:hint="计划任务步数"
             android:inputType="number" />
     </LinearLayout>

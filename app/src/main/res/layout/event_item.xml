@@ -40,18 +40,19 @@
             android:id="@+id/event_daysLeft_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="10 days"
             android:textColor="@android:color/holo_green_light"
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/event_edit_btn"
-            android:layout_width="20dp"
+            android:id="@+id/event_giveup_btn"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text=":"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:text="放弃"
             android:textSize="12sp" />
 
         <Button

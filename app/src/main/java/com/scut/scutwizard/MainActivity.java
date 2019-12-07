@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //更新数据库
+        new DateHelper().updateDaysLeft(MainActivity.this);
     }
 
     @Override

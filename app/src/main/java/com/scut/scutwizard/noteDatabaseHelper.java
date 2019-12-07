@@ -13,6 +13,7 @@ public class noteDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_EVENT = "create table event_table("
             + "id integer primary key autoincrement,"
             + " name varchar(20),"
+            + " DDL varchar(20),"
             + " daysLeft int,"
             + " progress real,"
             + " step int,"
@@ -30,5 +31,7 @@ public class noteDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 
 }

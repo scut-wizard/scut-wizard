@@ -8,6 +8,14 @@ public class Event {
     public double rating;
     public int id;
     public int step;
+    public String ddl_str;
+
+    public String getDdl_str() {
+        return ddl_str;
+    }
+    public void setDdl_str(String ddl_str) {
+        this.ddl_str = ddl_str;
+    }
 
     public int getId() {
         return id;

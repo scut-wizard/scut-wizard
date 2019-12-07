@@ -22,7 +22,7 @@ public class ShowEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_event);
 
 
-        show_event_return_btn= (Button) findViewById(R.id.show_event_return_btn);
+        show_event_return_btn=  findViewById(R.id.show_event_return_btn);
         show_event_return_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -30,13 +30,13 @@ public class ShowEventActivity extends AppCompatActivity {
             }
         });
 
-        TextView cnt_events_tv,cnt_finish_events_tv,cnt_finish_per_tv,cnt_finish_aver_tv,cnt_daysleft_aver_tv;
-        double cnt_events=0,cnt_finish_events=0,cnt_finish_per=0,cnt_finish_aver=0,cnt_daysleft_aver=0;
+        TextView cnt_events_tv,cnt_complete_events_tv,cnt_complete_per_tv,cnt_finish_progress_tv,cnt_finish_daysleft_tv;
+        double cnt_events=0,cnt_complete_events=0,cnt_complete_per=0,cnt_finish_progress=0,cnt_finish_daysleft=0,cnt_finish_events=0;//cnt是已结束任务总数
         cnt_events_tv = findViewById(R.id.cnt_events_tv);
-        cnt_finish_events_tv = findViewById(R.id.cnt_finish_events_tv);
-        cnt_finish_per_tv = findViewById(R.id.cnt_finish_per_tv);
-        cnt_finish_aver_tv = findViewById(R.id.cnt_finish_aver_tv);
-        cnt_daysleft_aver_tv = findViewById(R.id.cnt_daysleft_aver_tv);
+        cnt_complete_events_tv = findViewById(R.id.cnt_complete_events_tv);
+        cnt_complete_per_tv = findViewById(R.id.cnt_complete_per_tv);
+        cnt_finish_progress_tv = findViewById(R.id.cnt_finish_progress_tv);
+        cnt_finish_daysleft_tv = findViewById(R.id.cnt_finish_daysleft_tv);
 
         //从数据库中读取所有event，生成 event list
         noteDatabaseHelper dbHelper = new noteDatabaseHelper(ShowEventActivity.this, "event_db", null, 1);
@@ -51,10 +51,15 @@ public class ShowEventActivity extends AppCompatActivity {
                 int finish = cursor.getInt(cursor.getColumnIndex("finish"));
 
                 cnt_events+=1;
-                if (finish == 1) {
+                //已完成任务
+                if (progress>=100) {
+                    cnt_complete_events+=1;
+                }
+                //已结束任务
+                if(finish==1){
                     cnt_finish_events+=1;
-                    cnt_finish_aver+=progress;
-                    cnt_daysleft_aver+=daysLeft;
+                    cnt_finish_progress+=progress;
+                    cnt_finish_daysleft+=daysLeft;
                 }
 
             } while (cursor.moveToNext());
@@ -62,18 +67,18 @@ public class ShowEventActivity extends AppCompatActivity {
         cursor.close();
 
         if(cnt_events!=0) {
-            cnt_finish_per=cnt_finish_events/cnt_events;
+            cnt_complete_per=cnt_complete_events/cnt_events;
             if(cnt_finish_events!=0){
-                cnt_finish_aver/=cnt_finish_events;
-                cnt_daysleft_aver/=cnt_finish_events;
+                cnt_finish_progress/=cnt_finish_events;
+                cnt_finish_daysleft/=cnt_finish_events;
             }
         }
 
         cnt_events_tv.setText(String.valueOf(cnt_events)+" 件");
-        cnt_finish_events_tv.setText(String.valueOf(cnt_finish_events)+ " 件");
-        cnt_finish_per_tv.setText(String.valueOf(cnt_finish_per*100)+" %");
-        cnt_finish_aver_tv.setText(String.valueOf(cnt_finish_aver*100)+" %");
-        cnt_daysleft_aver_tv.setText(String.valueOf(cnt_daysleft_aver)+" 天");
+        cnt_complete_events_tv.setText(String.valueOf(cnt_complete_events)+ " 件");
+        cnt_complete_per_tv.setText(String.valueOf(cnt_complete_per*100)+" %");
+        cnt_finish_progress_tv.setText(String.valueOf(cnt_finish_progress)+" %");
+        cnt_finish_daysleft_tv.setText(String.valueOf(cnt_finish_daysleft)+" 天");
 
 
     }
