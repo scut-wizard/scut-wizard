@@ -17,14 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHolder> {
     private List<Score> mScoreList;
 
-    public ScoreRowAdapter(List<Score> mScoreList) {
-        this.mScoreList = mScoreList;
+    public ScoreRowAdapter(List<Score> scoreList) {
+        this.mScoreList = scoreList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_score_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                                  .inflate(R.layout.fragment_score_row, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -33,11 +34,15 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Score score = mScoreList.get(position);
         final double value = score.getValue();
-        if (value >= 0) holder.itemValue.setTextColor(R.color.colorPrimary);
-        else holder.itemValue.setTextColor(R.color.colorAccent);
+        if (value >= 0)
+            holder.itemValue.setTextColor(R.color.colorPrimary);
+        else
+            holder.itemValue.setTextColor(R.color.colorAccent);
         holder.itemValue.setText(String.format("%+.1f", value));
         holder.itemDescription.setText(score.getDescription());
-        holder.itemDate.setText(String.format("%tF | %s", score.getEventDate(), score.getSpecificCategory()));
+        holder.itemDate.setText(String.format("%tF | %s",
+                                              score.getEventDate(),
+                                              score.getSpecificCategory()));
     }
 
     @Override

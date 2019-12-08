@@ -3,33 +3,79 @@ package com.scut.scutwizard.ScoreHelper;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.luck.picture.lib.entity.LocalMedia;
 import com.lxj.xpopup.core.BottomPopupView;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.DecimalMax;
+import com.mobsandgeeks.saripaar.annotation.DecimalMin;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.rey.material.widget.Button;
 import com.scut.scutwizard.R;
+import com.scut.scutwizard.ScoreHelper.ScoreImage.LocalMediaDbUtil;
+import com.scut.scutwizard.ScoreHelper.ScoreImage.PhotoFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.z2wenfa.spinneredittext.SpinnerEditText;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
-public class AddScoreBottomPopup extends BottomPopupView {
-    private EditText iDesc, iValue;
-    private Spinner                 sCat;
-    private Context                 mContext;
-    private SpinnerEditText<String> iDet;
-    private TextView                iDate;
+/**
+ * @author MinutesSneezer
+ * Create: 2019/12/7
+ * Update: 2019/12/8
+ */
+
+public abstract class AddScoreBottomPopup extends BottomPopupView implements
+        Validator.ValidationListener {
+    @NotEmpty(message = "必填")
+    @Length(max = 20, message = "不能超过20字!", trim = true)
+    @Order(1)
+    private EditText iDesc;
+
+    @NotEmpty(message = "必填", sequence = 1)
+    @DecimalMax(value = 21., message = "加太多啦", sequence = 2)
+    @DecimalMin(value = -60., message = "扣太多啦", sequence = 3)
+    @Order(2)
+    private EditText iValue;
+
+    //    @NotEmpty(message = "必选")
+    private Spinner sCat;// 归属
+
+    @NotEmpty(message = "必填")
+    @Order(3)
+    private SpinnerEditText<String> iDet;// 细类
+
+    private EditText      iPs;//备注
+    private TextView      iDate;
+    private PhotoFragment fPhoto;
+
+    private Button    bConfirm;
+    private Context   mContext;
+    private Validator validator;
 
     private Calendar mEventCalendar;
 
@@ -43,18 +89,15 @@ public class AddScoreBottomPopup extends BottomPopupView {
         return R.layout.add_score_bottom_popup;
     }
 
-    public int fetchTabPos() {
-        return 0;
-    }
+    abstract public int fetchTabPos();
 
-    @Nullable
-    public FragmentManager fetchFragManager() {
-        return null;
-    }
+    abstract public FragmentManager fetchFragManager();
 
     private void refreshEventDate() {
         iDate.setText(DateFormat.format("yyyy-M-d", mEventCalendar));
     }
+
+    abstract public int fetchSubtable();
 
     @Override
     protected void onCreate() {
@@ -100,21 +143,102 @@ public class AddScoreBottomPopup extends BottomPopupView {
                 dpd.setFirstDayOfWeek(Calendar.MONDAY);
 
                 Calendar mCa = Calendar.getInstance(); //now
-                mCa.add(Calendar.MONTH, 2);
+                mCa.add(Calendar.MONTH, 2); // max +2month
                 dpd.setMaxDate(mCa);
                 mCa = Calendar.getInstance();
-                mCa.add(Calendar.YEAR, -1);
+                mCa.add(Calendar.YEAR, -1); // min -1year
                 dpd.setMinDate(mCa);
 
                 dpd.show(Objects.requireNonNull(fetchFragManager()), "DatePickerDialog");
             }
         });
 
+        FragmentManager fm = fetchFragManager();
+        if (fm != null) {
+            fPhoto = (PhotoFragment) fm.findFragmentById(R.id.popup_img_frag);
+        }
+
+        iPs = findViewById(R.id.popup_ps_input);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+        validator.registerAdapter(SpinnerEditText.class, SpinnerEditText::getValue);
+//        validator.registerAdapter(Spinner.class, view -> view.getSelectedItem().toString());
+        bConfirm = findViewById(R.id.popup_confirm_btn);
+        bConfirm.setOnClickListener(view -> validator.validate());
     }
 
+    abstract protected void insertScores(ArrayList<Score> scores);
 
     @Override
-    protected void onShow() {
-        super.onShow();
+    public void onValidationSucceeded() {
+        String description = iDesc.getText().toString().trim();
+        int category = sCat.getSelectedItemPosition();
+        double value = Double.valueOf(iValue.getText().toString());
+        Date now = new Date();
+        String specificCategory = iDet.getValue();
+        String comment = iPs.getText().toString().trim();
+        int subtable = fetchSubtable();
+
+        List<LocalMedia> images = fPhoto.getSelectList();
+        StringJoiner sj = new StringJoiner(";");
+        LocalMediaDbUtil lmHelper = new LocalMediaDbUtil(mContext);
+        final File DATA_DIR = lmHelper.getDataDir();
+        for (LocalMedia img : images) {
+            try {
+//                File f = new File(img.getCompressPath());
+                File tmp = File.createTempFile("", ".jpeg", DATA_DIR);
+                final String TMP_PATH = tmp.getPath();
+                Files.copy(Paths.get(img.getCompressPath()), Paths.get(TMP_PATH));
+                final String TMP_FILENAME = tmp.getName();
+                sj.add(TMP_FILENAME);
+//                long size = f.length();
+//                if (size > Integer.MAX_VALUE) {
+//                    Toast.makeText(mContext, "文件过大!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                FileInputStream fs = new FileInputStream(f);
+//                byte[] buffer = new byte[(int) size];
+//                int offset = 0;
+//                int numRead;
+//                while (offset < buffer.length
+//                       && (numRead = fs.read(buffer, offset, buffer.length - offset)) >= 0)
+//                    offset += numRead;
+//                if (offset != buffer.length)
+//                    throw new IOException();
+//                fs.close();
+            } catch (IOException e) {
+                Toast.makeText(mContext, "读取文件出现问题，请大侠重新来过", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                return;
+            }
+        }
+        final String filenames = sj.toString();
+
+        Score score = new Score();
+        score.setDescription(description);
+        score.setCategory(category);
+        score.setValue(value);
+        score.setCreateDate(now);
+        score.setLastModifiedDate(now);
+        score.setEventDate(now);
+        score.setSpecificCategory(specificCategory);
+        score.setComment(comment);
+        score.setSubtable(subtable);
+        score.setImagePaths(filenames);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            final View view = error.getView();
+            final String message = error.getCollatedErrorMessage(mContext);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                final EditText et = (EditText) view;
+                if (et.getError() == null)
+                    et.setError(message.split("\\s")[0]);
+            }
+        }
     }
 }

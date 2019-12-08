@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.lxj.xpopup.core.BasePopupView;
 import com.ocnyang.contourview.ContourView;
 import com.rey.material.widget.Spinner;
 import com.scut.scutwizard.R;
+import com.scut.scutwizard.ScoreHelper.Score.Category;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -28,8 +30,11 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import static com.scut.scutwizard.ScoreHelper.Score.Category.values;
+
 public class HelperActivity extends AppCompatActivity implements
         StatsFragment.OnFragmentInteractionListener {
+    final   Category[]           CATEGORIES         = values();
     private TabAdapter           mTabAdapter;
     private TabLayout            mTabLayout;
     private ViewPager            vp;
@@ -37,12 +42,11 @@ public class HelperActivity extends AppCompatActivity implements
     private Spinner              mSpinner;
     private FloatingActionButton mFab;
     private CoordinatorLayout    mCoordLayout;
-
-    private ScoreDatabaseHelper scoreDbHelper;
-    private ArrayList<Integer>  subtableIds;
-    private ArrayList<String>   subtableNames;
-
-    private StatsFragment deFrag, zhiFrag, tiFrag;
+    private ScoreDatabaseHelper  scoreDbHelper;
+    private ArrayList<Integer>   subtableIds;
+    private ArrayList<String>    subtableNames;
+    private int                  selectedSubtableId = 0;
+    private StatsFragment        deFrag, zhiFrag, tiFrag;
     private ArrayList<Score> deData, zhiData, tiData;
 
     private boolean       isPopupShown = false;
@@ -65,7 +69,7 @@ public class HelperActivity extends AppCompatActivity implements
         zhiData = new ArrayList<>();
         tiData = new ArrayList<>();
 
-        /* Fragments */
+        /* Init Fragments */
 
         deFrag = StatsFragment.newInstance(StatsFragment.CATEGORY_DE);
         zhiFrag = StatsFragment.newInstance(StatsFragment.CATEGORY_ZHI);
@@ -115,8 +119,8 @@ public class HelperActivity extends AppCompatActivity implements
         mSpinner.setAdapter(arrayAdapter);
 
         mSpinner.setOnItemSelectedListener((Spinner parent, View view, int position, long id) -> {
-            final int selectedId = subtableIds.get(position);
-            handleIdChange(score_db, selectedId);
+            selectedSubtableId = subtableIds.get(position);
+            handleIdChange(score_db, selectedSubtableId);
         });
 
         /* Tab & ViewPager */
@@ -128,7 +132,7 @@ public class HelperActivity extends AppCompatActivity implements
         mTabAdapter.addFragment(deFrag, getString(R.string.deyu));
         mTabAdapter.addFragment(zhiFrag, getString(R.string.zhiyu));
         mTabAdapter.addFragment(tiFrag, getString(R.string.wenti));
-        handleIdChange(score_db, 0);
+        handleIdChange(score_db, selectedSubtableId);
 
         vp.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(vp);
@@ -172,6 +176,7 @@ public class HelperActivity extends AppCompatActivity implements
         /* Popup */
 
         mPopup = new XPopup.Builder(HelperActivity.this).autoOpenSoftInput(true)
+                                                        .moveUpToKeyboard(false)
                                                         .asCustom(new AddScoreBottomPopup(
                                                                 HelperActivity.this) {
                                                             @Override
@@ -190,6 +195,17 @@ public class HelperActivity extends AppCompatActivity implements
                                                             public FragmentManager fetchFragManager() {
                                                                 return HelperActivity.this.getSupportFragmentManager();
                                                             }
+
+                                                            @Override
+                                                            public int fetchSubtable() {
+                                                                return HelperActivity.this.selectedSubtableId;
+                                                            }
+
+                                                            @Override
+                                                            protected void insertScores(ArrayList<Score> scores) {
+                                                                HelperActivity.this.insertScores(
+                                                                        scores);
+                                                            }
                                                         });
 
         /* FAB */
@@ -204,6 +220,47 @@ public class HelperActivity extends AppCompatActivity implements
         });
     }
 
+    protected void insertScores(@NonNull ArrayList<Score> scores) {
+        Log.d("sneezer", "insertScores: ");
+        for (Score s : scores) {
+            scoreDbHelper.getWritableDatabase()
+                         .execSQL(
+                                 "insert into Score (des, value, subtable, createDate, modifyDate, eventDate, category, detail, images) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                 new String[]{s.getDescription(),
+                                              String.format("%+.1f", s.getValue()),
+                                              Integer.toString(s.getSubtable()),
+                                              Long.toString(s.getCreateDate().getTime()),
+                                              Long.toString(s.getLastModifiedDate().getTime()),
+                                              Long.toString(s.getEventDate().getTime()),
+                                              Integer.toString(s.getCategory().ordinal()),
+                                              s.getSpecificCategory(),
+                                              s.getImagePaths()});
+
+            switch (s.getCategory()) {
+                case DEYU:
+                    deData.add(s);
+                    break;
+                case ZHIYU:
+                    zhiData.add(s);
+                    break;
+                case WENTI:
+                    tiData.add(s);
+                    break;
+            }
+        }
+        Score.ScoreComparator scoreCmp = new Score.ScoreComparator();
+        Collections.sort(deData, scoreCmp);
+        Collections.sort(zhiData, scoreCmp);
+        Collections.sort(tiData, scoreCmp);
+        updateFragment();
+    }
+
+    public void updateFragment() {
+        deFrag.setData(deData);
+        zhiFrag.setData(zhiData);
+        tiFrag.setData(tiData);
+    }
+
     private void handleIdChange(@NonNull SQLiteDatabase db, int id) {
         deData.clear();
         zhiData.clear();
@@ -212,6 +269,7 @@ public class HelperActivity extends AppCompatActivity implements
         // query
         Cursor cur = db.rawQuery("select * from Score where subtable = ? order by eventDate desc",
                                  new String[]{Integer.toString(id)});
+        ArrayList<Score> data = new ArrayList<>();
         if (hasData = cur.moveToFirst()) {
             final int c_id = cur.getColumnIndex("id");
             final int c_des = cur.getColumnIndex("text");
@@ -224,7 +282,6 @@ public class HelperActivity extends AppCompatActivity implements
             final int c_dt = cur.getColumnIndex("detail");
             final int c_ps = cur.getColumnIndex("ps");
             final int c_img = cur.getColumnIndex("images");
-            final Score.Category[] cats = Score.Category.values();
             do {
                 Score tmp = new Score();
                 tmp.setId(cur.getInt(c_id));
@@ -236,31 +293,28 @@ public class HelperActivity extends AppCompatActivity implements
                 tmp.setSpecificCategory(cur.getString(c_dt));
                 tmp.setSubtable(cur.getInt(c_st));
                 tmp.setComment(cur.getString(c_ps));
+//                ArrayList<String> tmp_paths = new ArrayList<>();
+//                Collections.addAll(tmp_paths, cur.getString(c_img).split(";"));
+                tmp.setImagePaths(cur.getString(c_img));
 
-                ArrayList<String> tmp_paths = new ArrayList<>();
-                Collections.addAll(tmp_paths, cur.getString(c_img).split(";"));
-                tmp.setImagePaths(tmp_paths);
-
-                final Score.Category tmp_cat = cats[cur.getInt(c_cat)];
+                final Category tmp_cat = CATEGORIES[cur.getInt(c_cat)];
                 tmp.setCategory(tmp_cat);
-                switch (tmp_cat) {
-                    case DEYU:
-                        deData.add(tmp);
-                        break;
-                    case ZHIYU:
-                        zhiData.add(tmp);
-                        break;
-                    case WENTI:
-                        tiData.add(tmp);
-                        break;
-                }
+//                switch (tmp_cat) {
+//                    case DEYU:
+//                        deData.add(tmp);
+//                        break;
+//                    case ZHIYU:
+//                        zhiData.add(tmp);
+//                        break;
+//                    case WENTI:
+//                        tiData.add(tmp);
+//                        break;
+//                }
+                data.add(tmp);
             } while (cur.moveToNext());
         }
         cur.close();
-        // update fragments
-        deFrag.setData(deData);
-        zhiFrag.setData(zhiData);
-        tiFrag.setData(tiData);
+        insertScores(data);
         if (hasData)
             Snackbar.make(mCoordLayout,
                           getString(R.string.nonempty_subtable_text),

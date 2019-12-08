@@ -13,7 +13,6 @@ import com.scut.scutwizard.R;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +31,6 @@ public class StatsFragment extends Fragment {
     private static final String                        ARG_CATEGORY = "category";
     private              int                           mCategory;
     private              ArrayList<Score>              mScores;
-    @Nullable
     private              OnFragmentInteractionListener mListener;
     private              RecyclerView                  mRowsView;
     //    private BottomAppBar mStatsBar;
@@ -57,7 +55,7 @@ public class StatsFragment extends Fragment {
         return fragment;
     }
 
-    public void setData(ArrayList<Score> data) {
+    void setData(ArrayList<Score> data) {
         mScores = data;
     }
 
