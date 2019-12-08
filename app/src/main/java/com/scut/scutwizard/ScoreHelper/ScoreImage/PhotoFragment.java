@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +40,43 @@ import androidx.recyclerview.widget.RecyclerView;
  * A simple {@link Fragment} subclass.
  */
 public class PhotoFragment extends Fragment {
-    private final static String           TAG         = PhotoFragment.class.getSimpleName();
-    private              Context          mContext;
-    private              RecyclerView     mRv;
-    private              int              MAX_IMG_NUM = 6;
-    private              List<LocalMedia> selectList  = new ArrayList<>();
+    private final static String                                 TAG                   = "sneezer";
+    private              Context                                mContext;
+    private              RecyclerView                           mRv;
+    private              int                                    MAX_IMG_NUM           = 6;
+    private              List<LocalMedia>                       selectList            = new ArrayList<>();
+    @NonNull
+    private              GridImageAdapter.onAddPicClickListener onAddPicClickListener = () -> {
+        PictureSelector.create(PhotoFragment.this)
+                       .openGallery(PictureMimeType.ofImage())
+                       .loadImageEngine(GlideEngine.createGlideEngine())
+                       .maxSelectNum(MAX_IMG_NUM)// 最大图片选择数量
+                       .minSelectNum(0)// 最小选择数量
+                       .imageSpanCount(4)
+                       .selectionMode(PictureConfig.MULTIPLE)
+                       .previewImage(true)
+                       .enablePreviewAudio(false) // 是否可播放音频
+                       .isCamera(true)// 是否显示拍照按钮
+                       .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                       .compress(true)// 是否压缩
+                       .compressQuality(80)// 图片压缩后输出质量 0~ 100
+                       .synOrAsy(true)//同步false或异步true 压缩 默认同步
+                       //.compressSavePath(getPath())//压缩图片保存地址
+                       .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示
+                       .isGif(false)// 是否显示gif图片
+                       .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
+                       .circleDimmedLayer(false)// 是否圆形裁剪
+                       .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
+                       .showCropGrid(true)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
+                       .openClickSound(false)// 是否开启点击声音
+                       .selectionMedia(selectList)// 是否传入已选图片
+                       .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
+                       .cutOutQuality(90)// 裁剪输出质量 默认100
+                       .minimumCompressSize(100)// 小于100kb的图片不压缩
+                       .rotateEnabled(true) // 裁剪是否可旋转图片
+                       .scaleEnabled(true)// 裁剪是否可放大缩小图片
+                       .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+    };
 
     private GridImageAdapter adapter;
 
@@ -67,38 +98,9 @@ public class PhotoFragment extends Fragment {
         }
     };
 
-    @NonNull
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = () -> {
-        PictureSelector.create(PhotoFragment.this)
-                       .openGallery(PictureMimeType.ofImage())
-                       .loadImageEngine(GlideEngine.createGlideEngine())
-                       .maxSelectNum(MAX_IMG_NUM)// 最大图片选择数量
-                       .minSelectNum(0)// 最小选择数量
-                       .imageSpanCount(4)
-                       .selectionMode(PictureConfig.MULTIPLE)
-                       .previewImage(true)
-                       .enablePreviewAudio(false) // 是否可播放音频
-                       .isCamera(true)// 是否显示拍照按钮
-                       .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-                       .compress(true)// 是否压缩
-                       .compressQuality(80)// 图片压缩后输出质量 0~ 100
-                       .synOrAsy(true)//同步false或异步true 压缩 默认同步
-                       //.compressSavePath(getPath())//压缩图片保存地址
-                       .hideBottomControls(true)// 是否显示uCrop工具栏，默认不显示
-                       .isGif(false)// 是否显示gif图片
-                       .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
-                       .circleDimmedLayer(false)// 是否圆形裁剪
-                       .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-                       .showCropGrid(true)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
-                       .openClickSound(false)// 是否开启点击声音
-                       .selectionMedia(selectList)// 是否传入已选图片
-                       .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
-                       .cutOutQuality(90)// 裁剪输出质量 默认100
-                       .minimumCompressSize(100)// 小于100kb的图片不压缩
-                       .rotateEnabled(true) // 裁剪是否可旋转图片
-                       .scaleEnabled(true)// 裁剪是否可放大缩小图片
-                       .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-    };
+    public List<LocalMedia> getSelectList() {
+        return selectList;
+    }
 
 
     public PhotoFragment() {
@@ -173,27 +175,10 @@ public class PhotoFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PictureConfig.CHOOSE_REQUEST) {// 图片选择结果回调
-                selectList = PictureSelector.obtainMultipleResult(data);
-                // 例如 LocalMedia 里面返回五种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
-                // 4.media.getOriginalPath()); media.isOriginal());为true时此字段才有值
-                // 5.media.getAndroidQToPath();为Android Q版本特有返回的字段，此字段有值就用来做上传使用
-                // 如果同时开启裁剪和压缩，则取压缩路径为准因为是先裁剪后压缩
-                for (LocalMedia media : selectList) {
-                    Log.i(TAG, "压缩::" + media.getCompressPath());
-                    Log.i(TAG, "原图::" + media.getPath());
-                    Log.i(TAG, "裁剪::" + media.getCutPath());
-                    Log.i(TAG, "是否开启原图::" + media.isOriginal());
-                    Log.i(TAG, "原图路径::" + media.getOriginalPath());
-                    Log.i(TAG, "Android Q 特有Path::" + media.getAndroidQToPath());
-                }
-                adapter.setList(selectList);
-                adapter.notifyDataSetChanged();
-            }
+        if (resultCode == Activity.RESULT_OK && requestCode == PictureConfig.CHOOSE_REQUEST) {
+            selectList = PictureSelector.obtainMultipleResult(data);
+            adapter.setList(selectList);
+            adapter.notifyDataSetChanged();
         }
     }
 

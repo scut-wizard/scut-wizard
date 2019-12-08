@@ -1,6 +1,6 @@
 package com.scut.scutwizard.ScoreHelper;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
@@ -10,11 +10,11 @@ public class Score {
     private String   description; // des text
     private Category category; // category integer
     private double   value; // value real
-    private Date     createDate, lastModifiedDate, eventDate; // ~Date real
-    private String            specificCategory; // detail text
-    private String            comment; // ps text
-    private int               subtable; // subtable integer
-    private ArrayList<String> imagePaths; // images text
+    private Date     createDate, lastModifiedDate, eventDate; // ~Date integer
+    private String specificCategory; // detail text
+    private String comment; // ps text
+    private int    subtable; // subtable integer
+    private String imagePaths; // images text "fn1;fn2;..."
 
     public Score() {
     }
@@ -43,11 +43,11 @@ public class Score {
         this.subtable = subtable;
     }
 
-    public ArrayList<String> getImagePaths() {
+    public String getImagePaths() {
         return imagePaths;
     }
 
-    public void setImagePaths(ArrayList<String> imagePaths) {
+    public void setImagePaths(String imagePaths) {
         this.imagePaths = imagePaths;
     }
 
@@ -65,6 +65,10 @@ public class Score {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setCategory(int category) {
+        this.category = Category.values()[category];
     }
 
     public double getValue() {
@@ -110,4 +114,12 @@ public class Score {
     }
 
     public enum Category {DEYU, ZHIYU, WENTI}
+
+    public static class ScoreComparator implements Comparator<Score> {
+        @Override
+        public int compare(Score s1, Score s2) {
+            final int dateCmp = s2.getEventDate().compareTo(s1.getEventDate());
+            return dateCmp != 0 ? dateCmp : Double.compare(s2.getValue(), s1.getValue());
+        }
+    }
 }

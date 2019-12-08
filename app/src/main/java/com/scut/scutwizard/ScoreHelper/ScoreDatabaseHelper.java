@@ -41,7 +41,9 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(@NonNull SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_SCORE);
         sqLiteDatabase.execSQL(CREATE_SUBTABLE);
-        sqLiteDatabase.execSQL(INIT_SUBTABLE, new String[]{"0", mContext.getString(R.string.default_subtable_name)});
+        sqLiteDatabase.execSQL(INIT_SUBTABLE,
+                               new String[]{"0",
+                                            mContext.getString(R.string.default_subtable_name)});
     }
 
     @Override

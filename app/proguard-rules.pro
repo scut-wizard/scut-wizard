@@ -21,15 +21,22 @@
 #-renamesourcefileattribute SourceFile
 
 -dontusemixedcaseclassnames
-
 -dontpreverify
 
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
 
-# xpopup
 -dontwarn com.lxj.xpopup.widget.**
 -keep class com.lxj.xpopup.widget.**{*;}
+
+-keep class com.mobsandgeeks.saripaar.** {*;}
+-keep @com.mobsandgeeks.saripaar.annotation.ValidateUsing class * {*;}
+
+-keep class com.luck.picture.lib.** { *; }
+
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { ; }
+-keep interface com.yalantis.ucrop* { *; }
 
 -obfuscationdictionary dic.txt
 -classobfuscationdictionary dic.txt
