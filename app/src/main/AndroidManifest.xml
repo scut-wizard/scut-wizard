@@ -25,9 +25,14 @@
             android:theme="@style/HelperActivityTheme" />
         <activity
             android:name=".Note.NoteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="DDL助手" />
-        <activity android:name=".Note.AddEventActivity" />
-        <activity android:name=".Note.ShowEventActivity" />
+        <activity android:name=".Note.AddEventActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="增添任务" />
+        <activity android:name=".Note.ShowEventActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="统计信息" />
         <activity
             android:name=".MapActivity"
             android:label="MapActivity" />

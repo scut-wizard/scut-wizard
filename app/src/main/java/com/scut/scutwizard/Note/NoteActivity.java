@@ -17,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.scut.scutwizard.MainActivity;
 import com.scut.scutwizard.R;
 
@@ -28,6 +29,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 
 
 
@@ -35,10 +37,11 @@ public class NoteActivity extends AppCompatActivity {
 
     private List<Event> eventList = new ArrayList<>();
     private String sortStr="rating desc";
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
         Intent intent = getIntent();
@@ -77,8 +80,15 @@ public class NoteActivity extends AppCompatActivity {
             //Toast.makeText(NoteActivity.this,"暂无任务",Toast.LENGTH_LONG).show();
             setContentView(R.layout.activity_note_empty);
 
+            toolbar = findViewById(R.id.note_empty_toolbar);
+            setSupportActionBar(toolbar);
+
         }else if(eventList.size()>0){
             setContentView(R.layout.activity_note);
+
+            toolbar = findViewById(R.id.note_toolbar);
+            setSupportActionBar(toolbar);
+
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
@@ -256,7 +266,7 @@ public class NoteActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_sort);
                 break;
-            case R.id.navigation_note_return:
+            case R.id.navigation_return:
                 Intent intent_return = new Intent(NoteActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent_return);

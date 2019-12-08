@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,8 +15,10 @@ import android.widget.Toast;
 
 import com.scut.scutwizard.R;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -27,6 +31,7 @@ public class AddEventActivity extends AppCompatActivity {
     public Button add_event_return_btn;
     public DatePicker add_event_et_daysLeft;
     public EditText add_event_et_step;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +43,9 @@ public class AddEventActivity extends AppCompatActivity {
         add_event_et_progress =  findViewById(R.id.add_event_et_progress);
         add_event_et_daysLeft =  findViewById(R.id.add_event_et_daysLeft);
         add_event_et_step =  findViewById(R.id.add_event_et_step);
+
+        toolbar = findViewById(R.id.note_add_toolbar);
+        setSupportActionBar(toolbar);
 
         confirmAdd_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +106,24 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.note_return_navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_note_return:
+                Intent intent_return = new Intent(AddEventActivity.this, NoteActivity.class);
+                finish();
+                startActivity(intent_return);
+                break;
+        }
+        return true;
     }
 
 }

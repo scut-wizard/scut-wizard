@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/menu_group_nav_note">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
             android:id="@+id/navigation_add"
-            android:title="增添" />
+            android:icon="@drawable/ic_nav_feedback"
+            android:title="增添"
+            app:showAsAction="always"/>
         <item
             android:id="@+id/navigation_cnt"
-            android:title="统计" />
+            android:icon="@drawable/ic_nav_memo"
+            android:title="统计"
+            app:showAsAction="always"/>
         <item
             android:id="@+id/navigation_sort"
             android:checked="true"
-            android:title="切换" />
+            android:icon="@drawable/ic_sync"
+            android:title="切换"
+            app:showAsAction="always"/>
+
         <item
-            android:id="@+id/navigation_note_return"
+            android:id="@+id/navigation_return"
             android:checked="true"
-            android:title="返回" />
-
-    </group>
-
+            android:icon="@drawable/ic_nav_return"
+            android:title="返回"
+            app:showAsAction="always"/>
 </menu>

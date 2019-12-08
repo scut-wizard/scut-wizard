@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="0dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/note_add_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,9 +86,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:text="0"
             android:hint="当前任务进度（0-99）%"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,29 +111,37 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:text="1"
             android:hint="计划任务步数"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="1" />
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/confirm_add_btn"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp"
-        android:background="@android:drawable/btn_default"
-        android:text="添加" />
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/add_event_return_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp"
-        android:background="@android:drawable/btn_default"
-        android:text="返回" />
+        <Button
+            android:id="@+id/confirm_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@android:drawable/btn_default"
+            android:text="添加" />
+
+        <Button
+            android:id="@+id/add_event_return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@android:drawable/btn_default"
+            android:text="返回" />
+    </LinearLayout>
+
 </LinearLayout>
