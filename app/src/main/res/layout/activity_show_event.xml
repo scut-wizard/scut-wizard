@@ -34,7 +34,8 @@
             android:id="@+id/cnt_events_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="end" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +58,8 @@
             android:id="@+id/cnt_complete_events_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="end" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +82,8 @@
             android:id="@+id/cnt_complete_per_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="end" />
     </LinearLayout>
 
     <LinearLayout
@@ -102,7 +105,8 @@
             android:id="@+id/cnt_finish_progress_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="end" />
 
     </LinearLayout>
 
@@ -126,17 +130,9 @@
             android:id="@+id/cnt_finish_daysleft_tv"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="end" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/show_event_return_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp"
-        android:background="@android:drawable/btn_default"
-        android:text="返回" />
 </LinearLayout>

@@ -19,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class ShowEventActivity extends AppCompatActivity {
 
-    public Button show_event_return_btn;
     private Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,13 +28,7 @@ public class ShowEventActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.note_show_toolbar);
         setSupportActionBar(toolbar);
 
-        show_event_return_btn=  findViewById(R.id.show_event_return_btn);
-        show_event_return_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowEventActivity.this, NoteActivity.class));
-            }
-        });
+
 
         TextView cnt_events_tv,cnt_complete_events_tv,cnt_complete_per_tv,cnt_finish_progress_tv,cnt_finish_daysleft_tv;
         double cnt_events=0,cnt_complete_events=0,cnt_complete_per=0,cnt_finish_progress=0,cnt_finish_daysleft=0,cnt_finish_events=0;//cnt是已结束任务总数

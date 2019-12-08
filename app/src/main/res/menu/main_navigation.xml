@@ -2,17 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/menu_group_nav_funcs">
         <item
-            android:id="@+id/navigation_memo"
+            android:id="@+id/navigation_home"
             android:checked="true"
-            android:icon="@drawable/ic_nav_memo"
+            android:icon="@drawable/ic_nav_home"
+            android:title="主界面" />
+        <item
+            android:id="@+id/navigation_note"
+            android:icon="@drawable/ic_nav_note"
             android:title="@string/navigation_memo" />
         <item
             android:id="@+id/navigation_helper"
+            android:icon="@drawable/ic_nav_helper"
             android:title="@string/navigation_helper" />
-        <item
-            android:id="@+id/navigation_tool"
-            android:icon="@drawable/ic_nav_tool"
-            android:title="@string/navigation_tool" />
     </group>
 
     <group android:id="@+id/menu_group_nav_other">
