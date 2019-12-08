@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
+
 public class NoteDatabaseHelper extends SQLiteOpenHelper {
 
     public NoteDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -21,7 +23,7 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
             + " finish int)";
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(@NonNull SQLiteDatabase db) {
         //创建数据库sql语句 并 执行
 
         db.execSQL(CREATE_EVENT);

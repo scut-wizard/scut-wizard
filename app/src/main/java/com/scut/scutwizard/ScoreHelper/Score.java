@@ -3,15 +3,29 @@ package com.scut.scutwizard.ScoreHelper;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+
 public class Score {
-    private int id;
-    private String description; // des text
+    private int      id;
+    private String   description; // des text
     private Category category; // category integer
-    private double value; // value real
-    private Date createDate, lastModifiedDate, eventDate; // ~Date real
-    private String specificCategory; // detail text
-    private int subtable; // subtable integer
+    private double   value; // value real
+    private Date     createDate, lastModifiedDate, eventDate; // ~Date real
+    private String            specificCategory; // detail text
+    private String            comment; // ps text
+    private int               subtable; // subtable integer
     private ArrayList<String> imagePaths; // images text
+
+    public Score() {
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getId() {
         return id;
@@ -35,9 +49,6 @@ public class Score {
 
     public void setImagePaths(ArrayList<String> imagePaths) {
         this.imagePaths = imagePaths;
-    }
-
-    public Score() {
     }
 
     public String getDescription() {
@@ -77,7 +88,7 @@ public class Score {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(@NonNull Date lastModifiedDate) {
         if (!lastModifiedDate.before(this.createDate))
             this.lastModifiedDate = lastModifiedDate;
     }

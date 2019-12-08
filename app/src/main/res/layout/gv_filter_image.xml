@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/fiv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="Main Image"
+        tools:src="@color/app_color_f6" />
+
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_width="28sp"
+        android:layout_height="28sp"
+        android:layout_alignTop="@id/fiv"
+        android:layout_alignEnd="@id/fiv"
+        android:contentDescription="@string/del_btn_desc"
+        android:paddingStart="8dp"
+        android:paddingBottom="8dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_delete_menu"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</RelativeLayout>
