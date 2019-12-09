@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/event_item"
+    android:id="@+id/event_item_frag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:id="@+id/event_item_RelativeLayout">
+        android:id="@+id/event_item_RelativeLayout_frag">
 
         <RatingBar
-            android:id="@+id/event_ratingbar"
+            android:id="@+id/event_ratingbar_frag"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,11 +30,11 @@
         <com.rey.material.widget.RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/event_ratingbar"
-            android:id="@+id/RelativeLayout_center">
+            android:layout_below="@+id/event_ratingbar_frag"
+            android:id="@+id/RelativeLayout_center_frag">
 
             <TextView
-                android:id="@+id/event_name_tv"
+                android:id="@+id/event_name_tv_frag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -49,44 +49,27 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/event_daysLeft_tv"
+                android:id="@+id/event_daysLeft_tv_frag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_toEndOf="@+id/event_name_tv"
+                android:layout_toEndOf="@+id/event_name_tv_frag"
                 android:gravity="center"
                 android:text="10 days"
                 android:textColor="@android:color/holo_green_light"
                 android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/event_giveup_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginLeft="20dp"
-                android:layout_toEndOf="@+id/event_daysLeft_tv"
-                android:text="放弃"
-                android:textSize="12sp" />
 
-            <Button
-                android:id="@+id/event_done_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_toEndOf="@+id/event_giveup_btn"
-                android:text="打卡"
-                android:textSize="12sp" />
 
 
 
         </com.rey.material.widget.RelativeLayout>
         <ProgressBar
-            android:id="@+id/event_progressbar"
+            android:id="@+id/event_progressbar_frag"
             style="@style/mProgressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:layout_below="@id/RelativeLayout_center"
+            android:layout_below="@id/RelativeLayout_center_frag"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:max="100"

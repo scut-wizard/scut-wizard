@@ -25,91 +25,27 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="19dp"
-            android:text="11TextView" />
+            android:text="xxxxxxxxxxxxxxx" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="今日待办"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/layout_edge"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <RatingBar
-                    android:id="@+id/event_ratingbar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="3.5"
-                    android:stepSize="0.5" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/event_name_tv"
-                        android:layout_width="109dp"
-                        android:layout_height="37dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="15dp"
-                        android:gravity="start"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/event_daysLeft_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="10 days"
-                        android:textColor="@android:color/holo_green_light"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <ProgressBar
-                    android:id="@+id/event_progressbar"
-                    style="@style/mProgressBarStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:max="100"
-                    android:progress="40"
-                    android:progressDrawable="@drawable/main_pb_bg" />
-
-            </LinearLayout>
+        <com.rey.material.widget.RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView3"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
+                android:text="最近待办事项" />
+
+            <fragment
+                android:id="@+id/main_note_frag"
+                android:name="com.scut.scutwizard.Note.EventItemFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </fragment>
+
+        </com.rey.material.widget.RelativeLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
