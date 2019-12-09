@@ -114,7 +114,6 @@
                     style="@style/Material.Widget.Spinner"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20sp"
                     android:dropDownWidth="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/helper_deyu_ticker"
@@ -128,11 +127,10 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/helper_tab_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/helper_tab_height"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/helper_wenti_ticker"
-                    app:layout_constraintVertical_bias="0.0"
                     app:tabBackground="@android:color/transparent"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="@color/colorAccent"
@@ -157,6 +155,24 @@
                         android:layout_height="wrap_content" />
 
                 </com.google.android.material.tabs.TabLayout>
+
+                <TextView
+                    android:id="@+id/helper_manage_subtable_btntv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3sp"
+                    android:text="管理表..."
+                    android:textColor="#ddd"
+                    app:layout_constraintEnd_toEndOf="@+id/subtable_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/subtable_spinner" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/helper_tab_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_wenti_ticker" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

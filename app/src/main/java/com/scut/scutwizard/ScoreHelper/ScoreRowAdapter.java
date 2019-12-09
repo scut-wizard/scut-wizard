@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
@@ -102,6 +101,12 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemDescription = itemView.findViewById(R.id.textView_description);
+            itemDate = itemView.findViewById(R.id.textView_eventDate);
+//            itemValue = itemView.findViewById(R.id.textView_value);
+            itemValue = itemView.findViewById(R.id.ticker_value);
+            itemValue.setCharacterLists(TickerUtils.provideNumberList(), "+-");
+
             final Context mContext = itemView.getContext();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,47 +114,38 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                     Toast.makeText(mContext, "Ouch", Toast.LENGTH_SHORT).show();
                 }
             });
-            final XPopup.Builder builder = new XPopup.Builder(mContext).watchView(itemView);
+            final XPopup.Builder popupBuilder = new XPopup.Builder(mContext).watchView(itemView);
             itemView.setOnLongClickListener(v -> {
-                builder.asAttachList(new String[]{"详细信息...", "分享", "删除"},
-                                     null,
-                                     new OnSelectListener() {
-                                         @Override
-                                         public void onSelect(int position, String text) {
-                                             switch (position) {
-                                                 case 0:
-                                                     break;
-                                                 case 1:
-                                                     new XPopup.Builder(mContext).asLoading(
-                                                             "正在加载分享组件...")
-                                                                                 .show()
-                                                                                 .delayDismissWith(
-                                                                                         3500,
-                                                                                         () -> new XPopup.Builder(
-                                                                                                 mContext)
-                                                                                                 .asConfirm(
-                                                                                                         "整忘了",
-                                                                                                         "我没写分享组件。",
-                                                                                                         "",
-                                                                                                         "接受",
-                                                                                                         () -> {},
-                                                                                                         () -> {},
-                                                                                                         true)
-                                                                                                 .show());
-                                                     break;
-                                             }
-                                             Toast.makeText(mContext,
-                                                            position + text,
-                                                            Toast.LENGTH_SHORT).show();
-                                         }
-                                     }).show();
+                popupBuilder.asBottomList(String.format("想对记录“%s”做点什么?", itemDescription.getText()),
+                                          new String[]{"详细信息...", "分享", "删除"},
+                                          (position, text) -> {
+                                              switch (position) {
+                                                  case 0:
+                                                      break;
+                                                  case 1:
+                                                      new XPopup.Builder(mContext).asLoading(
+                                                              "正在加载分享组件...")
+                                                                                  .show()
+                                                                                  .delayDismissWith(
+                                                                                          3500,
+                                                                                          () -> new XPopup.Builder(
+                                                                                                  mContext)
+                                                                                                  .asConfirm(
+                                                                                                          "整忘了",
+                                                                                                          "我没写分享组件。",
+                                                                                                          "",
+                                                                                                          "接受",
+                                                                                                          () -> {},
+                                                                                                          () -> {},
+                                                                                                          true)
+                                                                                                  .show());
+                                                      break;
+                                                  case 2:
+                                                      break;
+                                              }
+                                          }).show();
                 return true;
             });
-            itemDescription = itemView.findViewById(R.id.textView_description);
-            itemDate = itemView.findViewById(R.id.textView_eventDate);
-//            itemValue = itemView.findViewById(R.id.textView_value);
-            itemValue = itemView.findViewById(R.id.ticker_value);
-            itemValue.setCharacterLists(TickerUtils.provideNumberList(), "+-");
         }
     }
 }

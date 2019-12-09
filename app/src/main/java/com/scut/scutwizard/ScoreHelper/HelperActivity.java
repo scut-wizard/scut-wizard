@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,7 +36,8 @@ import static com.scut.scutwizard.ScoreHelper.Score.Category.values;
 
 public class HelperActivity extends AppCompatActivity implements
         StatsFragment.OnFragmentInteractionListener {
-    final   Category[]           CATEGORIES         = values();
+    final   Category[]           CATEGORIES = values();
+    private TextView             stManageBtn;
     private TabAdapter           mTabAdapter;
     private TabLayout            mTabLayout;
     private ViewPager            vp;
@@ -43,12 +45,13 @@ public class HelperActivity extends AppCompatActivity implements
     private Spinner              mSpinner;
     private FloatingActionButton mFab;
     private CoordinatorLayout    mCoordLayout;
-    private ScoreDatabaseHelper  scoreDbHelper;
-    private ArrayList<Integer>   subtableIds;
-    private ArrayList<String>    subtableNames;
-    private int                  selectedSubtableId = 0;
     private StatsFragment        deFrag, zhiFrag, tiFrag;
-    private ArrayList<Score> deData, zhiData, tiData;
+
+    private ScoreDatabaseHelper scoreDbHelper;
+    private ArrayList<Integer>  subtableIds;
+    private ArrayList<String>   subtableNames;
+    private int                 selectedSubtableId = 0;
+    private ArrayList<Score>    deData, zhiData, tiData;
     private TickerView deTicker, zhiTicker, tiTicker;
 
     private boolean       isPopupShown = false;
@@ -126,6 +129,17 @@ public class HelperActivity extends AppCompatActivity implements
             selectedSubtableId = subtableIds.get(position);
             handleIdChange(score_db, selectedSubtableId, false);
         });
+
+        /* Manage Button */
+        stManageBtn = findViewById(R.id.helper_manage_subtable_btntv);
+        stManageBtn.setOnClickListener(view -> new XPopup.Builder(HelperActivity.this).asConfirm(
+                "很遗憾",
+                "如果时间充裕的话...会完成的...一定",
+                "",
+                "好⑧",
+                () -> {},
+                () -> {},
+                true).show());
 
         /* Tab & ViewPager */
 

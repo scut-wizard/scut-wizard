@@ -2,7 +2,6 @@ package com.scut.scutwizard.ScoreHelper;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,7 +42,6 @@ import java.util.Random;
 import java.util.StringJoiner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -186,7 +184,6 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
 
     abstract protected void insertScores(ArrayList<Score> scores);
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onValidationSucceeded() {
         String description = iDesc.getText().toString().trim();
@@ -200,6 +197,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
 
         List<LocalMedia> images = fPhoto.getSelectList();
         StringJoiner sj = new StringJoiner(";");
+//        String.join(";",); TODO: fix api
         LocalMediaDbUtil lmHelper = new LocalMediaDbUtil(mContext);
         final File DATA_DIR = lmHelper.getDataDir();
         for (LocalMedia img : images) {
