@@ -27,13 +27,21 @@
             android:layout_height="19dp"
             android:text="xxxxxxxxxxxxxxx" />
 
-        <com.rey.material.widget.RelativeLayout android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
-            <fragment
-                android:layout_height="wrap_content"
+        <com.rey.material.widget.RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="最近待办事项" />
+
+            <fragment
                 android:id="@+id/main_note_frag"
-                android:name="com.scut.scutwizard.Note.EventItemFrag">
+                android:name="com.scut.scutwizard.Note.EventItemFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             </fragment>
 

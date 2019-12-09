@@ -42,16 +42,20 @@ public class EventItemFrag extends Fragment {
         //利用游标遍历所有数据对象
         if(cursor.moveToFirst()){
             String name= cursor.getString(cursor.getColumnIndex("name"));
+            int finish = cursor.getInt(cursor.getColumnIndex("finish"));
             int daysLeft = cursor.getInt(cursor.getColumnIndex("daysLeft"));
             double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
             double rating = cursor.getDouble(cursor.getColumnIndex("rating"));
 
-            event_ratingbar.setRating((float)rating);
-            event_name_tv.setText(name);
-            event_daysLeft_tv.setText("距离ddl还有"+daysLeft+"天");
-            event_progressbar.setProgress((int)progress);
-
-            visibilityLayout.setVisibility((View.VISIBLE));
+            if(daysLeft<=3&&finish==0){
+                event_ratingbar.setRating((float)rating);
+                event_name_tv.setText(name);
+                event_daysLeft_tv.setText("距离ddl还有"+daysLeft+"天");
+                event_progressbar.setProgress((int)progress);
+                visibilityLayout.setVisibility((View.VISIBLE));
+            }else {
+                visibilityLayout.setVisibility((View.INVISIBLE));
+            }
 
         }else{
             visibilityLayout.setVisibility((View.INVISIBLE));
