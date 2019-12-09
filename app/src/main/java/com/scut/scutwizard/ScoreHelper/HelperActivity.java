@@ -350,15 +350,15 @@ public class HelperActivity extends AppCompatActivity implements
         }
         cur.close();
         insertScores(data, false);
-        if (hasData)
+        if (hasData) {
             if (!isInit)
                 Snackbar.make(mCoordLayout,
                               getString(R.string.nonempty_subtable_text),
                               Snackbar.LENGTH_LONG).show();
-            else
-                Snackbar.make(mCoordLayout,
-                              getString(R.string.empty_subtable_text),
-                              Snackbar.LENGTH_LONG).show();
+        } else
+            Snackbar.make(mCoordLayout,
+                          getString(R.string.empty_subtable_text),
+                          Snackbar.LENGTH_LONG).show();
     }
 
     private void resetDatabase() {

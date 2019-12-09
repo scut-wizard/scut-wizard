@@ -2,6 +2,7 @@ package com.scut.scutwizard.ScoreHelper;
 
 
 import android.content.Context;
+import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -38,9 +39,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 import java.util.StringJoiner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -52,16 +55,26 @@ import androidx.fragment.app.FragmentTransaction;
 
 public abstract class AddScoreBottomPopup extends BottomPopupView implements
         Validator.ValidationListener {
+    private static final String[]     DESC_HINTS  = new String[]{"灾后清扫",
+                                                                 "参加了什么竞赛?",
+                                                                 "发表一篇核心期刊论文",
+                                                                 "试图理解一篇核心期刊论文",
+                                                                 "扶老奶奶过马路...?",
+                                                                 "设计共享单车",
+                                                                 "使用共享单车",
+                                                                 "优秀共青团员",
+                                                                 "接见瑞典环保大使"};
+    private static final List<String> DT_EXAMPLES = Arrays.asList("班级;院级;校级;区级;市级;省级;国家级;世界级".split(
+            ";"));
     @NotEmpty(message = "必填")
     @Length(max = 20, message = "不能超过20字!", trim = true)
     @Order(1)
-    private EditText iDesc;
-
+    private              EditText     iDesc;
     @NotEmpty(message = "必填", sequence = 1)
     @DecimalMax(value = 21., message = "加太多啦", sequence = 2)
     @DecimalMin(value = -60., message = "扣太多啦", sequence = 3)
     @Order(2)
-    private EditText iValue;
+    private              EditText     iValue;
 
     //    @NotEmpty(message = "必选")
     private Spinner sCat;// 归属
@@ -103,7 +116,10 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
     @Override
     protected void onCreate() {
         super.onCreate();
+        Random random = new Random();
         iDesc = findViewById(R.id.popup_desc_input);
+        iDesc.setHint(DESC_HINTS[random.nextInt(DESC_HINTS.length)]);
+
         iValue = findViewById(R.id.popup_value_input);
 
         sCat = findViewById(R.id.popup_cat_spn);
@@ -117,8 +133,8 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         sCat.setDropDownVerticalOffset(30);
 
         iDet = findViewById(R.id.popup_det_input);
-        List<String> detailExamples = Arrays.asList("班级;院级;校级;区级;市级;省级;国家级;世界级".split(";"));
-        iDet.setList(detailExamples);
+        iDet.setHint(DT_EXAMPLES.get(random.nextInt(DT_EXAMPLES.size())));
+        iDet.setList(DT_EXAMPLES);
         iDet.setNeedShowSpinner(true);
 
         iDate = findViewById(R.id.popup_date_lbl);
@@ -170,6 +186,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
 
     abstract protected void insertScores(ArrayList<Score> scores);
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onValidationSucceeded() {
         String description = iDesc.getText().toString().trim();

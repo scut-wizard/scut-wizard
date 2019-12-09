@@ -42,7 +42,6 @@
             android:enabled="true"
             android:focusableInTouchMode="true"
             android:focusedByDefault="true"
-            android:hint="灾后清扫"
             android:inputType="textMultiLine" />
     </LinearLayout>
 
@@ -142,7 +141,6 @@
             android:id="@+id/popup_det_input"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:hint="国家级"
             android:inputType="textShortMessage"
             android:textSize="16sp"
             app:pop_textsize="15sp" />

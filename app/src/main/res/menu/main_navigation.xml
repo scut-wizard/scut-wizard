@@ -14,6 +14,10 @@
             android:id="@+id/navigation_helper"
             android:icon="@drawable/ic_nav_helper"
             android:title="@string/navigation_helper" />
+        <item
+            android:id="@+id/navigation_homework"
+            android:icon="@drawable/ic_lightbulb_outline_white_24dp"
+            android:title="@string/homework_assistant" />
     </group>
 
     <group android:id="@+id/menu_group_nav_other">

@@ -106,17 +106,43 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Ouch", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Ouch", Toast.LENGTH_SHORT).show();
                 }
             });
             final XPopup.Builder builder = new XPopup.Builder(mContext).watchView(itemView);
             itemView.setOnLongClickListener(v -> {
-                builder.asAttachList(new String[]{"详细信息...", "删除"}, null, new OnSelectListener() {
-                    @Override
-                    public void onSelect(int position, String text) {
-                        Toast.makeText(mContext, position + text, Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
+                builder.asAttachList(new String[]{"详细信息...", "分享", "删除"},
+                                     null,
+                                     new OnSelectListener() {
+                                         @Override
+                                         public void onSelect(int position, String text) {
+                                             switch (position) {
+                                                 case 0:
+                                                     break;
+                                                 case 1:
+                                                     new XPopup.Builder(mContext).asLoading(
+                                                             "正在加载分享组件...")
+                                                                                 .show()
+                                                                                 .delayDismissWith(
+                                                                                         3500,
+                                                                                         () -> new XPopup.Builder(
+                                                                                                 mContext)
+                                                                                                 .asConfirm(
+                                                                                                         "整忘了",
+                                                                                                         "我没写分享组件。",
+                                                                                                         "",
+                                                                                                         "接受",
+                                                                                                         () -> {},
+                                                                                                         () -> {},
+                                                                                                         true)
+                                                                                                 .show());
+                                                     break;
+                                             }
+                                             Toast.makeText(mContext,
+                                                            position + text,
+                                                            Toast.LENGTH_SHORT).show();
+                                         }
+                                     }).show();
                 return true;
             });
             itemDescription = itemView.findViewById(R.id.textView_description);

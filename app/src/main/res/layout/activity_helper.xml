@@ -52,86 +52,60 @@
                     android:id="@+id/helper_deyu_ticker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:text="@string/default_value"
                     android:textColor="#fff"
                     android:textSize="@dimen/total_ticker_textSize"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/subtable_spinner"
                     app:layout_constraintLeft_toLeftOf="@id/helper_deyu_label"
-                    app:layout_constraintTop_toBottomOf="@id/helper_deyu_label"
+                    app:layout_constraintStart_toEndOf="@+id/helper_deyu_label"
+                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_label"
                     app:ticker_animationDuration="1200"
                     app:ticker_defaultCharacterList="number" />
-
-                <View
-                    android:id="@+id/helper_de_zhi_divider"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/divider_space"
-                    android:background="@color/white_transparent"
-                    app:layout_constraintBottom_toBottomOf="@id/helper_deyu_ticker"
-                    app:layout_constraintStart_toEndOf="@id/helper_deyu_ticker"
-                    app:layout_constraintTop_toTopOf="@id/helper_deyu_label" />
 
                 <TextView
                     android:id="@+id/helper_zhiyu_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/divider_space"
                     android:text="@string/zhiyu"
                     android:textColor="#fff"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/helper_de_zhi_divider"
-                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_label" />
+                    app:layout_constraintStart_toStartOf="@+id/helper_deyu_label"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_deyu_ticker" />
 
                 <com.robinhood.ticker.TickerView
                     android:id="@+id/helper_zhiyu_ticker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:text="@string/default_value"
                     android:textColor="#fff"
                     android:textSize="@dimen/total_ticker_textSize"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/subtable_spinner"
                     app:layout_constraintLeft_toLeftOf="@id/helper_zhiyu_label"
-                    app:layout_constraintTop_toBottomOf="@id/helper_zhiyu_label"
+                    app:layout_constraintStart_toStartOf="@+id/helper_deyu_ticker"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_deyu_ticker"
                     app:ticker_animationDuration="1200"
                     app:ticker_defaultCharacterList="number" />
-
-                <View
-                    android:id="@+id/helper_zhi_ti_divider"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/divider_space"
-                    android:background="@color/white_transparent"
-                    app:layout_constraintBottom_toBottomOf="@id/helper_deyu_ticker"
-                    app:layout_constraintStart_toEndOf="@id/helper_zhiyu_ticker"
-                    app:layout_constraintTop_toTopOf="@id/helper_deyu_label" />
 
                 <TextView
                     android:id="@+id/helper_wenti_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/divider_space"
                     android:text="@string/wenti"
                     android:textColor="#fff"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/helper_zhi_ti_divider"
-                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_label" />
+                    app:layout_constraintStart_toStartOf="@+id/helper_zhiyu_label"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_zhiyu_ticker" />
 
                 <com.robinhood.ticker.TickerView
                     android:id="@+id/helper_wenti_ticker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:text="@string/default_value"
                     android:textColor="#fff"
                     android:textSize="@dimen/total_ticker_textSize"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/subtable_spinner"
-                    app:layout_constraintLeft_toLeftOf="@id/helper_wenti_label"
-                    app:layout_constraintTop_toBottomOf="@id/helper_wenti_label"
+                    app:layout_constraintStart_toStartOf="@+id/helper_deyu_ticker"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_zhiyu_ticker"
                     app:ticker_animationDuration="1200"
                     app:ticker_defaultCharacterList="number" />
 
@@ -142,8 +116,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20sp"
                     android:dropDownWidth="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@id/helper_tab_layout"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/helper_deyu_ticker"
+                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_ticker"
                     app:spn_arrowAnimDuration="200"
                     app:spn_arrowColor="@color/white_transparent"
                     app:spn_arrowSwitchMode="true"
@@ -156,6 +131,8 @@
                     android:layout_height="@dimen/helper_tab_height"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/helper_wenti_ticker"
+                    app:layout_constraintVertical_bias="0.0"
                     app:tabBackground="@android:color/transparent"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="@color/colorAccent"
