@@ -19,8 +19,9 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
                                                   + "    modifyDate integer default CURRENT_TIMESTAMP,\n"
                                                   + "    eventDate integer default CURRENT_TIMESTAMP,\n"
                                                   + "    category integer not null,\n"
-                                                  + "    detail text,\n"
-                                                  + "    images text)";
+                                                  + "    detail text default \"\",\n"
+                                                  + "    ps text default \"\",\n"
+                                                  + "    images text default \"\")";
     public static final String  CREATE_SUBTABLE = "create table Subtable (\n"
                                                   + "    id integer primary key autoincrement not null,\n"
                                                   + "    name text not null)";
