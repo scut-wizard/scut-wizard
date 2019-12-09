@@ -7,20 +7,25 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.scut.scutwizard.Note.DateHelper;
+import com.scut.scutwizard.Note.EventItemFrag;
 import com.scut.scutwizard.Note.NoteActivity;
 import com.scut.scutwizard.ScoreHelper.HelperActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    private EventItemFrag main_note_frag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        main_note_frag = (EventItemFrag)getSupportFragmentManager().findFragmentById(R.id.main_note_frag);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
@@ -47,5 +52,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //更新数据库
         new DateHelper().updateDaysLeft(MainActivity.this);
+        main_note_frag.refresh();
     }
 }
