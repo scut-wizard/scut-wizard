@@ -174,7 +174,21 @@ public class HelperActivity extends AppCompatActivity implements
         });
 
         /* Popup */
+        createPopup();
+        /* FAB */
+        mFab = findViewById(R.id.fab_add);
+        mFab.setOnClickListener(view -> {
+            if (mPopup == null)
+                createPopup();
+            if (!isPopupShown) {
+                mFab.hide();
+                mPopup.show();
+                isPopupShown = true;
+            }
+        });
+    }
 
+    public void createPopup() {
         mPopup = new XPopup.Builder(HelperActivity.this).autoOpenSoftInput(true)
                                                         .moveUpToKeyboard(false)
                                                         .asCustom(new AddScoreBottomPopup(
@@ -204,37 +218,36 @@ public class HelperActivity extends AppCompatActivity implements
                                                             @Override
                                                             protected void insertScores(ArrayList<Score> scores) {
                                                                 HelperActivity.this.insertScores(
-                                                                        scores);
+                                                                        scores,
+                                                                        true);
+                                                            }
+
+                                                            @Override
+                                                            public void destroyMyself() {
+                                                                super.destroyMyself();
+                                                                HelperActivity.this.createPopup();
                                                             }
                                                         });
-
-        /* FAB */
-
-        mFab = findViewById(R.id.fab_add);
-        mFab.setOnClickListener(view -> {
-            if (!isPopupShown) {
-                mFab.hide();
-                mPopup.show();
-                isPopupShown = true;
-            }
-        });
     }
 
-    protected void insertScores(@NonNull ArrayList<Score> scores) {
-        Log.d("sneezer", "insertScores: ");
+    protected void insertScores(@NonNull ArrayList<Score> scores, boolean alsoToDatabase) {
         for (Score s : scores) {
-            scoreDbHelper.getWritableDatabase()
-                         .execSQL(
-                                 "insert into Score (des, value, subtable, createDate, modifyDate, eventDate, category, detail, images) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                 new String[]{s.getDescription(),
-                                              String.format("%+.1f", s.getValue()),
-                                              Integer.toString(s.getSubtable()),
-                                              Long.toString(s.getCreateDate().getTime()),
-                                              Long.toString(s.getLastModifiedDate().getTime()),
-                                              Long.toString(s.getEventDate().getTime()),
-                                              Integer.toString(s.getCategory().ordinal()),
-                                              s.getSpecificCategory(),
-                                              s.getImagePaths()});
+            if (alsoToDatabase)
+                scoreDbHelper.getWritableDatabase()
+                             .execSQL("insert into Score (des, value, subtable, createDate, "
+                                      + "modifyDate, eventDate, category, detail, ps, images) values "
+                                      + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                      new String[]{s.getDescription(),
+                                                   String.format("%+.1f", s.getValue()),
+                                                   Integer.toString(s.getSubtable()),
+                                                   Long.toString(s.getCreateDate().getTime()),
+                                                   Long.toString(s.getLastModifiedDate().getTime()),
+                                                   Long.toString(s.getEventDate().getTime()),
+                                                   Integer.toString(s.getCategory().ordinal()),
+                                                   s.getSpecificCategory(),
+                                                   s.getComment(),
+                                                   s.getImagePaths()});
+            Log.d("sneezer", "insertScores: success " + s.getDescription());
 
             switch (s.getCategory()) {
                 case DEYU:
@@ -272,7 +285,7 @@ public class HelperActivity extends AppCompatActivity implements
         ArrayList<Score> data = new ArrayList<>();
         if (hasData = cur.moveToFirst()) {
             final int c_id = cur.getColumnIndex("id");
-            final int c_des = cur.getColumnIndex("text");
+            final int c_des = cur.getColumnIndex("des");
             final int c_val = cur.getColumnIndex("value");
             final int c_st = cur.getColumnIndex("subtable");
             final int c_crD = cur.getColumnIndex("createDate");
@@ -314,7 +327,7 @@ public class HelperActivity extends AppCompatActivity implements
             } while (cur.moveToNext());
         }
         cur.close();
-        insertScores(data);
+        insertScores(data, false);
         if (hasData)
             Snackbar.make(mCoordLayout,
                           getString(R.string.nonempty_subtable_text),

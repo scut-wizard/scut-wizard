@@ -3,7 +3,6 @@ package com.scut.scutwizard.ScoreHelper;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +29,9 @@ public class StatsFragment extends Fragment {
     public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
     private static final String                        ARG_CATEGORY = "category";
     private              int                           mCategory;
-    private              ArrayList<Score>              mScores;
     private              OnFragmentInteractionListener mListener;
     private              RecyclerView                  mRowsView;
+    private              ScoreRowAdapter               mAdapter     = new ScoreRowAdapter();
     //    private BottomAppBar mStatsBar;
     private              View                          view;
 
@@ -55,17 +54,17 @@ public class StatsFragment extends Fragment {
         return fragment;
     }
 
-    void setData(ArrayList<Score> data) {
-        mScores = data;
+    void setData(ArrayList<Score> newScores) {
+        mAdapter.setData(newScores);
+        if (mRowsView != null)
+            mRowsView.setAdapter(mAdapter);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null)
             mCategory = getArguments().getInt(ARG_CATEGORY);
-            Log.d("StatsFragment", "onCreate: " + mCategory);
-        }
     }
 
     @Override
@@ -116,8 +115,7 @@ public class StatsFragment extends Fragment {
 //            tmp.setValue(random.nextDouble() * 10 - 5);
 //            scoreList.add(tmp);
 //        }
-        ScoreRowAdapter adapter = new ScoreRowAdapter(mScores);
-        mRowsView.setAdapter(adapter);
+        mRowsView.setAdapter(mAdapter);
 
         /* BottomBar */
 //        mStatsBar.setSubtitle(getCategoryName(mCategory));
@@ -155,7 +153,7 @@ public class StatsFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                                       + " must implement OnFragmentInteractionListener");
         }
     }
 

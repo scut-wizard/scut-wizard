@@ -42,6 +42,7 @@ import java.util.StringJoiner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * @author MinutesSneezer
@@ -225,6 +226,24 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         score.setComment(comment);
         score.setSubtable(subtable);
         score.setImagePaths(filenames);
+
+        ArrayList<Score> tmpArr = new ArrayList<>();
+        tmpArr.add(score);
+        insertScores(tmpArr);
+        destroyMyself();
+    }
+
+
+    public void destroyMyself() {
+        this.dismiss();
+        if (fPhoto != null) {
+            FragmentManager fragmentManager = fetchFragManager();
+            if (fragmentManager != null && !fragmentManager.isDestroyed()) {
+                final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(fPhoto).commit();
+                fPhoto = null;
+            }
+        }
     }
 
     @Override
@@ -233,7 +252,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
             final View view = error.getView();
             final String message = error.getCollatedErrorMessage(mContext);
 
-            // Display error messages ;)
+            // Display first line of every error message
             if (view instanceof EditText) {
                 final EditText et = (EditText) view;
                 if (et.getError() == null)

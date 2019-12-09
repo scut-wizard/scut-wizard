@@ -1,5 +1,6 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,20 @@ import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHolder> {
     private List<Score> mScoreList;
+
+    public ScoreRowAdapter() {
+        this.mScoreList = new ArrayList<>();
+    }
 
     public ScoreRowAdapter(List<Score> scoreList) {
         this.mScoreList = scoreList;
@@ -28,6 +36,40 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                                   .inflate(R.layout.fragment_score_row, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
+    }
+
+    void setData(ArrayList<Score> newScores) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return mScoreList == null ? 0 : mScoreList.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return newScores == null ? 0 : newScores.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                Score score = mScoreList.get(oldItemPosition);
+                Score newScore = newScores.get(newItemPosition);
+                return score.getId() == newScore.getId();
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                Score score = mScoreList.get(oldItemPosition);
+                Score newScore = newScores.get(newItemPosition);
+                return score.equals(newScore);
+            }
+        }, true);
+        this.mScoreList = newScores;
+        int id = new Random().nextInt(100);
+        for (Score s : mScoreList) {
+            Log.d("sneezer", "adapter setData: " + id + " " + s.getId());
+        }
+        diffResult.dispatchUpdatesTo(ScoreRowAdapter.this);
     }
 
     @Override
