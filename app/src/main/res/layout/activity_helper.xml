@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/helper_coord_layout"
-    android:fitsSystemWindows="true"
-    tools:context=".ScoreHelper.HelperActivity">
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     xmlns:tools="http://schemas.android.com/tools"
+                                                     android:id="@+id/helper_coord_layout"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent"
+                                                     android:fitsSystemWindows="true"
+                                                     tools:context=".ScoreHelper.HelperActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             app:layout_scrollFlags="exitUntilCollapsed|scroll">
 
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true">
@@ -36,66 +36,151 @@
                     app:shader_startcolor="@color/colorPrimaryTransparent"
                     app:shader_style="Center" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/helper_deyu_label"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="14sp">
+                    android:layout_marginLeft="40sp"
+                    android:layout_marginTop="40sp"
+                    android:text="@string/deyu"
+                    android:textColor="#fff"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:layout_margin="20sp"
-                        android:text="合计: 1"
-                        android:textColor="#fff" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/helper_deyu_ticker"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/default_value"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/total_ticker_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/subtable_spinner"
+                    app:layout_constraintLeft_toLeftOf="@id/helper_deyu_label"
+                    app:layout_constraintTop_toBottomOf="@id/helper_deyu_label"
+                    app:ticker_animationDuration="1200"
+                    app:ticker_defaultCharacterList="number" />
 
-                    <com.rey.material.widget.Spinner
-                        android:id="@+id/subtable_spinner"
-                        style="@style/Material.Widget.Spinner"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_margin="10dp"
-                        android:dropDownWidth="wrap_content"
-                        app:spn_arrowAnimDuration="200"
-                        app:spn_arrowColor="@color/white_transparent"
-                        app:spn_arrowSwitchMode="true"
-                        app:spn_dividerColor="@android:color/transparent" />
+                <View
+                    android:id="@+id/helper_de_zhi_divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/divider_space"
+                    android:background="@color/white_transparent"
+                    app:layout_constraintBottom_toBottomOf="@id/helper_deyu_ticker"
+                    app:layout_constraintStart_toEndOf="@id/helper_deyu_ticker"
+                    app:layout_constraintTop_toTopOf="@id/helper_deyu_label" />
+
+                <TextView
+                    android:id="@+id/helper_zhiyu_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/divider_space"
+                    android:text="@string/zhiyu"
+                    android:textColor="#fff"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/helper_de_zhi_divider"
+                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_label" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/helper_zhiyu_ticker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/default_value"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/total_ticker_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/subtable_spinner"
+                    app:layout_constraintLeft_toLeftOf="@id/helper_zhiyu_label"
+                    app:layout_constraintTop_toBottomOf="@id/helper_zhiyu_label"
+                    app:ticker_animationDuration="1200"
+                    app:ticker_defaultCharacterList="number" />
+
+                <View
+                    android:id="@+id/helper_zhi_ti_divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/divider_space"
+                    android:background="@color/white_transparent"
+                    app:layout_constraintBottom_toBottomOf="@id/helper_deyu_ticker"
+                    app:layout_constraintStart_toEndOf="@id/helper_zhiyu_ticker"
+                    app:layout_constraintTop_toTopOf="@id/helper_deyu_label" />
+
+                <TextView
+                    android:id="@+id/helper_wenti_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/divider_space"
+                    android:text="@string/wenti"
+                    android:textColor="#fff"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/helper_zhi_ti_divider"
+                    app:layout_constraintTop_toTopOf="@+id/helper_deyu_label" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/helper_wenti_ticker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/default_value"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/total_ticker_textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/subtable_spinner"
+                    app:layout_constraintLeft_toLeftOf="@id/helper_wenti_label"
+                    app:layout_constraintTop_toBottomOf="@id/helper_wenti_label"
+                    app:ticker_animationDuration="1200"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.rey.material.widget.Spinner
+                    android:id="@+id/subtable_spinner"
+                    style="@style/Material.Widget.Spinner"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20sp"
+                    android:dropDownWidth="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/helper_tab_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:spn_arrowAnimDuration="200"
+                    app:spn_arrowColor="@color/white_transparent"
+                    app:spn_arrowSwitchMode="true"
+                    app:spn_dividerColor="@android:color/transparent" />
 
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/helper_tab_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/helper_tab_height"
-                        app:tabBackground="@android:color/transparent"
-                        app:tabGravity="fill"
-                        app:tabIndicatorColor="@color/colorAccent"
-                        app:tabMode="fixed"
-                        app:tabRippleColor="@color/colorPrimaryDarkTransparent"
-                        app:tabSelectedTextColor="#fff"
-                        app:tabTextColor="@color/white_transparent">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/helper_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/helper_tab_height"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:tabBackground="@android:color/transparent"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@color/colorPrimaryDarkTransparent"
+                    app:tabSelectedTextColor="#fff"
+                    app:tabTextColor="@color/white_transparent">
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/helper_deyu_tab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/helper_zhiyu_tab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/helper_wenti_tab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                    </com.google.android.material.tabs.TabLayout>
-                </LinearLayout>
-            </FrameLayout>
+                </com.google.android.material.tabs.TabLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

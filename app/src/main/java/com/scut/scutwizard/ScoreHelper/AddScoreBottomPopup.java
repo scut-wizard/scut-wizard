@@ -176,6 +176,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         int category = sCat.getSelectedItemPosition();
         double value = Double.valueOf(iValue.getText().toString());
         Date now = new Date();
+        Date eventDate = mEventCalendar.getTime();
         String specificCategory = iDet.getValue();
         String comment = iPs.getText().toString().trim();
         int subtable = fetchSubtable();
@@ -221,7 +222,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         score.setValue(value);
         score.setCreateDate(now);
         score.setLastModifiedDate(now);
-        score.setEventDate(now);
+        score.setEventDate(eventDate);
         score.setSpecificCategory(specificCategory);
         score.setComment(comment);
         score.setSubtable(subtable);

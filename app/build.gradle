@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.android.support:design:29.2.1'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
     // implementation 'com.android.support:design:27.1.1'
     // implementation 'com.android.support:support-v4:27.1.1'
 }

@@ -1,4 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="helper_tab_height">50dp</dimen>
+    <dimen name="divider_space">25sp</dimen>
+    <dimen name="total_ticker_textSize">50sp</dimen>
 </resources>

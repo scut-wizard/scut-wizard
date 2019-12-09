@@ -1,11 +1,15 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
@@ -98,6 +102,23 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            final Context mContext = itemView.getContext();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "Ouch", Toast.LENGTH_SHORT).show();
+                }
+            });
+            final XPopup.Builder builder = new XPopup.Builder(mContext).watchView(itemView);
+            itemView.setOnLongClickListener(v -> {
+                builder.asAttachList(new String[]{"详细信息...", "删除"}, null, new OnSelectListener() {
+                    @Override
+                    public void onSelect(int position, String text) {
+                        Toast.makeText(mContext, position + text, Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
+                return true;
+            });
             itemDescription = itemView.findViewById(R.id.textView_description);
             itemDate = itemView.findViewById(R.id.textView_eventDate);
 //            itemValue = itemView.findViewById(R.id.textView_value);

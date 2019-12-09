@@ -16,6 +16,7 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.ocnyang.contourview.ContourView;
 import com.rey.material.widget.Spinner;
+import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
 import com.scut.scutwizard.ScoreHelper.Score.Category;
 
@@ -48,6 +49,7 @@ public class HelperActivity extends AppCompatActivity implements
     private int                  selectedSubtableId = 0;
     private StatsFragment        deFrag, zhiFrag, tiFrag;
     private ArrayList<Score> deData, zhiData, tiData;
+    private TickerView deTicker, zhiTicker, tiTicker;
 
     private boolean       isPopupShown = false;
     private BasePopupView mPopup;
@@ -63,13 +65,15 @@ public class HelperActivity extends AppCompatActivity implements
 
         mCoordLayout = findViewById(R.id.helper_coord_layout);
 
-        /* Init ArrayLists */
+        /* Init */
 
         deData = new ArrayList<>();
         zhiData = new ArrayList<>();
         tiData = new ArrayList<>();
 
-        /* Init Fragments */
+        deTicker = findViewById(R.id.helper_deyu_ticker);
+        zhiTicker = findViewById(R.id.helper_zhiyu_ticker);
+        tiTicker = findViewById(R.id.helper_wenti_ticker);
 
         deFrag = StatsFragment.newInstance(StatsFragment.CATEGORY_DE);
         zhiFrag = StatsFragment.newInstance(StatsFragment.CATEGORY_ZHI);
@@ -120,7 +124,7 @@ public class HelperActivity extends AppCompatActivity implements
 
         mSpinner.setOnItemSelectedListener((Spinner parent, View view, int position, long id) -> {
             selectedSubtableId = subtableIds.get(position);
-            handleIdChange(score_db, selectedSubtableId);
+            handleIdChange(score_db, selectedSubtableId, false);
         });
 
         /* Tab & ViewPager */
@@ -132,7 +136,7 @@ public class HelperActivity extends AppCompatActivity implements
         mTabAdapter.addFragment(deFrag, getString(R.string.deyu));
         mTabAdapter.addFragment(zhiFrag, getString(R.string.zhiyu));
         mTabAdapter.addFragment(tiFrag, getString(R.string.wenti));
-        handleIdChange(score_db, selectedSubtableId);
+        handleIdChange(score_db, selectedSubtableId, true);
 
         vp.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(vp);
@@ -237,8 +241,7 @@ public class HelperActivity extends AppCompatActivity implements
                              .execSQL("insert into Score (des, value, subtable, createDate, "
                                       + "modifyDate, eventDate, category, detail, ps, images) values "
                                       + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                      new String[]{s.getDescription(),
-                                                   String.format("%+.1f", s.getValue()),
+                                      new String[]{s.getDescription(), roundValue(s.getValue()),
                                                    Integer.toString(s.getSubtable()),
                                                    Long.toString(s.getCreateDate().getTime()),
                                                    Long.toString(s.getLastModifiedDate().getTime()),
@@ -265,16 +268,35 @@ public class HelperActivity extends AppCompatActivity implements
         Collections.sort(deData, scoreCmp);
         Collections.sort(zhiData, scoreCmp);
         Collections.sort(tiData, scoreCmp);
-        updateFragment();
+        applyData();
     }
 
-    public void updateFragment() {
+    private String roundValue(double value) {
+        return String.format("%+.1f", value);
+    }
+
+    public void applyData() {
+        double deSum = 0d; // D2-|D3|
+        for (Score s : deData)
+            deSum += s.getValue();
+        deTicker.setText(roundValue(deSum), true);
+
+        double zhiSum = 0d;
+        for (Score s : zhiData)
+            zhiSum += s.getValue();
+        zhiTicker.setText(roundValue(zhiSum), true);
+
+        double tiSum = 0d;
+        for (Score s : tiData)
+            tiSum += s.getValue();
+        tiTicker.setText(roundValue(tiSum), true);
+
         deFrag.setData(deData);
         zhiFrag.setData(zhiData);
         tiFrag.setData(tiData);
     }
 
-    private void handleIdChange(@NonNull SQLiteDatabase db, int id) {
+    private void handleIdChange(@NonNull SQLiteDatabase db, int id, boolean isInit) {
         deData.clear();
         zhiData.clear();
         tiData.clear();
@@ -329,13 +351,14 @@ public class HelperActivity extends AppCompatActivity implements
         cur.close();
         insertScores(data, false);
         if (hasData)
-            Snackbar.make(mCoordLayout,
-                          getString(R.string.nonempty_subtable_text),
-                          Snackbar.LENGTH_LONG).show();
-        else
-            Snackbar.make(mCoordLayout,
-                          getString(R.string.empty_subtable_text),
-                          Snackbar.LENGTH_LONG).show();
+            if (!isInit)
+                Snackbar.make(mCoordLayout,
+                              getString(R.string.nonempty_subtable_text),
+                              Snackbar.LENGTH_LONG).show();
+            else
+                Snackbar.make(mCoordLayout,
+                              getString(R.string.empty_subtable_text),
+                              Snackbar.LENGTH_LONG).show();
     }
 
     private void resetDatabase() {
@@ -350,6 +373,5 @@ public class HelperActivity extends AppCompatActivity implements
 
     @Override
     public void onFragmentInteraction(@NonNull Uri uri) {
-        Toast.makeText(HelperActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
     }
 }
