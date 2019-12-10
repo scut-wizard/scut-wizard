@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
 import com.lxj.xpopup.XPopup;
-import com.scut.scutwizard.Note.DateHelper;
+import com.scut.scutwizard.Helpers.DateHelper;
 import com.scut.scutwizard.Note.EventItemFrag;
 import com.scut.scutwizard.Note.NoteActivity;
 import com.scut.scutwizard.ScoreHelper.HelperActivity;
@@ -48,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
                                                                            () -> new XPopup.Builder(
                                                                                    MainActivity.this)
                                                                                    .asConfirm(
-                                                                                           "作业岂是如此不便之物？",
-                                                                                           "*　鼓励语加载完成。",
+                                                                                           "其实并没有这个功能",
+                                                                                           "如果你开发出来了，请务必告诉我们。",
                                                                                            "",
-                                                                                           "确实",
+                                                                                           "OKK",
                                                                                            () -> {},
                                                                                            () -> {},
                                                                                            true)
                                                                                    .show());
                     break;
                 case R.id.navigation_about:
-                    new XPopup.Builder(MainActivity.this).asConfirm("",
+                    new XPopup.Builder(MainActivity.this).asConfirm("关于",
                                                                     "两个主要功能「DDL 助手」和「综测助手」都是在生产实践中…不是，都是在学习生活中由经验教训获得的灵感，使用完多来反馈噢！\n\n华南理工大学 郭佳鑫&郑俊豪 2019.12",
                                                                     "",
                                                                     "关闭",

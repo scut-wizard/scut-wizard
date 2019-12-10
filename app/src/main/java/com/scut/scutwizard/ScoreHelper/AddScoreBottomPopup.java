@@ -15,12 +15,18 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.adapter.ViewDataAdapter;
+import com.mobsandgeeks.saripaar.annotation.AssertTrue;
 import com.mobsandgeeks.saripaar.annotation.DecimalMax;
 import com.mobsandgeeks.saripaar.annotation.DecimalMin;
+import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.exception.ConversionException;
 import com.rey.material.widget.Button;
+import com.scut.scutwizard.Helpers.FileHelper;
+import com.scut.scutwizard.Helpers.StringHelper;
 import com.scut.scutwizard.R;
 import com.scut.scutwizard.ScoreHelper.ScoreImage.LocalMediaDbUtil;
 import com.scut.scutwizard.ScoreHelper.ScoreImage.PhotoFragment;
@@ -29,8 +35,6 @@ import com.z2wenfa.spinneredittext.SpinnerEditText;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -39,7 +43,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
-import java.util.StringJoiner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -64,15 +67,19 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
                                                                  "接见瑞典环保大使"};
     private static final List<String> DT_EXAMPLES = Arrays.asList("班级;院级;校级;区级;市级;省级;国家级;世界级".split(
             ";"));
+
     @NotEmpty(message = "必填")
     @Length(max = 20, message = "不能超过20字!", trim = true)
     @Order(1)
-    private              EditText     iDesc;
+    private EditText iDesc;
+
     @NotEmpty(message = "必填", sequence = 1)
-    @DecimalMax(value = 21., message = "加太多啦", sequence = 2)
-    @DecimalMin(value = -60., message = "扣太多啦", sequence = 3)
+    @Digits(integer = 2, sequence = 2, message = "请输入数字")
+    @AssertTrue(sequence = 3, message = "不能为零")
+    @DecimalMax(value = 21., message = "加太多啦", sequence = 4)
+    @DecimalMin(value = -60., message = "扣太多啦", sequence = 5)
     @Order(2)
-    private              EditText     iValue;
+    private EditText iValue;
 
     //    @NotEmpty(message = "必选")
     private Spinner sCat;// 归属
@@ -176,8 +183,25 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         iPs = findViewById(R.id.popup_ps_input);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        validator.registerAdapter(SpinnerEditText.class, SpinnerEditText::getValue);
+        validator.registerAdapter(SpinnerEditText.class,
+                                  new ViewDataAdapter<SpinnerEditText, String>() {
+                                      @Override
+                                      public String getData(SpinnerEditText spinnerEditText) throws
+                                              ConversionException {
+                                          return spinnerEditText.getValue();
+                                      }
+                                  });
 //        validator.registerAdapter(Spinner.class, view -> view.getSelectedItem().toString());
+        validator.registerAdapter(EditText.class, new ViewDataAdapter<EditText, Boolean>() {
+            @Override
+            public Boolean getData(EditText view) throws ConversionException {
+                try {
+                    return Double.valueOf(view.getText().toString()) != 0;
+                } catch (Exception e) {
+                    return true;
+                }
+            }
+        });
         bConfirm = findViewById(R.id.popup_confirm_btn);
         bConfirm.setOnClickListener(view -> validator.validate());
     }
@@ -195,41 +219,33 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         String comment = iPs.getText().toString().trim();
         int subtable = fetchSubtable();
 
+        String filenameStr = "";
         List<LocalMedia> images = fPhoto.getSelectList();
-        StringJoiner sj = new StringJoiner(";");
-//        String.join(";",); TODO: fix api
-        LocalMediaDbUtil lmHelper = new LocalMediaDbUtil(mContext);
-        final File DATA_DIR = lmHelper.getDataDir();
-        for (LocalMedia img : images) {
-            try {
-//                File f = new File(img.getCompressPath());
-                File tmp = File.createTempFile("", ".jpeg", DATA_DIR);
-                final String TMP_PATH = tmp.getPath();
-                Files.copy(Paths.get(img.getCompressPath()), Paths.get(TMP_PATH));
-                final String TMP_FILENAME = tmp.getName();
-                sj.add(TMP_FILENAME);
-//                long size = f.length();
-//                if (size > Integer.MAX_VALUE) {
-//                    Toast.makeText(mContext, "文件过大!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                FileInputStream fs = new FileInputStream(f);
-//                byte[] buffer = new byte[(int) size];
-//                int offset = 0;
-//                int numRead;
-//                while (offset < buffer.length
-//                       && (numRead = fs.read(buffer, offset, buffer.length - offset)) >= 0)
-//                    offset += numRead;
-//                if (offset != buffer.length)
-//                    throw new IOException();
-//                fs.close();
-            } catch (IOException e) {
-                Toast.makeText(mContext, "读取文件出现问题，请大侠重新来过", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-                return;
+        if (!images.isEmpty()) {
+            ArrayList<String> filenames = new ArrayList<>();
+            LocalMediaDbUtil lmHelper = new LocalMediaDbUtil(mContext);
+            final File DATA_DIR = lmHelper.getDataDir();
+            for (LocalMedia img : images) {
+                try {
+                    // src file
+                    File f = new File(img.getCompressPath());
+
+                    // dest file
+                    File tmp = File.createTempFile("", ".jpeg", DATA_DIR);
+//                final String TMP_PATH = tmp.getPath();
+                    final String TMP_FILENAME = tmp.getName();
+
+//                Files.copy(Paths.get(img.getCompressPath()), Paths.get(TMP_PATH));
+                    if (!FileHelper.copy(f, tmp))
+                        throw new IOException();
+                    filenames.add(TMP_FILENAME);
+                } catch (IOException e) {
+                    Toast.makeText(mContext, "读取文件出现问题，请大侠重新来过", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
+            filenameStr = StringHelper.join(";", filenames);
         }
-        final String filenames = sj.toString();
 
         Score score = new Score();
         score.setDescription(description);
@@ -241,7 +257,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         score.setSpecificCategory(specificCategory);
         score.setComment(comment);
         score.setSubtable(subtable);
-        score.setImagePaths(filenames);
+        score.setImagePaths(filenameStr);
 
         ArrayList<Score> tmpArr = new ArrayList<>();
         tmpArr.add(score);

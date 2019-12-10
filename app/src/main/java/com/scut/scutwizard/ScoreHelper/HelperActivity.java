@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -33,6 +32,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import static com.scut.scutwizard.ScoreHelper.Score.Category.values;
+
+/**
+ * @author MinutesSneezer
+ * Date: 2019/12
+ */
 
 public class HelperActivity extends AppCompatActivity implements
         StatsFragment.OnFragmentInteractionListener {
@@ -248,9 +252,18 @@ public class HelperActivity extends AppCompatActivity implements
                                                         });
     }
 
-    protected void insertScores(@NonNull ArrayList<Score> scores, boolean alsoToDatabase) {
+    protected void deleteScores(@NonNull Iterable<Integer> scoreIDs) {
+        for (int id : scoreIDs) {
+            scoreDbHelper.getWritableDatabase()
+                         .execSQL("delete from Score where id = ?",
+                                  new String[]{Integer.toString(id)});
+        }
+        Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT);
+    }
+
+    protected void insertScores(@NonNull Iterable<Score> scores, boolean alsoToDatabase) {
         for (Score s : scores) {
-            if (alsoToDatabase)
+            if (alsoToDatabase) {
                 scoreDbHelper.getWritableDatabase()
                              .execSQL("insert into Score (des, value, subtable, createDate, "
                                       + "modifyDate, eventDate, category, detail, ps, images) values "
@@ -264,8 +277,7 @@ public class HelperActivity extends AppCompatActivity implements
                                                    s.getSpecificCategory(),
                                                    s.getComment(),
                                                    s.getImagePaths()});
-            Log.d("sneezer", "insertScores: success " + s.getDescription());
-
+            }
             switch (s.getCategory()) {
                 case DEYU:
                     deData.add(s);
@@ -278,11 +290,7 @@ public class HelperActivity extends AppCompatActivity implements
                     break;
             }
         }
-        Score.ScoreComparator scoreCmp = new Score.ScoreComparator();
-        Collections.sort(deData, scoreCmp);
-        Collections.sort(zhiData, scoreCmp);
-        Collections.sort(tiData, scoreCmp);
-        applyData();
+        this.applyData();
     }
 
     private String roundValue(double value) {
@@ -290,6 +298,13 @@ public class HelperActivity extends AppCompatActivity implements
     }
 
     public void applyData() {
+        Score.ScoreComparator scoreCmp = new Score.ScoreComparator();
+        Collections.sort(deData, scoreCmp);
+        Collections.sort(zhiData, scoreCmp);
+        Collections.sort(tiData, scoreCmp);
+
+        /* Calculate Sum */
+
         double deSum = 0d; // D2-|D3|
         for (Score s : deData)
             deSum += s.getValue();
@@ -304,6 +319,8 @@ public class HelperActivity extends AppCompatActivity implements
         for (Score s : tiData)
             tiSum += s.getValue();
         tiTicker.setText(roundValue(tiSum), true);
+
+        /* Update Fragment */
 
         deFrag.setData(deData);
         zhiFrag.setData(zhiData);

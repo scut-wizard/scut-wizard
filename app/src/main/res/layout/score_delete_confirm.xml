@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="#eee"
+              android:orientation="vertical"
+              android:padding="20sp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="20sp"
+        android:text="确定删除记录?" />
+
+    <com.shitij.goyal.slidebutton.SwipeButton
+        android:id="@+id/delete_confirm_swipe"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20sp"
+        android:background="#999"
+        android:gravity="center"
+        android:padding="3sp"
+        android:text="右划以确认删除"
+        android:textColor="#fff"
+        app:button_confirm_text="已确认，即将删除..."
+        app:gradient_color_1="#f00"
+        app:gradient_color_2="#eee"
+        app:gradient_color_2_width="50sp"
+        app:gradient_color_3="#0f0"
+        app:threshold="1.0" />
+
+    <Button
+        android:id="@+id/delete_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="点错了" />
+
+</LinearLayout>

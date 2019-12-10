@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.scut.scutwizard.R;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class ScoreDatabaseHelper extends SQLiteOpenHelper {
     public static final String  CREATE_SCORE    = "create table Score (\n"
@@ -27,12 +26,9 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
                                                   + "    name text not null)";
     public static final String  INIT_SUBTABLE   = "insert into Subtable (id, name) values(?, ?)";
     static final        String  DB_FILENAME     = "score.db";
-    @Nullable
     private             Context mContext;
 
-    public ScoreDatabaseHelper(@Nullable Context context,
-                               @Nullable String name,
-                               @Nullable SQLiteDatabase.CursorFactory factory,
+    public ScoreDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
                                int version) {
         super(context, name, factory, version);
         mContext = context;

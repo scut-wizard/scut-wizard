@@ -1,7 +1,6 @@
 package com.scut.scutwizard.ScoreHelper;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.scut.scutwizard.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -68,10 +66,10 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
             }
         }, true);
         this.mScoreList = newScores;
-        int id = new Random().nextInt(100);
-        for (Score s : mScoreList) {
-            Log.d("sneezer", "adapter setData: " + id + " " + s.getId());
-        }
+//        int id = new Random().nextInt(100);
+//        for (Score s : mScoreList) {
+//            Log.d("sneezer", "Adapter setData: " + id + " " + s.getId());
+//        }
         diffResult.dispatchUpdatesTo(ScoreRowAdapter.this);
     }
 
@@ -79,6 +77,8 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Score score = mScoreList.get(position);
         final double value = score.getValue();
+        holder.itemId = score.getId();
+        holder.itemCategory = score.getCategory().ordinal();
         if (value >= 0)
             holder.itemValue.setTextColor(R.color.colorPrimary);
         else
@@ -98,6 +98,7 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemDescription, itemDate;//, itemValue;
         TickerView itemValue;
+        int        itemId, itemCategory;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -141,7 +142,10 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                                                                                                   .show());
                                                       break;
                                                   case 2:
-                                                      break;
+                                                      new XPopup.Builder(mContext).asCustom(new DeleteScoreConfirmPopup(
+                                                              mContext,
+                                                              itemId,
+                                                              itemCategory)).show();
                                               }
                                           }).show();
                 return true;
