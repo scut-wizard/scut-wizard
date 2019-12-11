@@ -88,6 +88,7 @@ public class MapActivity extends AppCompatActivity {
 
             isfirstLocate=false;
         }
+        Toast.makeText(MapActivity.this,"当前位置 ("+location.getLatitude()+","+location.getLongitude()+")",Toast.LENGTH_SHORT).show();
         MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
         locationBuilder.latitude(location.getLatitude());
         locationBuilder.longitude(location.getLongitude());
@@ -160,7 +161,7 @@ public class MapActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_note_return:
-                Intent intent_return = new Intent(MapActivity.this, NoteActivity.class);
+                Intent intent_return = new Intent(MapActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent_return);
                 break;
