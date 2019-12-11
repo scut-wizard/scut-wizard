@@ -28,6 +28,7 @@
             android:layout_height="19dp"
             android:text="xxxxxxxxxxxxxxx" />
 
+
         <com.rey.material.widget.RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -47,6 +48,19 @@
             </fragment>
 
         </com.rey.material.widget.RelativeLayout>
+
+        <TextView
+            android:id="@+id/positionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+        <!--
+        用于测试contentProvider
+        <Button
+            android:id="@+id/add_button_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />-->
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

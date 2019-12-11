@@ -50,10 +50,8 @@ public class NoteActivity extends AppCompatActivity {
         //从数据库中读取所有event，生成 event list
         NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(NoteActivity.this, "event_db", null, 1);
         SQLiteDatabase note_db = dbHelper.getWritableDatabase();
-        //创建游标对象
         Cursor cursor = note_db.query("event_table", null, null, null, null, null, sortStr);
-        //利用游标遍历所有数据对象
-        if(cursor.moveToFirst()){
+        if(cursor.moveToFirst()){//利用游标遍历所有数据对象
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
@@ -69,9 +67,7 @@ public class NoteActivity extends AppCompatActivity {
                     event.setId(id);
                     event.setStep(step);
                     eventList.add(event);
-
                 }
-
             } while (cursor.moveToNext());
         }
         cursor.close();
