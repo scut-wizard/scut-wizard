@@ -8,7 +8,7 @@
                                            android:fitsSystemWindows="true"
                                            tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -16,32 +16,51 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/main_ba_layout"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:background="@drawable/main_bg_scut"
             android:fitsSystemWindows="true"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/slogan_tv_head"
             android:layout_width="match_parent"
-            android:layout_height="19dp"
-            android:text="xxxxxxxxxxxxxxx" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_ba_layout"
+            android:padding="2dp"
+            android:text="今日鸡汤" />
+
+        <TextView
+            android:id="@+id/slogan_tv"
+            android:layout_below="@+id/slogan_tv_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="xxxxxxxxxxxxxxx"
+            android:textSize="16sp" />
 
 
         <com.rey.material.widget.RelativeLayout
+            android:layout_below="@+id/slogan_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-
+                android:id="@+id/main_note_frag_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="最近待办事项" />
+                android:padding="2dp"
+                android:text="今日待办" />
 
             <fragment
                 android:id="@+id/main_note_frag"
                 android:name="com.scut.scutwizard.Note.EventItemFrag"
+                android:layout_below="@+id/main_note_frag_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -57,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />-->
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

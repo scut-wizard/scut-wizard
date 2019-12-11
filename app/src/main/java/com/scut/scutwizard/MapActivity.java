@@ -88,7 +88,7 @@ public class MapActivity extends AppCompatActivity {
 
             isfirstLocate=false;
         }
-        Toast.makeText(MapActivity.this,"当前位置 ("+location.getLatitude()+","+location.getLongitude()+")",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapActivity.this,"当前位置 ("+location.getLatitude()+","+location.getLongitude()+")",Toast.LENGTH_SHORT).show();
         MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
         locationBuilder.latitude(location.getLatitude());
         locationBuilder.longitude(location.getLongitude());
@@ -126,10 +126,13 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
         bmapview.onResume();
+
     }
 
     @Override

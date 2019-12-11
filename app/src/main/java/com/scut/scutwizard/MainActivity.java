@@ -2,10 +2,12 @@ package com.scut.scutwizard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.lxj.xpopup.XPopup;
 import com.scut.scutwizard.Helpers.DateHelper;
+import com.scut.scutwizard.Helpers.StringHelper;
 import com.scut.scutwizard.Note.EventItemFrag;
 import com.scut.scutwizard.Note.NoteActivity;
 import com.scut.scutwizard.ScoreHelper.HelperActivity;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout  mDrawerLayout;
     private EventItemFrag main_note_frag;
-
+    private TextView slogan_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         main_note_frag = (EventItemFrag) getSupportFragmentManager().findFragmentById(R.id.main_note_frag);
+        slogan_tv = findViewById(R.id.slogan_tv);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
@@ -77,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         //更新数据库
         new DateHelper().updateDaysLeft(MainActivity.this);
         main_note_frag.refresh();
+        //更新标语
+        String slogan;
+        slogan = new StringHelper().newSlogan();
+        slogan_tv.setText(slogan);
 
 //以下代码用于测试contentProvider
 //
