@@ -56,7 +56,7 @@
             android:label="统计信息" />
         <activity
             android:name=".MapActivity"
-            android:label="MapActivity" />
+            android:label="校园地图" />
 
         <provider
             android:name=".Note.EventDataProvider"
