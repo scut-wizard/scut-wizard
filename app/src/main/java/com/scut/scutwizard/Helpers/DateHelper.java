@@ -16,11 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class DateHelper {
-    public int calcuDateDiffFromToday(@NonNull Date date2) {
+    public double calcuDateDiffFromToday(@NonNull Date date2) {
 
         Date date1 = new Date();
         long days = (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
-        return (int) days;
+        return  days;
     }
 
     @Nullable
@@ -55,8 +55,8 @@ public class DateHelper {
                 //只更新未完成事件
                 if (progress < 100) {
                     //计算DDL与当前日期距离天数
-                    newDaysLeft = new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(
-                            ddl_str));
+                    newDaysLeft = (int)(new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(
+                            ddl_str)));
                     //Toast.makeText(AddEventActivity.this,daysLeft+"",Toast.LENGTH_SHORT).show();
                     if (newDaysLeft != daysLeft) {
                         //ddl已过但是未完成任务

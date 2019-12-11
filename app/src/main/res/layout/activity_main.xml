@@ -49,11 +49,7 @@
 
         </com.rey.material.widget.RelativeLayout>
 
-        <TextView
-            android:id="@+id/positionText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+
         <!--
         用于测试contentProvider
         <Button

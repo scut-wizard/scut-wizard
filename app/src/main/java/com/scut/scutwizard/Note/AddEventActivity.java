@@ -60,7 +60,7 @@ public class AddEventActivity extends AppCompatActivity {
                     String name = add_event_et_name.getText().toString();
                     double progress = parseDouble(add_event_et_progress.getText().toString());
                     int step = parseInt(add_event_et_step.getText().toString());
-                    int daysLeft;
+                    double daysLeft;
                     double rating;
 
                     //计算DDL与当前日期距离天数
@@ -72,7 +72,7 @@ public class AddEventActivity extends AppCompatActivity {
                         Toast.makeText(AddEventActivity.this,"完成进度输入0-99的数字",Toast.LENGTH_SHORT).show();
                     }else if(step<1||step>10){
                         Toast.makeText(AddEventActivity.this,"步数输入1-10的整数",Toast.LENGTH_SHORT).show();
-                    }else if(daysLeft<1){
+                    }else if(daysLeft<=0){
                         Toast.makeText(AddEventActivity.this,"输入日期要是将来哟",Toast.LENGTH_SHORT).show();
                     }else{
                         NoteDatabaseHelper dbHelper = new NoteDatabaseHelper(AddEventActivity.this, "event_db", null, 1);
@@ -80,7 +80,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                         ContentValues values = new ContentValues();
                         values.put("name", name);
-                        values.put("daysLeft", daysLeft);
+                        values.put("daysLeft", (int)daysLeft);
                         values.put("progress", progress);
                         values.put("step",step);
                         values.put("DDL",ddlDate_str);

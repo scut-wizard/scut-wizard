@@ -12,6 +12,7 @@
     <string name="menu_course_add">添加课程</string>
     <string name="navigation_helper">综测助手</string>
     <string name="navigation_memo">DDL助手</string>
+    <string name="navigation_map">校园地图</string>
     <string name="navigation_tool">工具</string>
     <string name="navigation_feedback">反馈</string>
     <string name="navigation_setting">设置</string>

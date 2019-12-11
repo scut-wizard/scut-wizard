@@ -18,6 +18,10 @@
             android:id="@+id/navigation_homework"
             android:icon="@drawable/ic_lightbulb_outline_white_24dp"
             android:title="@string/homework_assistant" />
+        <item
+            android:id="@+id/navigation_map"
+            android:icon="@drawable/ic_nav_map"
+            android:title="@string/navigation_map" />
     </group>
 
     <group android:id="@+id/menu_group_nav_other">
