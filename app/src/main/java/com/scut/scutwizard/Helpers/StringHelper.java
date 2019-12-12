@@ -2,6 +2,7 @@ package com.scut.scutwizard.Helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +24,79 @@ public class StringHelper {
         }
         return result.toString();
     }
+    public String getYi(Context context){
+        String yi;
+        int t;
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//设置日期时间格式
+        String today_str = dateFormat.format(today);
+        SharedPreferences pref = context.getSharedPreferences("yi_data",Context.MODE_PRIVATE);
+        String temp_str = pref.getString("yi_data","");
+        SharedPreferences.Editor editor =  context.getSharedPreferences("yi_data",Context.MODE_PRIVATE).edit();
+        Toast.makeText(context,"4",Toast.LENGTH_SHORT).show();
 
+        if(temp_str.equals(today_str)){
+            t=pref.getInt("No.",0);
+            //不同一天//第一次
+        }else{
+            int prev_t=pref.getInt("No.",0);
+            editor.putString("date",today_str);
+            t = new Random().nextInt(7);
+            while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
+                t = new Random().nextInt(7);
+            }
+            editor.putString("date",today_str);
+            editor.putInt("No.",t);
+            editor.apply();
+        }
+
+        Toast.makeText(context,"5",Toast.LENGTH_SHORT).show();
+
+        String[] yi_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
+        String[] yi_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
+
+        yi = yi_1[(int)(t/10)]+" "+yi_2[(int)(t%10)];
+
+        Toast.makeText(context,"6",Toast.LENGTH_SHORT).show();
+        return yi;
+    }
+
+    public String getJi(Context context){
+        String ji;
+        int t;
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//设置日期时间格式
+        String today_str = dateFormat.format(today);
+        SharedPreferences pref = context.getSharedPreferences("ji_data",Context.MODE_PRIVATE);
+        String temp_str = pref.getString("ji_data","");
+        SharedPreferences.Editor editor =  context.getSharedPreferences("ji_data",Context.MODE_PRIVATE).edit();
+
+        Toast.makeText(context,"1",Toast.LENGTH_SHORT).show();
+
+        if(temp_str.equals(today_str)){
+            t=pref.getInt("No.",0);
+            //不同一天//第一次
+        }else{
+            int prev_t=pref.getInt("No.",0);
+            editor.putString("date",today_str);
+            t = new Random().nextInt(100);
+            while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
+                t = new Random().nextInt(100);
+            }
+            editor.putString("date",today_str);
+            editor.putInt("No.",t);
+            editor.apply();
+        }
+
+
+        Toast.makeText(context,"2",Toast.LENGTH_SHORT).show();
+        String[] ji_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
+        String[] ji_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
+
+        ji = ji_1[(int)(t/10)]+" "+ji_2[(int)(t%10)];
+        Toast.makeText(context,"3",Toast.LENGTH_SHORT).show();
+        return ji;
+    }
     public String newSlogan(Context context){
         int t;
         Date today = new Date();
@@ -31,19 +104,24 @@ public class StringHelper {
         String today_str = dateFormat.format(today);
         SharedPreferences pref = context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE);
         String temp_str = pref.getString("slogan_data","");
-        //第一次
-        if(temp_str.equals("")){
-            SharedPreferences.Editor editor =  context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor =  context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE).edit();
+
+
+        if(temp_str.equals(today_str)){
+            t=pref.getInt("No.",0);
+
+        }else{//不同一天//第一次
+            int prev_t=pref.getInt("No.",0);
             editor.putString("date",today_str);
             t = new Random().nextInt(7);
+            while(prev_t==t){
+                t = new Random().nextInt(7);
+            }
+            editor.putString("date",today_str);
             editor.putInt("No.",t);
-            //同一天
-        }else if(temp_str.equals(today_str)){
-            t=pref.getInt("No.",0);
-            //不同一天
-        }else{
-            t = new Random().nextInt(7);
+            editor.apply();
         }
+
 
 
         switch (t){

@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView slogan_tv;
     private TextView coffee_text_tv;
     private ImageView coffee_iv;
+    private TextView ji_str_tv;
+    private TextView yi_str_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         slogan_tv = findViewById(R.id.slogan_tv);
         coffee_text_tv = findViewById(R.id.coffee_text_tv);
         coffee_iv = findViewById(R.id.coffee_iv);
+        ji_str_tv = findViewById(R.id.ji_str_tv);
+        yi_str_tv = findViewById(R.id.yi_str_tv);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
@@ -99,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
         String slogan;
         slogan = new StringHelper().newSlogan(MainActivity.this);
         slogan_tv.setText(slogan);
+        //更新宜忌
+        String ji="",yi="";
+        //yi = new StringHelper().getYi(MainActivity.this);
+        //ji = new StringHelper().getJi(MainActivity.this);
+        ji_str_tv.setText(ji);
+        yi_str_tv.setText(yi);
 
 //以下代码用于测试contentProvider
 //
