@@ -27,13 +27,15 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class StatsFragment extends Fragment {
     public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
-    private static final String                        ARG_CATEGORY = "category";
-    private              int                           mCategory;
-    private              OnFragmentInteractionListener mListener;
-    private              RecyclerView                  mRowsView;
-    private              ScoreRowAdapter               mAdapter     = new ScoreRowAdapter();
+    private static final String ARG_CATEGORY = "category";
+    private              int    mCategory;
+
+    private OnFragmentInteractionListener mListener;
+
+    private RecyclerView    mRowsView;
+    private ScoreRowAdapter mAdapter = new ScoreRowAdapter();
     //    private BottomAppBar mStatsBar;
-    private              View                          view;
+    private View            view;
 
     public StatsFragment() {
         // Required empty public constructor

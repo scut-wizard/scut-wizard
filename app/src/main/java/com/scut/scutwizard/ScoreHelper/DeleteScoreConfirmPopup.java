@@ -1,6 +1,7 @@
 package com.scut.scutwizard.ScoreHelper;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.lxj.xpopup.core.CenterPopupView;
 import com.scut.scutwizard.R;
@@ -11,10 +12,20 @@ import androidx.annotation.NonNull;
 public class DeleteScoreConfirmPopup extends CenterPopupView {
     private int id, category;
     private Context mContext;
+//    private ScoreDeleteService.MyBinder deleteBinder;
+//
+//    private ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+//            deleteBinder = (ScoreDeleteService.MyBinder) iBinder;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//        }
+//    };
 
-    public DeleteScoreConfirmPopup(@NonNull Context context,
-                                   @NonNull int scoreId,
-                                   @NonNull int scoreCat) {
+    public DeleteScoreConfirmPopup(@NonNull Context context, int scoreId, int scoreCat) {
         super(context);
         this.mContext = context;
         this.id = scoreId;
@@ -41,17 +52,12 @@ public class DeleteScoreConfirmPopup extends CenterPopupView {
 
             @Override
             public void onSwipeConfirm() {
-//                DeleteScoreConfirmPopup.this.delayDismissWith(1000, () -> {
-//                    new ScoreDatabaseHelper(mContext,
-//                                            ScoreDatabaseHelper.DB_FILENAME,
-//                                            null,
-//                                            1).getWritableDatabase()
-//                                              .execSQL("delete from Score where id = ?",
-//                                                       new String[]{Integer.toString(id)});
-//                    Snackbar.make(findViewById(R.id.helper_coord_layout),
-//                                  "删除成功~",
-//                                  Snackbar.LENGTH_SHORT);
-//                });
+                Intent deleteIntent = new Intent(mContext, ScoreDeleteService.class);
+                deleteIntent.putExtra("id", id);
+                deleteIntent.putExtra("cat", category);
+                DeleteScoreConfirmPopup.this.delayDismissWith(500,
+                                                              () -> mContext.startService(
+                                                                      deleteIntent));
             }
         });
 

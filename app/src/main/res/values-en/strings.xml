@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SCUTwizard</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="default_subtable_name">Default table</string>
+    <string name="deyu">Moral</string>
+    <string name="empty_subtable_text">😀No data exists. Click the button above to add one!</string>
+    <string name="empty_tab_reselected_text">😥There indeed is no \'%s\' data!</string>
+    <string name="empty_tab_selected_text">😥There is no \'%s\' data!</string>
+    <string name="helper">Scholarship Helper</string>
+    <string name="homework_assistant">Homework Assistant</string>
+    <string name="navigation_feedback">Feedback</string>
+    <string name="navigation_helper">Scholarship Helper</string>
+    <string name="navigation_map">Campus Map</string>
+    <string name="navigation_memo">Deadline Manager</string>
+    <string name="navigation_setting">Setting</string>
+    <string name="navigation_tool">Tools</string>
+    <string name="nonempty_subtable_text">😁Switch successfully. Slide horizontally to view!</string>
+    <string name="scut_wizard_zh">SCUTwizard</string>
+    <string name="wenti"><![CDATA[Sports & Aesthetics]]></string>
+    <string name="zhiyu">Intelligence</string>
+    <string name="navigation_about">About</string>
+</resources>

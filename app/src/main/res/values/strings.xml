@@ -41,7 +41,7 @@
     <string name="scut_wizard_en">SCUTwizard</string>
     <string name="skip_btn_text"><![CDATA[跳过 >]]></string>
 
-    <string name="default_value">0.0</string>
+    <string name="default_value"> 0.0</string>
     <string name="helper">综测助手</string>
     <string name="default_subtable_name">默认表</string>
 
@@ -50,8 +50,6 @@
     <string name="empty_tab_selected_text">😭暂无%s数据！</string>
     <string name="empty_tab_reselected_text">😥都说了暂无%s数据了！</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="del_btn_desc">Delete Button</string>
     <string name="homework_assistant">作业助手</string>
 </resources>

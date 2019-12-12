@@ -1,5 +1,6 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -18,17 +19,22 @@ import com.ocnyang.contourview.ContourView;
 import com.rey.material.widget.Spinner;
 import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
+import com.scut.scutwizard.ScoreHelper.BroadcastReceivers.ScoreRemovedBroadcastReceiver;
 import com.scut.scutwizard.ScoreHelper.Score.Category;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import static com.scut.scutwizard.ScoreHelper.Score.Category.values;
@@ -51,6 +57,8 @@ public class HelperActivity extends AppCompatActivity implements
     private CoordinatorLayout    mCoordLayout;
     private StatsFragment        deFrag, zhiFrag, tiFrag;
 
+    private LocalBroadcastManager lbm;
+
     private ScoreDatabaseHelper scoreDbHelper;
     private ArrayList<Integer>  subtableIds;
     private ArrayList<String>   subtableNames;
@@ -70,9 +78,11 @@ public class HelperActivity extends AppCompatActivity implements
 
     private void initView() {
 
-        mCoordLayout = findViewById(R.id.helper_coord_layout);
-
         /* Init */
+
+        lbm = LocalBroadcastManager.getInstance(this);
+
+        mCoordLayout = findViewById(R.id.helper_coord_layout);
 
         deData = new ArrayList<>();
         zhiData = new ArrayList<>();
@@ -202,12 +212,35 @@ public class HelperActivity extends AppCompatActivity implements
         mFab.setOnClickListener(view -> {
             if (mPopup == null)
                 createPopup();
-            if (!isPopupShown) {
+            else if (!isPopupShown) {
                 mFab.hide();
                 mPopup.show();
                 isPopupShown = true;
             }
         });
+
+        /* Broadcast Receiver */
+        lbm.registerReceiver(new ScoreRemovedBroadcastReceiver() {
+            @Override
+            public void refresh(int id, int category) {
+                switchByCategory(category,
+                                 () -> findAndRemoveById(deData, id),
+                                 () -> findAndRemoveById(zhiData, id),
+                                 () -> findAndRemoveById(tiData, id));
+                applyData();
+                Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT).show();
+            }
+        }, new IntentFilter("com.scut.scutwizard.SCORE_REMOVED_BROADCAST"));
+    }
+
+    private Boolean findAndRemoveById(ArrayList arr, int id) {
+        ListIterator lit = arr.listIterator();
+        while (lit.hasNext())
+            if (id == ((Score) lit.next()).getId()) {
+                lit.remove();
+                return true;
+            }
+        return false;
     }
 
     public void createPopup() {
@@ -252,43 +285,69 @@ public class HelperActivity extends AppCompatActivity implements
                                                         });
     }
 
-    protected void deleteScores(@NonNull Iterable<Integer> scoreIDs) {
-        for (int id : scoreIDs) {
-            scoreDbHelper.getWritableDatabase()
-                         .execSQL("delete from Score where id = ?",
-                                  new String[]{Integer.toString(id)});
-        }
-        Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT);
+    public <T> T switchByCategory(Score s, Callable<T> deyu, Callable<T> zhiyu, Callable<T> wenti) {
+        return switchByCategory(s.getCategoryInt(), deyu, zhiyu, wenti);
     }
 
-    protected void insertScores(@NonNull Iterable<Score> scores, boolean alsoToDatabase) {
+    public <T> T switchByCategory(int s, Callable<T> deyu, Callable<T> zhiyu, Callable<T> wenti) {
+        try {
+            switch (CATEGORIES[s]) {
+                case DEYU:
+                    return deyu.call();
+                case ZHIYU:
+                    return zhiyu.call();
+                case WENTI:
+                    return wenti.call();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected void deleteScores(@NonNull final List<Score> score, final boolean alsoToDatabase) {
+        int failure = 0;
+        for (Score s : score) {
+            if (alsoToDatabase)
+                scoreDbHelper.getWritableDatabase()
+                             .execSQL("delete from Score where id = ?",
+                                      new String[]{Integer.toString(s.getId())});
+            final boolean deleteSuccess = switchByCategory(s,
+                                                           () -> deData.remove(s),
+                                                           () -> zhiData.remove(s),
+                                                           () -> tiData.remove(s));
+            if (!deleteSuccess)
+                failure++;
+        }
+        if (failure == 0)
+            Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT);
+        else if (failure < score.size())
+            Snackbar.make(mCoordLayout,
+                          String.format("部分删除成功，有 %d 项没有找到!", failure),
+                          Snackbar.LENGTH_SHORT);
+        else
+            Snackbar.make(mCoordLayout, "删除失败...", Snackbar.LENGTH_SHORT);
+    }
+
+    protected void insertScores(@NonNull List<Score> scores, final boolean alsoToDatabase) {
         for (Score s : scores) {
             if (alsoToDatabase) {
                 scoreDbHelper.getWritableDatabase()
                              .execSQL("insert into Score (des, value, subtable, createDate, "
                                       + "modifyDate, eventDate, category, detail, ps, images) values "
                                       + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                      new String[]{s.getDescription(), roundValue(s.getValue()),
+                                      new String[]{s.getDescription(),
+                                                   roundValue(s.getValue()),
                                                    Integer.toString(s.getSubtable()),
                                                    Long.toString(s.getCreateDate().getTime()),
                                                    Long.toString(s.getLastModifiedDate().getTime()),
                                                    Long.toString(s.getEventDate().getTime()),
-                                                   Integer.toString(s.getCategory().ordinal()),
+                                                   Integer.toString(s.getCategoryInt()),
                                                    s.getSpecificCategory(),
                                                    s.getComment(),
                                                    s.getImagePaths()});
             }
-            switch (s.getCategory()) {
-                case DEYU:
-                    deData.add(s);
-                    break;
-                case ZHIYU:
-                    zhiData.add(s);
-                    break;
-                case WENTI:
-                    tiData.add(s);
-                    break;
-            }
+            switchByCategory(s, () -> deData.add(s), () -> zhiData.add(s), () -> tiData.add(s));
         }
         this.applyData();
     }
