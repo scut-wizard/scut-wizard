@@ -27,7 +27,8 @@ public class EventItemFrag extends Fragment {
         view = inflater.inflate(R.layout.fragment_event_item, container, false);
         return view;
     }
-    public void refresh(){
+    public boolean refresh(){
+        boolean isshow;
         View visibilityLayout = view.findViewById(R.id.event_item_RelativeLayout_frag);
 
         RatingBar event_ratingbar = view.findViewById(R.id.event_ratingbar_frag);
@@ -53,15 +54,18 @@ public class EventItemFrag extends Fragment {
                 event_daysLeft_tv.setText("距离ddl还有"+daysLeft+"天");
                 event_progressbar.setProgress((int)progress);
                 visibilityLayout.setVisibility((View.VISIBLE));
+                isshow=true;
             }else {
-                visibilityLayout.setVisibility((View.INVISIBLE));
+                visibilityLayout.setVisibility((View.GONE));
+                isshow=false;
             }
 
         }else{
-            visibilityLayout.setVisibility((View.INVISIBLE));
+            visibilityLayout.setVisibility((View.GONE));
+            isshow=false;
         }
         cursor.close();
-
+        return isshow;
     }
 
 }
