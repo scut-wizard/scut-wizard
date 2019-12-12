@@ -39,7 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PhotoFragment extends Fragment {
+public class PhotoSelectFragment extends Fragment {
     private final static String                                 TAG                   = "sneezer";
     private              Context                                mContext;
     private              RecyclerView                           mRv;
@@ -47,7 +47,7 @@ public class PhotoFragment extends Fragment {
     private              List<LocalMedia>                       selectList            = new ArrayList<>();
     @NonNull
     private              GridImageAdapter.onAddPicClickListener onAddPicClickListener = () -> {
-        PictureSelector.create(PhotoFragment.this)
+        PictureSelector.create(PhotoSelectFragment.this)
                        .openGallery(PictureMimeType.ofImage())
                        .loadImageEngine(GlideEngine.createGlideEngine())
                        .maxSelectNum(MAX_IMG_NUM)// 最大图片选择数量
@@ -103,7 +103,7 @@ public class PhotoFragment extends Fragment {
     }
 
 
-    public PhotoFragment() {
+    public PhotoSelectFragment() {
         // Required empty public constructor
     }
 
@@ -113,7 +113,7 @@ public class PhotoFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photo, container, false);
+        return inflater.inflate(R.layout.fragment_photo_select, container, false);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class PhotoFragment extends Fragment {
 //                        PictureWindowAnimationStyle animationStyle = new PictureWindowAnimationStyle();
 //                        animationStyle.activityPreviewEnterAnimation = R.anim.picture_anim_up_in;
 //                        animationStyle.activityPreviewExitAnimation = R.anim.picture_anim_down_out;
-                PictureSelector.create(PhotoFragment.this)
+                PictureSelector.create(PhotoSelectFragment.this)
                                .themeStyle(com.luck.picture.lib.R.style.picture_default_style) // xml设置主题
                                //.setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
                                //.setPictureWindowAnimationStyle(animationStyle)// 自定义页面启动动画

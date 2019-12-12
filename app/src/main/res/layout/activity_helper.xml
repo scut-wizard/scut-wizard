@@ -160,7 +160,7 @@
                     android:id="@+id/helper_manage_subtable_btntv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="管理表..."
+                    android:text="@string/manage_subtable"
                     android:textColor="#ddd"
                     app:layout_constraintBottom_toBottomOf="@+id/helper_wenti_ticker"
                     app:layout_constraintEnd_toEndOf="@+id/subtable_spinner" />

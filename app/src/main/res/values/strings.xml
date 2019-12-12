@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SCUTwizard</string>
-    <string name="title_activity_note">NoteActivity</string>
+    <string name="title_activity_note" translatable="false">NoteActivity</string>
 
-    <string name="button_name_edit">+</string>
+    <string name="button_name_edit" translatable="false">+</string>
 
     <string name="menu_course_share">分享到</string>
     <string name="menu_course_sync">同步课表信息</string>
@@ -10,38 +10,37 @@
     <string name="menu_course_week_view">切换到周课表</string>
     <string name="menu_back_today">回到本周课表</string>
     <string name="menu_course_add">添加课程</string>
-    <string name="navigation_helper">综测助手</string>
-    <string name="navigation_memo">DDL助手</string>
-    <string name="navigation_map">校园地图</string>
-    <string name="navigation_tool">工具</string>
-    <string name="navigation_feedback">反馈</string>
-    <string name="navigation_setting">设置</string>
-    <string name="navigation_about">关于</string>
+    <string name="ddl_manager">DDL助手</string>
+    <string name="campus_map">校园地图</string>
+    <string name="tool">工具</string>
+    <string name="feedback">反馈</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
 
-    <string name="navigation_tool_room">空教室</string>
-    <string name="navigation_tool_electric">查电费</string>
-    <string name="navigation_tool_news">看新闻</string>
-    <string name="navigation_tool_calendar">查校历</string>
-    <string name="navigation_tool_books">查图书</string>
+    <!--    <string name="navigation_tool_room">空教室</string>-->
+    <!--    <string name="navigation_tool_electric">查电费</string>-->
+    <!--    <string name="navigation_tool_news">看新闻</string>-->
+    <!--    <string name="navigation_tool_calendar">查校历</string>-->
+    <!--    <string name="navigation_tool_books">查图书</string>-->
 
-    <string name="prompt_sno">学号</string>
-    <string name="prompt_password">密码</string>
-    <string name="prompt_checkcode">验证码</string>
-    <string name="action_sign_in">登录</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">学号应该是10位!</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <!--    <string name="prompt_sno">学号</string>-->
+    <!--    <string name="prompt_password">密码</string>-->
+    <!--    <string name="prompt_checkcode">验证码</string>-->
+    <!--    <string name="action_sign_in">登录</string>-->
+    <!--    <string name="action_sign_in_short" translatable="false">Sign in</string>-->
+    <!--    <string name="error_invalid_email">学号应该是10位!</string>-->
+    <!--    <string name="error_invalid_password">This password is too short</string>-->
+    <!--    <string name="error_incorrect_password">This password is incorrect</string>-->
+    <!--    <string name="error_field_required">This field is required</string>-->
 
     <string name="deyu">德育</string>
     <string name="zhiyu">智育</string>
     <string name="wenti">文体</string>
-    <string name="scut_wizard_zh">华工助手</string>
-    <string name="scut_wizard_en">SCUTwizard</string>
+    <string name="scut_wizard_zh" translatable="false">华工助手</string>
+    <string name="scut_wizard_en" translatable="false">SCUTwizard</string>
     <string name="skip_btn_text"><![CDATA[跳过 >]]></string>
 
-    <string name="default_value"> 0.0</string>
+    <string name="default_value" translatable="false">" 0.0"</string>
     <string name="helper">综测助手</string>
     <string name="default_subtable_name">默认表</string>
 
@@ -50,6 +49,56 @@
     <string name="empty_tab_selected_text">😭暂无%s数据！</string>
     <string name="empty_tab_reselected_text">😥都说了暂无%s数据了！</string>
 
-    <string name="del_btn_desc">Delete Button</string>
+    <string name="del_btn_desc">删除按钮</string>
     <string name="homework_assistant">作业助手</string>
+    <string name="main_page">主界面</string>
+    <string name="encouragement_today">今日鸡汤</string>
+    <string name="todo_today">今日待办</string>
+    <string name="no_ddl_tip">暂无任务，放松一下吧</string>
+    <string name="manage_subtable">管理表...</string>
+    <string name="new_record">新记录</string>
+    <string name="title">标题</string>
+    <string name="value">分值</string>
+    <string name="belong_to">归属</string>
+    <string name="date">日期</string>
+    <string name="specific_category">细类</string>
+    <string name="comment">备注</string>
+    <string name="comment_hints">还没补录/...</string>
+    <string name="img_certificate">图片证明</string>
+    <string name="loading">正在加载...</string>
+    <string name="actually_no_function">其实并没有这个功能</string>
+    <string name="tell_us_if_develop">如果你开发出来了，请务必告诉我们。</string>
+    <string name="close">关闭</string>
+    <string name="add_new_task">增添任务</string>
+    <string name="task_statistics">统计信息</string>
+    <string name="name">名称</string>
+    <string name="task_name_hint">任务名称</string>
+    <string name="ddl_short" translatable="false">DDL</string>
+    <string name="progress">进度</string>
+    <string name="progress_hint">当前任务进度（0–99）%</string>
+    <string name="step">步数</string>
+    <string name="task_step_hint">计划任务步数</string>
+    <string name="add">添加</string>
+    <string name="turn_back">返回</string>
+    <string name="regret">很遗憾</string>
+    <string name="regret_text">如果时间充裕的话...会完成的...一定</string>
+    <string name="ok_8">好⑧</string>
+    <string name="task_history_total">历史任务总数</string>
+    <string name="task_finished_total">已完成任务总数</string>
+    <string name="task_complete_rate">任务完成率</string>
+    <string name="task_progress_avg_finished">已结束任务平均完成进度</string>
+    <string name="task_remaining_avg_finished">已结束任务平均剩余天数</string>
+    <string name="sort_by_remaining_days">按剩余天数排序</string>
+    <string name="sort_by_progress">按剩余进度排序</string>
+    <string name="sort_by_priority">按紧急度排序</string>
+    <string name="score_tip">想对记录“%s”做点什么?</string>
+    <string name="detail">详细信息...</string>
+    <string name="share">分享</string>
+    <string name="delete">删除</string>
+    <string name="loading_share">正在加载分享组件...</string>
+    <string name="forgot">整忘了</string>
+    <string name="no_share">我没写分享组件。</string>
+    <string name="accept">接受</string>
+    <string name="delete_success">删除成功~</string>
+    <string name="default_value_hint">1.0</string>
 </resources>

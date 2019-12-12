@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="名称"
+            android:text="@string/name"
             android:textSize="18sp" />
 
         <EditText
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="任务名称"
+            android:hint="@string/task_name_hint"
             android:inputType="textPersonName" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="DDL"
+            android:text="@string/ddl_short"
             android:textSize="18sp" />
 
         <DatePicker
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="进度"
+            android:text="@string/progress"
             android:textSize="18sp" />
 
         <EditText
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="当前任务进度（0-99）%"
+            android:hint="@string/progress_hint"
             android:inputType="number"
             android:text="0" />
     </LinearLayout>
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="步数"
+            android:text="@string/step"
             android:textSize="18sp" />
 
         <EditText
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="计划任务步数"
+            android:hint="@string/task_step_hint"
             android:inputType="number"
             android:text="1" />
     </LinearLayout>
@@ -131,7 +131,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"
             android:background="@android:drawable/btn_default"
-            android:text="添加" />
+            android:text="@string/add" />
 
         <Button
             android:id="@+id/add_event_return_btn"
@@ -141,7 +141,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"
             android:background="@android:drawable/btn_default"
-            android:text="返回" />
+            android:text="@string/turn_back" />
     </LinearLayout>
 
 </LinearLayout>

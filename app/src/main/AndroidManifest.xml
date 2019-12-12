@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ScoreHelper.ScoreDetailActivity"></activity>
+        <activity android:name=".ScoreHelper.DetailView.ScoreDetailActivity"></activity>
         <!-- <receiver -->
         <!-- android:name=".ScoreHelper.SnackbarBroadcastReceiver" -->
         <!-- android:enabled="true" -->
@@ -59,16 +59,16 @@
             android:theme="@style/HelperActivityTheme" />
         <activity
             android:name=".Note.NoteActivity"
-            android:label="DDL助手" />
+            android:label="@string/helper" />
         <activity
             android:name=".Note.AddEventActivity"
-            android:label="增添任务" />
+            android:label="@string/add_new_task" />
         <activity
             android:name=".Note.ShowEventActivity"
-            android:label="统计信息" />
+            android:label="@string/task_statistics" />
         <activity
             android:name=".MapActivity"
-            android:label="校园地图" />
+            android:label="@string/campus_map" />
 
         <provider
             android:name=".Note.EventDataProvider"

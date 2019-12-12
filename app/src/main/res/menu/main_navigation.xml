@@ -5,15 +5,15 @@
             android:id="@+id/navigation_home"
             android:checked="true"
             android:icon="@drawable/ic_nav_home"
-            android:title="主界面" />
+            android:title="@string/main_page" />
         <item
             android:id="@+id/navigation_note"
             android:icon="@drawable/ic_nav_note"
-            android:title="@string/navigation_memo" />
+            android:title="@string/ddl_manager" />
         <item
             android:id="@+id/navigation_helper"
             android:icon="@drawable/ic_nav_helper"
-            android:title="@string/navigation_helper" />
+            android:title="@string/helper" />
         <item
             android:id="@+id/navigation_homework"
             android:icon="@drawable/ic_lightbulb_outline_white_24dp"
@@ -21,21 +21,21 @@
         <item
             android:id="@+id/navigation_map"
             android:icon="@drawable/ic_nav_map"
-            android:title="@string/navigation_map" />
+            android:title="@string/campus_map" />
     </group>
 
     <group android:id="@+id/menu_group_nav_other">
         <item
             android:id="@+id/navigation_feedback"
             android:icon="@drawable/ic_nav_feedback"
-            android:title="@string/navigation_feedback" />
+            android:title="@string/feedback" />
         <item
             android:id="@+id/navigation_setting"
             android:icon="@drawable/ic_nav_setting"
-            android:title="@string/navigation_setting" />
+            android:title="@string/setting" />
         <item
             android:id="@+id/navigation_about"
             android:icon="@drawable/ic_nav_about"
-            android:title="@string/navigation_about" />
+            android:title="@string/about" />
     </group>
 </menu>
