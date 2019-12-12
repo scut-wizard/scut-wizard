@@ -1,11 +1,12 @@
 package com.scut.scutwizard.ScoreHelper;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lxj.xpopup.XPopup;
 import com.robinhood.ticker.TickerUtils;
@@ -76,9 +77,8 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Score score = mScoreList.get(position);
+        holder.item = score;
         final double value = score.getValue();
-        holder.itemId = score.getId();
-        holder.itemCategory = score.getCategory().ordinal();
         if (value >= 0)
             holder.itemValue.setTextColor(R.color.colorPrimary);
         else
@@ -98,10 +98,12 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemDescription, itemDate;//, itemValue;
         TickerView itemValue;
-        int        itemId, itemCategory;
+        Score      item;
+        Context    mContext;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             itemDescription = itemView.findViewById(R.id.textView_description);
             itemDate = itemView.findViewById(R.id.textView_eventDate);
 //            itemValue = itemView.findViewById(R.id.textView_value);
@@ -109,21 +111,17 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
             itemValue.setCharacterLists(TickerUtils.provideNumberList(), "+-");
 
             final Context mContext = itemView.getContext();
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext, "Ouch", Toast.LENGTH_SHORT).show();
-                }
-            });
+            itemView.setOnClickListener(view -> startDetailActivity());
             final XPopup.Builder popupBuilder = new XPopup.Builder(mContext).watchView(itemView);
             itemView.setOnLongClickListener(v -> {
                 popupBuilder.asBottomList(String.format("想对记录“%s”做点什么?", itemDescription.getText()),
                                           new String[]{"详细信息...", "分享", "删除"},
                                           (position, text) -> {
                                               switch (position) {
-                                                  case 0:
+                                                  case 0: // info
+                                                      startDetailActivity();
                                                       break;
-                                                  case 1:
+                                                  case 1: // share
                                                       new XPopup.Builder(mContext).asLoading(
                                                               "正在加载分享组件...")
                                                                                   .show()
@@ -141,15 +139,23 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                                                                                                           true)
                                                                                                   .show());
                                                       break;
-                                                  case 2:
+                                                  case 2: // delete
                                                       new XPopup.Builder(mContext).asCustom(new DeleteScoreConfirmPopup(
                                                               mContext,
-                                                              itemId,
-                                                              itemCategory)).show();
+                                                              item.getId(),
+                                                              item.getCategoryInt())).show();
                                               }
                                           }).show();
                 return true;
             });
+        }
+
+        private void startDetailActivity() {
+            Intent intent = new Intent(mContext, ScoreDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("score", item);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
         }
     }
 }

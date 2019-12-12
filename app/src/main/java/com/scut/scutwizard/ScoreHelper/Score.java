@@ -1,11 +1,12 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
 
-public class Score {
+public class Score implements Serializable {
     private int      id;
     private String   description; // des text
     private Category category; // category integer
@@ -69,6 +70,10 @@ public class Score {
 
     public void setCategory(int category) {
         this.category = Category.values()[category];
+    }
+
+    public int getCategoryInt() {
+        return category.ordinal();
     }
 
     public double getValue() {
