@@ -1,5 +1,9 @@
 package com.scut.scutwizard.Helpers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Random;
@@ -20,8 +24,28 @@ public class StringHelper {
         return result.toString();
     }
 
-    public String newSlogan(){
-        int t = new Random().nextInt(7);
+    public String newSlogan(Context context){
+        int t;
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//设置日期时间格式
+        String today_str = dateFormat.format(today);
+        SharedPreferences pref = context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE);
+        String temp_str = pref.getString("slogan_data","");
+        //第一次
+        if(temp_str.equals("")){
+            SharedPreferences.Editor editor =  context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE).edit();
+            editor.putString("date",today_str);
+            t = new Random().nextInt(7);
+            editor.putInt("No.",t);
+            //同一天
+        }else if(temp_str.equals(today_str)){
+            t=pref.getInt("No.",0);
+            //不同一天
+        }else{
+            t = new Random().nextInt(7);
+        }
+
+
         switch (t){
             case 0:
                 return "今天你解决不了的问题 那就别解决了 反正到了明天你也解决不了";
@@ -37,7 +61,6 @@ public class StringHelper {
                 return "努力不一定会成功 但是不努力真的好舒服啊";
             case 6:
                 return "回首青春 你会发现自己失去了很多宝贵的东西 但请你不要难过 因为你以后会失去的更多";
-
         }
         return "";
     }

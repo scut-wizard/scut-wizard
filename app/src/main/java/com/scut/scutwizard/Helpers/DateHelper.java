@@ -55,8 +55,7 @@ public class DateHelper {
                 //只更新未完成事件
                 if (progress < 100) {
                     //计算DDL与当前日期距离天数
-                    newDaysLeft = (int)(new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(
-                            ddl_str)));
+                    newDaysLeft = (int)(new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(ddl_str)));
                     //Toast.makeText(AddEventActivity.this,daysLeft+"",Toast.LENGTH_SHORT).show();
                     if (newDaysLeft != daysLeft) {
                         //ddl已过但是未完成任务
