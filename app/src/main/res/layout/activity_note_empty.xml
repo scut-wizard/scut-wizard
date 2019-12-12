@@ -34,6 +34,6 @@
         android:layout_gravity="center"
         android:layout_marginLeft="120dp"
         android:layout_marginRight="120dp"
-        android:text="暂无任务，放松一下吧"
+        android:text="@string/no_ddl_tip"
         android:textSize="12sp" />
 </LinearLayout>

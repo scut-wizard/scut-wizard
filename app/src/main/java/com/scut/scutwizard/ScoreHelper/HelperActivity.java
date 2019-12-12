@@ -147,10 +147,10 @@ public class HelperActivity extends AppCompatActivity implements
         /* Manage Button */
         stManageBtn = findViewById(R.id.helper_manage_subtable_btntv);
         stManageBtn.setOnClickListener(view -> new XPopup.Builder(HelperActivity.this).asConfirm(
-                "很遗憾",
-                "如果时间充裕的话...会完成的...一定",
+                getString(R.string.regret),
+                getString(R.string.regret_text),
                 "",
-                "好⑧",
+                getString(R.string.ok_8),
                 () -> {},
                 () -> {},
                 true).show());
@@ -228,7 +228,9 @@ public class HelperActivity extends AppCompatActivity implements
                                  () -> findAndRemoveById(zhiData, id),
                                  () -> findAndRemoveById(tiData, id));
                 applyData();
-                Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mCoordLayout,
+                              getString(R.string.delete_success),
+                              Snackbar.LENGTH_SHORT).show();
             }
         }, new IntentFilter("com.scut.scutwizard.SCORE_REMOVED_BROADCAST"));
     }

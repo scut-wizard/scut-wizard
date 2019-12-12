@@ -12,6 +12,7 @@ import com.lxj.xpopup.XPopup;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.scut.scutwizard.R;
+import com.scut.scutwizard.ScoreHelper.DetailView.ScoreDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,12 +111,18 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
             itemValue = itemView.findViewById(R.id.ticker_value);
             itemValue.setCharacterLists(TickerUtils.provideNumberList(), "+-");
 
+
             final Context mContext = itemView.getContext();
+
             itemView.setOnClickListener(view -> startDetailActivity());
+
             final XPopup.Builder popupBuilder = new XPopup.Builder(mContext).watchView(itemView);
             itemView.setOnLongClickListener(v -> {
-                popupBuilder.asBottomList(String.format("想对记录“%s”做点什么?", itemDescription.getText()),
-                                          new String[]{"详细信息...", "分享", "删除"},
+                popupBuilder.asBottomList(String.format(mContext.getString(R.string.score_tip),
+                                                        itemDescription.getText()),
+                                          new String[]{mContext.getString(R.string.detail),
+                                                       mContext.getString(R.string.share),
+                                                       mContext.getString(R.string.delete)},
                                           (position, text) -> {
                                               switch (position) {
                                                   case 0: // info
@@ -123,17 +130,20 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                                                       break;
                                                   case 1: // share
                                                       new XPopup.Builder(mContext).asLoading(
-                                                              "正在加载分享组件...")
+                                                              mContext.getString(R.string.loading_share))
                                                                                   .show()
                                                                                   .delayDismissWith(
                                                                                           3500,
                                                                                           () -> new XPopup.Builder(
                                                                                                   mContext)
                                                                                                   .asConfirm(
-                                                                                                          "整忘了",
-                                                                                                          "我没写分享组件。",
+                                                                                                          mContext.getString(
+                                                                                                                  R.string.forgot),
+                                                                                                          mContext.getString(
+                                                                                                                  R.string.no_share),
                                                                                                           "",
-                                                                                                          "接受",
+                                                                                                          mContext.getString(
+                                                                                                                  R.string.accept),
                                                                                                           () -> {},
                                                                                                           () -> {},
                                                                                                           true)

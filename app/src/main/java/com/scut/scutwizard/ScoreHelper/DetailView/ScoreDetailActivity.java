@@ -1,9 +1,10 @@
-package com.scut.scutwizard.ScoreHelper;
+package com.scut.scutwizard.ScoreHelper.DetailView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.scut.scutwizard.R;
+import com.scut.scutwizard.ScoreHelper.Score;
 
 import androidx.appcompat.app.AppCompatActivity;
 

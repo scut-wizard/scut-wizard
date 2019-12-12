@@ -50,14 +50,16 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent_map);
                     break;
                 case R.id.navigation_homework:
-                    new XPopup.Builder(MainActivity.this).asLoading("正在加载...")
+                    new XPopup.Builder(MainActivity.this).asLoading(getString(R.string.loading))
                                                          .show()
                                                          .delayDismissWith(3500,
                                                                            () -> new XPopup.Builder(
                                                                                    MainActivity.this)
                                                                                    .asConfirm(
-                                                                                           "其实并没有这个功能",
-                                                                                           "如果你开发出来了，请务必告诉我们。",
+                                                                                           getString(
+                                                                                                   R.string.actually_no_function),
+                                                                                           getString(
+                                                                                                   R.string.tell_us_if_develop),
                                                                                            "",
                                                                                            "OKK",
                                                                                            () -> {},
@@ -66,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
                                                                                    .show());
                     break;
                 case R.id.navigation_about:
-                    new XPopup.Builder(MainActivity.this).asConfirm("关于",
+                    new XPopup.Builder(MainActivity.this).asConfirm(getString(R.string.about),
                                                                     "两个主要功能「DDL 助手」和「综测助手」都是在生产实践中…不是，都是在学习生活中由经验教训获得的灵感，使用完多来反馈噢！\n\n华南理工大学 郭佳鑫&郑俊豪 2019.12",
                                                                     "",
-                                                                    "关闭",
+                                                                    getString(R.string.close),
                                                                     () -> {},
                                                                     () -> {},
                                                                     true).show();
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         main_note_frag.refresh();
         //更新标语
         String slogan;
-        slogan = new StringHelper().newSlogan();
+        slogan = new StringHelper().newSlogan(MainActivity.this);
         slogan_tv.setText(slogan);
 
 //以下代码用于测试contentProvider

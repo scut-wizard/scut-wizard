@@ -2,6 +2,7 @@ package com.scut.scutwizard.ScoreHelper;
 
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,10 +27,9 @@ import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.exception.ConversionException;
 import com.rey.material.widget.Button;
 import com.scut.scutwizard.Helpers.FileHelper;
-import com.scut.scutwizard.Helpers.StringHelper;
 import com.scut.scutwizard.R;
 import com.scut.scutwizard.ScoreHelper.ScoreImage.LocalMediaDbUtil;
-import com.scut.scutwizard.ScoreHelper.ScoreImage.PhotoFragment;
+import com.scut.scutwizard.ScoreHelper.ScoreImage.PhotoSelectFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.z2wenfa.spinneredittext.SpinnerEditText;
 
@@ -88,9 +88,9 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
     @Order(3)
     private SpinnerEditText<String> iDet;// 细类
 
-    private EditText      iPs;//备注
-    private TextView      iDate;
-    private PhotoFragment fPhoto;
+    private EditText            iPs;//备注
+    private TextView            iDate;
+    private PhotoSelectFragment fPhoto;
 
     private Button    bConfirm;
     private Context   mContext;
@@ -177,7 +177,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
 
         FragmentManager fm = fetchFragManager();
         if (fm != null) {
-            fPhoto = (PhotoFragment) fm.findFragmentById(R.id.popup_img_frag);
+            fPhoto = (PhotoSelectFragment) fm.findFragmentById(R.id.popup_img_frag);
         }
 
         iPs = findViewById(R.id.popup_ps_input);
@@ -244,7 +244,8 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
                     return;
                 }
             }
-            filenameStr = StringHelper.join(";", filenames);
+//            filenameStr = StringHelper.join(";", filenames);
+            filenameStr = TextUtils.join(";", filenames);
         }
 
         Score score = new Score();

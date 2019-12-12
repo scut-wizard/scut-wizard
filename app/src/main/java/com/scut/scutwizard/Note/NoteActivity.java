@@ -17,7 +17,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.scut.scutwizard.MainActivity;
 import com.scut.scutwizard.R;
 
@@ -27,9 +26,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 
 
 
@@ -249,15 +248,19 @@ public class NoteActivity extends AppCompatActivity {
                 Intent intent_sort = new Intent(NoteActivity.this, NoteActivity.class);
                if(sortStr.equals("rating desc")){
                    intent_sort.putExtra("extra_data","daysLeft");
-                   Toast.makeText(NoteActivity.this,"按剩余天数排序",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(NoteActivity.this,
+                                  R.string.sort_by_remaining_days,
+                                  Toast.LENGTH_SHORT).show();
                }
                 else if(sortStr.equals("daysLeft")){
                    intent_sort.putExtra("extra_data","progress");
-                   Toast.makeText(NoteActivity.this,"按剩余进度排序",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(NoteActivity.this, R.string.sort_by_progress, Toast.LENGTH_SHORT)
+                        .show();
                }
                 else if(sortStr.equals("progress")){
                    intent_sort.putExtra("extra_data","rating desc");
-                   Toast.makeText(NoteActivity.this,"按紧急度排序",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(NoteActivity.this, R.string.sort_by_priority, Toast.LENGTH_SHORT)
+                        .show();
                }
                 finish();
                 startActivity(intent_sort);

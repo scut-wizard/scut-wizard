@@ -9,10 +9,10 @@
                                            tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:id="@+id/main_layout"
         android:orientation="vertical">
 
         <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_height="260dp"
             android:background="@drawable/main_bg_scut"
             android:fitsSystemWindows="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -31,43 +31,41 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/main_ba_layout"
             android:padding="2dp"
-            android:text="今日鸡汤" />
+            android:text="@string/encouragement_today" />
 
         <TextView
             android:id="@+id/slogan_tv"
-            android:layout_below="@+id/slogan_tv_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/slogan_tv_head"
             android:padding="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
-            android:text="xxxxxxxxxxxxxxx"
             android:textSize="16sp" />
 
 
         <com.rey.material.widget.RelativeLayout
-            android:layout_below="@+id/slogan_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slogan_tv">
 
             <TextView
                 android:id="@+id/main_note_frag_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="今日待办" />
+                android:text="@string/todo_today" />
 
             <fragment
                 android:id="@+id/main_note_frag"
                 android:name="com.scut.scutwizard.Note.EventItemFrag"
-                android:layout_below="@+id/main_note_frag_head"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_note_frag_head">
 
             </fragment>
 
         </com.rey.material.widget.RelativeLayout>
-
 
         <!--
         用于测试contentProvider
@@ -76,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />-->
+
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
