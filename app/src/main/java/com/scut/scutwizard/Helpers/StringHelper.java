@@ -81,10 +81,12 @@ public class StringHelper {
             t=pref.getInt("No.",0);
             //不同一天//第一次
         }else{
+            SharedPreferences pref_yi = context.getSharedPreferences("yi_data",Context.MODE_PRIVATE);
+            int No_yi = pref_yi.getInt("No.",0);
             int prev_t=pref.getInt("No.",0);
             editor.putString("date",today_str);
             t = new Random().nextInt(100);
-            while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
+            while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)||(int)(No_yi/10)==(int)(t/10)||(int)(No_yi%10)==(int)(t%10)){
                t = new Random().nextInt(100);
             }
             editor.putString("date",today_str);
