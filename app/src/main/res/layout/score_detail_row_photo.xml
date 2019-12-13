@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15sp"
         android:gravity="start"
-        android:text="@string/img_certificate" />
+        android:text="@string/img_certificate"
+        android:textStyle="bold" />
 
     <fragment
         android:id="@+id/detail_img_frag"

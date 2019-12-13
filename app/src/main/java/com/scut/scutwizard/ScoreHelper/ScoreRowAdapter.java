@@ -95,7 +95,7 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
         holder.itemDescription.setText(score.getDescription());
         holder.itemDate.setText(String.format(Locale.getDefault(),
                                               "%s | %s",
-                                              DateHelper.dateToStr(score.getEventDate()),
+                                              DateHelper.dateToStr(score.getEventDate(), false),
                                               score.getSpecificCategory()));
     }
 

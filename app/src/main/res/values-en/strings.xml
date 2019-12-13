@@ -19,7 +19,6 @@
     <string name="about">About</string>
     <string name="del_btn_desc">Delete button</string>
     <string name="skip_btn_text"><![CDATA[Skip >]]></string>
-    <string name="main_page" translatable="false">Main Page</string>
     <string name="encouragement_today">Encouragement Today</string>
     <string name="todo_today">To-Do\'s Today</string>
     <string name="add">Add in</string>
@@ -77,4 +76,6 @@
     <string name="score_value_too_high">Too high</string>
     <string name="score_value_too_negative">Too negative</string>
     <string name="subtable">Table</string>
+    <string name="empty_comment">[Empty]</string>
+    <string name="last_modified_date">Last modified date</string>
 </resources>
