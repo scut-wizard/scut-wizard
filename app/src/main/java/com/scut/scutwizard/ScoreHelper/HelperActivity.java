@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
@@ -46,28 +47,31 @@ import static com.scut.scutwizard.ScoreHelper.Score.Category.values;
 
 public class HelperActivity extends AppCompatActivity implements
         StatsFragment.OnFragmentInteractionListener {
-    final   Category[]           CATEGORIES = values();
-    private TextView             stManageBtn;
-    private TabAdapter           mTabAdapter;
-    private TabLayout            mTabLayout;
-    private ViewPager            vp;
-    private ContourView          mContourView;
-    private Spinner              mSpinner;
-    private FloatingActionButton mFab;
-    private CoordinatorLayout    mCoordLayout;
-    private StatsFragment        deFrag, zhiFrag, tiFrag;
-
+    private static ArrayList<Integer>   subtableIds   = new ArrayList<>();
+    private static ArrayList<String>    subtableNames = new ArrayList<>();
+    final          Category[]           CATEGORIES    = values();
+    private        TextView             stManageBtn;
+    private        TabAdapter           mTabAdapter;
+    private        TabLayout            mTabLayout;
+    private        ViewPager            vp;
+    private        ContourView          mContourView;
+    private        Spinner              mSpinner;
+    private        FloatingActionButton mFab;
+    private        CoordinatorLayout    mCoordLayout;
+    private        StatsFragment        deFrag, zhiFrag, tiFrag;
     private LocalBroadcastManager lbm;
-
-    private ScoreDatabaseHelper scoreDbHelper;
-    private ArrayList<Integer>  subtableIds;
-    private ArrayList<String>   subtableNames;
-    private int                 selectedSubtableId = 0;
-    private ArrayList<Score>    deData, zhiData, tiData;
+    private ScoreDatabaseHelper   scoreDbHelper;
+    private int                   selectedSubtableId = 0;
+    private ArrayList<Score>      deData, zhiData, tiData;
     private TickerView deTicker, zhiTicker, tiTicker;
 
     private boolean       isPopupShown = false;
     private BasePopupView mPopup;
+
+    public static String getSubtableNameById(int id_inDatabase) {
+        final int pos = subtableIds.indexOf(id_inDatabase);
+        return pos != -1 ? subtableNames.get(pos) : "";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +122,6 @@ public class HelperActivity extends AppCompatActivity implements
                                                 1);
         final SQLiteDatabase score_db = scoreDbHelper.getWritableDatabase();
         Cursor cur = score_db.rawQuery("select * from Subtable", null);
-        subtableNames = new ArrayList<>();
-        subtableIds = new ArrayList<>();
         if (cur.moveToFirst()) {
             final int idCol = cur.getColumnIndex("id");
             final int nameCol = cur.getColumnIndex("name");
@@ -200,7 +202,7 @@ public class HelperActivity extends AppCompatActivity implements
                 }
                 if (dataNum == 0)
                     Snackbar.make(mCoordLayout,
-                                  String.format(fstr, tab.getText()),
+                                  String.format(Locale.getDefault(), fstr, tab.getText()),
                                   Snackbar.LENGTH_SHORT).show();
             }
         });
@@ -222,7 +224,7 @@ public class HelperActivity extends AppCompatActivity implements
         /* Broadcast Receiver */
         lbm.registerReceiver(new ScoreRemovedBroadcastReceiver() {
             @Override
-            public void refresh(int id, int category) {
+            public void refreshWith(int id, int category) {
                 switchByCategory(category,
                                  () -> findAndRemoveById(deData, id),
                                  () -> findAndRemoveById(zhiData, id),
@@ -280,8 +282,8 @@ public class HelperActivity extends AppCompatActivity implements
                                                             }
 
                                                             @Override
-                                                            public void destroyMyself() {
-                                                                super.destroyMyself();
+                                                            public void destroyPopup() {
+                                                                super.destroyPopup();
                                                                 HelperActivity.this.createPopup();
                                                             }
                                                         });
@@ -325,7 +327,7 @@ public class HelperActivity extends AppCompatActivity implements
             Snackbar.make(mCoordLayout, "删除成功~", Snackbar.LENGTH_SHORT);
         else if (failure < score.size())
             Snackbar.make(mCoordLayout,
-                          String.format("部分删除成功，有 %d 项没有找到!", failure),
+                          String.format(Locale.getDefault(), "部分删除成功，有 %d 项没有找到!", failure),
                           Snackbar.LENGTH_SHORT);
         else
             Snackbar.make(mCoordLayout, "删除失败...", Snackbar.LENGTH_SHORT);
@@ -338,8 +340,7 @@ public class HelperActivity extends AppCompatActivity implements
                              .execSQL("insert into Score (des, value, subtable, createDate, "
                                       + "modifyDate, eventDate, category, detail, ps, images) values "
                                       + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                      new String[]{s.getDescription(),
-                                                   roundValue(s.getValue()),
+                                      new String[]{s.getDescription(), s.getValueStr(),
                                                    Integer.toString(s.getSubtable()),
                                                    Long.toString(s.getCreateDate().getTime()),
                                                    Long.toString(s.getLastModifiedDate().getTime()),
@@ -355,7 +356,7 @@ public class HelperActivity extends AppCompatActivity implements
     }
 
     private String roundValue(double value) {
-        return String.format("%+.1f", value);
+        return String.format(Locale.getDefault(), "%+.1f", value);
     }
 
     public void applyData() {

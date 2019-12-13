@@ -8,6 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class MyViewPager extends ViewPager {
     public MyViewPager(@NonNull Context context) {
         super(context);

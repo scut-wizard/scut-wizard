@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import kotlin.NotImplementedError;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class ScoreDeleteService extends Service {
     ArrayList<Integer> histories = new ArrayList<>();
     //    private MyBinder              mBinder = new MyBinder();
@@ -43,10 +47,10 @@ public class ScoreDeleteService extends Service {
                                         1).getWritableDatabase()
                                           .execSQL("delete from Score where id = ?",
                                                    new String[]{Integer.toString(id)});
-                Intent mIntent = new Intent("com.scut.scutwizard.SCORE_REMOVED_BROADCAST");
-                mIntent.putExtra("id", id);
-                mIntent.putExtra("cat", category);
-                lbm.sendBroadcast(mIntent);
+                Intent lbIntent = new Intent("com.scut.scutwizard.SCORE_REMOVED_BROADCAST");
+                lbIntent.putExtra("id", id);
+                lbIntent.putExtra("cat", category);
+                lbm.sendBroadcast(lbIntent);
                 stopSelf();
             } catch (Exception e) {
                 e.printStackTrace();

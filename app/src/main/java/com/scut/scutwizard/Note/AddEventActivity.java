@@ -66,7 +66,8 @@ public class AddEventActivity extends AppCompatActivity {
                     //计算DDL与当前日期距离天数
                     String ddlDate_str = add_event_et_daysLeft.getYear()+"-"+(add_event_et_daysLeft.getMonth()+1)+"-"+add_event_et_daysLeft.getDayOfMonth();
 
-                    daysLeft = new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(ddlDate_str));
+                    daysLeft = new DateHelper().calcDateDiffFromToday(new DateHelper().strToDate(
+                            ddlDate_str));
                     //Toast.makeText(AddEventActivity.this,daysLeft+"",Toast.LENGTH_SHORT).show();
                     //Toast.makeText(AddEventActivity.this,add_event_et_daysLeft.getDayOfMonth()+"",Toast.LENGTH_SHORT).show();
                     if(progress<0||progress>99){

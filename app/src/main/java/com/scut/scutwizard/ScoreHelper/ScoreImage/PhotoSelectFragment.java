@@ -23,7 +23,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.PermissionChecker;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
-import com.luck.picture.lib.tools.ToastUtils;
 import com.scut.scutwizard.R;
 
 import java.util.ArrayList;
@@ -38,12 +37,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * @author luck
+ * fit by MinutesSneezer
  */
 public class PhotoSelectFragment extends Fragment {
-    private final static String                                 TAG                   = "sneezer";
+    //    private final static String                                 TAG                   = "sneezer";
+    private final static int                                    MAX_IMG_NUM           = 6;
     private              Context                                mContext;
     private              RecyclerView                           mRv;
-    private              int                                    MAX_IMG_NUM           = 6;
     private              List<LocalMedia>                       selectList            = new ArrayList<>();
     @NonNull
     private              GridImageAdapter.onAddPicClickListener onAddPicClickListener = () -> {
@@ -89,7 +91,6 @@ public class PhotoSelectFragment extends Fragment {
                 extras = intent.getExtras();
                 int position = Objects.requireNonNull(extras)
                                       .getInt(PictureConfig.EXTRA_PREVIEW_DELETE_POSITION);
-                ToastUtils.s(context, "delete image index:" + position);
                 if (position < adapter.getItemCount()) {
                     selectList.remove(position);
                     adapter.notifyItemRemoved(position);
@@ -98,15 +99,13 @@ public class PhotoSelectFragment extends Fragment {
         }
     };
 
-    public List<LocalMedia> getSelectList() {
-        return selectList;
-    }
-
-
     public PhotoSelectFragment() {
         // Required empty public constructor
     }
 
+    public List<LocalMedia> getSelectList() {
+        return selectList;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,

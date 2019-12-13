@@ -68,23 +68,23 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
     private static final List<String> DT_EXAMPLES = Arrays.asList("班级;院级;校级;区级;市级;省级;国家级;世界级".split(
             ";"));
 
-    @NotEmpty(message = "必填")
-    @Length(max = 20, message = "不能超过20字!", trim = true)
+    @NotEmpty(messageResId = R.string.form_necessary, sequence = 1)
+    @Length(max = 20, messageResId = R.string.no_more_than_20_words, trim = true, sequence = 2)
     @Order(1)
     private EditText iDesc;
 
-    @NotEmpty(message = "必填", sequence = 1)
-    @Digits(integer = 2, sequence = 2, message = "请输入数字")
-    @AssertTrue(sequence = 3, message = "不能为零")
-    @DecimalMax(value = 21., message = "加太多啦", sequence = 4)
-    @DecimalMin(value = -60., message = "扣太多啦", sequence = 5)
+    @NotEmpty(messageResId = R.string.form_necessary, sequence = 1)
+    @Digits(integer = 2, sequence = 2, messageResId = R.string.please_input_number)
+    @AssertTrue(sequence = 3, messageResId = R.string.cannot_be_zero)
+    @DecimalMax(value = 21., messageResId = R.string.score_value_too_high, sequence = 4)
+    @DecimalMin(value = -60., messageResId = R.string.score_value_too_negative, sequence = 5)
     @Order(2)
     private EditText iValue;
 
-    //    @NotEmpty(message = "必选")
+    //    @NotEmpty(messageResId = R.string.form_necessary)
     private Spinner sCat;// 归属
 
-    @NotEmpty(message = "必填")
+    @NotEmpty(messageResId = R.string.form_necessary)
     @Order(3)
     private SpinnerEditText<String> iDet;// 细类
 
@@ -159,9 +159,9 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
                     mEventCalendar.set(year, monthOfYear, dayOfMonth);
                     refreshEventDate();
                 }, mYear, mMonth, mDay);
-                dpd.setLocale(Locale.CHINA);
-                dpd.setCancelText("👋算了");
-                dpd.setOkText("🉑以了");
+                dpd.setLocale(Locale.getDefault());
+                dpd.setCancelText(mContext.getString(R.string.calendar_nevermind));
+                dpd.setOkText(mContext.getString(R.string.calendar_ok));
                 dpd.setFirstDayOfWeek(Calendar.MONDAY);
 
                 Calendar mCa = Calendar.getInstance(); //now
@@ -213,7 +213,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         String description = iDesc.getText().toString().trim();
         int category = sCat.getSelectedItemPosition();
         double value = Double.valueOf(iValue.getText().toString());
-        Date now = new Date();
+        final Date now = new Date();
         Date eventDate = mEventCalendar.getTime();
         String specificCategory = iDet.getValue();
         String comment = iPs.getText().toString().trim();
@@ -263,11 +263,11 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         ArrayList<Score> tmpArr = new ArrayList<>();
         tmpArr.add(score);
         insertScores(tmpArr);
-        destroyMyself();
+        destroyPopup();
     }
 
 
-    public void destroyMyself() {
+    public void destroyPopup() {
         this.dismiss();
         if (fPhoto != null) {
             FragmentManager fragmentManager = fetchFragManager();

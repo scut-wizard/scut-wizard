@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * to handle interaction events.
  * Use the {@link StatsFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author MinutesSneezer
  */
 public class StatsFragment extends Fragment {
     public static final int CATEGORY_DE = 0, CATEGORY_ZHI = 1, CATEGORY_TI = 2;
@@ -141,12 +143,11 @@ public class StatsFragment extends Fragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {

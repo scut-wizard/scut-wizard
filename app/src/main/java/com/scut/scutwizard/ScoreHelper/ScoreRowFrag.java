@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * @author MinutesSneezer
  */
 public class ScoreRowFrag extends Fragment {
 

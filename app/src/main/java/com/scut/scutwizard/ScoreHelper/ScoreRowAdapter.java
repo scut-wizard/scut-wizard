@@ -11,15 +11,21 @@ import android.widget.TextView;
 import com.lxj.xpopup.XPopup;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
+import com.scut.scutwizard.Helpers.DateHelper;
 import com.scut.scutwizard.R;
 import com.scut.scutwizard.ScoreHelper.DetailView.ScoreDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+/**
+ * @author MinutesSneezer
+ */
 
 public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHolder> {
     private List<Score> mScoreList;
@@ -35,8 +41,7 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_score_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_score_row, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -79,15 +84,18 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Score score = mScoreList.get(position);
         holder.item = score;
+
         final double value = score.getValue();
         if (value >= 0)
             holder.itemValue.setTextColor(R.color.colorPrimary);
         else
             holder.itemValue.setTextColor(R.color.colorAccent);
-        holder.itemValue.setText(String.format("%+.1f", value));
+
+        holder.itemValue.setText(score.getValueStr());
         holder.itemDescription.setText(score.getDescription());
-        holder.itemDate.setText(String.format("%tF | %s",
-                                              score.getEventDate(),
+        holder.itemDate.setText(String.format(Locale.getDefault(),
+                                              "%s | %s",
+                                              DateHelper.dateToStr(score.getEventDate()),
                                               score.getSpecificCategory()));
     }
 
@@ -118,7 +126,8 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
 
             final XPopup.Builder popupBuilder = new XPopup.Builder(mContext).watchView(itemView);
             itemView.setOnLongClickListener(v -> {
-                popupBuilder.asBottomList(String.format(mContext.getString(R.string.score_tip),
+                popupBuilder.asBottomList(String.format(Locale.getDefault(),
+                                                        mContext.getString(R.string.score_tip),
                                                         itemDescription.getText()),
                                           new String[]{mContext.getString(R.string.detail),
                                                        mContext.getString(R.string.share),
