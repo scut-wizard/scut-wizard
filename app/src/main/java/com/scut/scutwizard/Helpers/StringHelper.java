@@ -41,9 +41,9 @@ public class StringHelper {
         }else{
             int prev_t=pref.getInt("No.",0);
             editor.putString("date",today_str);
-            t = new Random().nextInt(7);
+            t = new Random().nextInt(100);
             while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
-                t = new Random().nextInt(7);
+                t = new Random().nextInt(100);
             }
             editor.putString("date",today_str);
             editor.putInt("No.",t);
@@ -55,7 +55,7 @@ public class StringHelper {
         String[] yi_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] yi_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        yi = yi_1[(int)(t/10)]+" "+yi_2[(int)(t%10)];
+        yi = yi_1[(int)(t/10)]+"   "+yi_2[(int)(t%10)];
 
         Toast.makeText(context,"6",Toast.LENGTH_SHORT).show();
         return yi;
@@ -81,7 +81,7 @@ public class StringHelper {
             editor.putString("date",today_str);
             t = new Random().nextInt(100);
             while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
-                t = new Random().nextInt(100);
+               t = new Random().nextInt(100);
             }
             editor.putString("date",today_str);
             editor.putInt("No.",t);
@@ -93,7 +93,7 @@ public class StringHelper {
         String[] ji_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] ji_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        ji = ji_1[(int)(t/10)]+" "+ji_2[(int)(t%10)];
+        ji = ji_1[(int)(t/10)]+"   "+ji_2[(int)(t%10)];
         Toast.makeText(context,"3",Toast.LENGTH_SHORT).show();
         return ji;
     }
@@ -105,7 +105,6 @@ public class StringHelper {
         SharedPreferences pref = context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE);
         String temp_str = pref.getString("slogan_data","");
         SharedPreferences.Editor editor =  context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE).edit();
-
 
         if(temp_str.equals(today_str)){
             t=pref.getInt("No.",0);
@@ -121,9 +120,6 @@ public class StringHelper {
             editor.putInt("No.",t);
             editor.apply();
         }
-
-
-
         switch (t){
             case 0:
                 return "今天你解决不了的问题 那就别解决了 反正到了明天你也解决不了";

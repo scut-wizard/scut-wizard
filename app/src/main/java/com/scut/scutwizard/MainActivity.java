@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
         slogan_tv.setText(slogan);
         //更新宜忌
         String ji="",yi="";
-        //yi = new StringHelper().getYi(MainActivity.this);
-        //ji = new StringHelper().getJi(MainActivity.this);
+        yi = new StringHelper().getYi(MainActivity.this);
+        ji = new StringHelper().getJi(MainActivity.this);
         ji_str_tv.setText(ji);
         yi_str_tv.setText(yi);
 
