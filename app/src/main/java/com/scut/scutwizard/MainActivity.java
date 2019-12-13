@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //更新日期
         String today_str;
-        today_str = new StringHelper().getTodayStr();
+        today_str = new StringHelper().getTodayStrChinese();
         date_tv.setText(today_str);
         //更新标语
         String slogan;

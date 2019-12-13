@@ -24,6 +24,12 @@ public class StringHelper {
         }
         return result.toString();
     }
+    public String getTodayStrChinese(){
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年 MM月dd日");//设置日期时间格式
+        String today_str = dateFormat.format(today);
+        return today_str;
+    }
     public String getTodayStr(){
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//设置日期时间格式
@@ -58,7 +64,7 @@ public class StringHelper {
         String[] yi_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] yi_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        yi = yi_1[(int)(t/10)]+"\n"+yi_2[(int)(t%10)];
+        yi = yi_1[(int)(t/10)]+"\n\n\n"+yi_2[(int)(t%10)];
         return yi;
     }
 
@@ -89,7 +95,7 @@ public class StringHelper {
         String[] ji_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] ji_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        ji = ji_1[(int)(t/10)]+"\n"+ji_2[(int)(t%10)];
+        ji = ji_1[(int)(t/10)]+"\n\n\n"+ji_2[(int)(t%10)];
 
         return ji;
     }

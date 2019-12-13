@@ -38,36 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#A6ffffff"
+                android:background="#70ffffff"
                 android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="70dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="0dp">
-
-                    <TextView
-                        android:id="@+id/ji_text_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:paddingStart="15dp"
-                        android:text="忌"
-                        android:textSize="40sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/ji_str_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@+id/ji_text_tv"
-                        android:padding="15dp"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -106,6 +78,35 @@
                         android:textStyle="bold" />
 
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="70dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        android:id="@+id/ji_text_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingStart="15dp"
+                        android:text="忌"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ji_str_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@+id/ji_text_tv"
+                        android:padding="15dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
             </LinearLayout>
 
         </RelativeLayout>
@@ -155,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/main_note_frag"
+                android:layout_marginTop="50dp"
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
                 android:paddingRight="0dp"
