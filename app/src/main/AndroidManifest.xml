@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ScoreHelper.DetailView.ScoreDetailActivity"></activity>
+        <activity
+            android:name=".ScoreHelper.DetailView.ScoreDetailActivity"
+            android:theme="@style/AppTheme" />
         <!-- <receiver -->
         <!-- android:name=".ScoreHelper.SnackbarBroadcastReceiver" -->
         <!-- android:enabled="true" -->
@@ -59,7 +61,7 @@
             android:theme="@style/HelperActivityTheme" />
         <activity
             android:name=".Note.NoteActivity"
-            android:label="@string/helper" />
+            android:label="@string/ddl_manager" />
         <activity
             android:name=".Note.AddEventActivity"
             android:label="@string/add_new_task" />

@@ -51,7 +51,7 @@
 
     <string name="del_btn_desc">删除按钮</string>
     <string name="homework_assistant">作业助手</string>
-    <string name="main_page">主界面</string>
+    <string name="main_page" translatable="false">主界面</string>
     <string name="encouragement_today">今日鸡汤</string>
     <string name="todo_today">今日待办</string>
     <string name="no_ddl_tip">暂无任务，放松一下吧</string>
@@ -112,4 +112,5 @@
     <string name="subtable">表</string>
     <string name="create_date">创建日期</string>
     <string name="last_modified_date">上次修改日期</string>
+    <string name="empty_comment">[空]</string>
 </resources>

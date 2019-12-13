@@ -83,7 +83,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         break;
                     case 2:
                         titleId = R.string.date;
-                        content = DateHelper.dateToStr(mScore.getEventDate());
+                        content = DateHelper.dateToStr(mScore.getEventDate(), false);
                         break;
                     case 3:
                         titleId = R.string.belong_to;
@@ -95,19 +95,23 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         break;
                     case 5:
                         titleId = R.string.comment;
-                        content = mScore.getComment();
-                        break;
+                    {
+                        final String comment = mScore.getComment();
+                        content = comment.isEmpty() ? mContext.getString(R.string.empty_comment)
+                                                    : comment;
+                    }
+                    break;
                     case 7:
                         titleId = R.string.subtable;
                         content = HelperActivity.getSubtableNameById(mScore.getSubtable());
                         break;
                     case 8:
                         titleId = R.string.create_date;
-                        content = DateHelper.dateToStr(mScore.getCreateDate());
+                        content = DateHelper.dateToStr(mScore.getCreateDate(), true);
                         break;
                     case 9:
                         titleId = R.string.last_modified_date;
-                        content = DateHelper.dateToStr(mScore.getLastModifiedDate());
+                        content = DateHelper.dateToStr(mScore.getLastModifiedDate(), true);
                         break;
                 }
                 plainHolder.titleTv.setText(titleId);

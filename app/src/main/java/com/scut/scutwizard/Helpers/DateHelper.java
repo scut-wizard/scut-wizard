@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class DateHelper {
-    public static String dateToStr(@NonNull Date d) {
-        return String.format(Locale.getDefault(), "%tF", d);
+    public static String dateToStr(@NonNull Date d, boolean withTime) {
+        return String.format(Locale.getDefault(), withTime ? "%tc" : "%tF", d);
     }
 
     public double calcDateDiffFromToday(@NonNull Date date2) {
