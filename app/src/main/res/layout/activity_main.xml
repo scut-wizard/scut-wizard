@@ -8,7 +8,7 @@
                                            android:fitsSystemWindows="true"
                                            tools:context=".MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,54 +25,88 @@
             android:paddingBottom="10dp">
 
             <TextView
-                android:id="@+id/yi_text_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/ji_text_tv"
-                android:background="#A6ffffff"
-                android:paddingStart="15dp"
-                android:text="宜"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/yi_str_tv"
+                android:id="@+id/date_tv"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_above="@+id/ji_str_tv"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="0dp"
-                android:layout_toEndOf="@+id/yi_text_tv"
-                android:background="#A6ffffff"
-                android:padding="15dp"
-                android:paddingLeft="0dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="0dp"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/ji_text_tv"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="#A6ffffff"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
                 android:paddingStart="15dp"
-                android:text="忌"
-                android:textSize="40sp"
+                android:text="TextView"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/ji_str_tv"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/ji_text_tv"
+                android:layout_height="match_parent"
                 android:background="#A6ffffff"
-                android:padding="15dp"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="70dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        android:id="@+id/ji_text_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingStart="15dp"
+                        android:text="忌"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ji_str_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@+id/ji_text_tv"
+                        android:padding="15dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="70dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        android:id="@+id/yi_text_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="15dp"
+                        android:text="宜"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/yi_str_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_alignParentBottom="false"
+                        android:layout_centerHorizontal="true"
+
+                        android:layout_marginStart="-1dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toEndOf="@+id/yi_text_tv"
+                        android:padding="15dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="0dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -153,7 +187,7 @@
             android:layout_height="wrap_content"
             android:text="Button" />-->
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
