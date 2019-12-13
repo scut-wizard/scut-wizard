@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class TabAdapter extends FragmentStatePagerAdapter {
     @NonNull
     private List<Fragment>     mFragmentList      = new ArrayList<>();

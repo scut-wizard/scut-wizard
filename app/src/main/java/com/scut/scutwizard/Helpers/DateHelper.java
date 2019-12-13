@@ -11,24 +11,28 @@ import com.scut.scutwizard.Note.NoteDatabaseHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class DateHelper {
-    public double calcuDateDiffFromToday(@NonNull Date date2) {
+    public static String dateToStr(@NonNull Date d) {
+        return String.format(Locale.getDefault(), "%tF", d);
+    }
 
+    public double calcDateDiffFromToday(@NonNull Date date2) {
         Date date1 = new Date();
         long days = (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
-        return  days;
+        return days;
     }
 
     @Nullable
     public Date strToDate(@NonNull String date_str) {
-        SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = null;
         try {
-            date = simpledateformat.parse(date_str);
+            date = sdf.parse(date_str);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -49,13 +53,14 @@ public class DateHelper {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 int finish = cursor.getInt(cursor.getColumnIndex("finish"));
                 int daysLeft = cursor.getInt(cursor.getColumnIndex("daysLeft"));
-                String ddl_str = cursor.getString(cursor.getColumnIndex("DDL"));
+                @NonNull String ddl_str = cursor.getString(cursor.getColumnIndex("DDL"));
                 double progress = cursor.getDouble(cursor.getColumnIndex("progress"));
                 int newDaysLeft;
                 //只更新未完成事件
                 if (progress < 100) {
                     //计算DDL与当前日期距离天数
-                    newDaysLeft = (int)(new DateHelper().calcuDateDiffFromToday(new DateHelper().strToDate(ddl_str)));
+                    newDaysLeft = (int) (new DateHelper().calcDateDiffFromToday(new DateHelper().strToDate(
+                            ddl_str)));
                     //Toast.makeText(AddEventActivity.this,daysLeft+"",Toast.LENGTH_SHORT).show();
                     if (newDaysLeft != daysLeft) {
                         //ddl已过但是未完成任务
@@ -74,7 +79,6 @@ public class DateHelper {
                                        new String[]{String.valueOf(id)});
                     }
                 }
-
             } while (cursor.moveToNext());
         }
         cursor.close();

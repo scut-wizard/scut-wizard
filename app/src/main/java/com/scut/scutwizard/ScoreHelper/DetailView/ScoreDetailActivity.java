@@ -7,10 +7,17 @@ import com.scut.scutwizard.R;
 import com.scut.scutwizard.ScoreHelper.Score;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+/**
+ * @author MinutesSneezer
+ */
 
 public class ScoreDetailActivity extends AppCompatActivity {
 
-    private Score mScore;
+    private RecyclerView  rv;
+    private Score         mScore;
+    private DetailAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +25,15 @@ public class ScoreDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score_detail);
 
         Intent intent = getIntent();
-        mScore = (Score) intent.getSerializableExtra("score");
+        if (intent.hasExtra("score")) {
+            mScore = (Score) intent.getSerializableExtra("score");
+
+            mAdapter = new DetailAdapter(ScoreDetailActivity.this, mScore);
+            mAdapter.setFragManager(getSupportFragmentManager());
+
+            rv = findViewById(R.id.score_dt_rv);
+            rv.setAdapter(mAdapter);
+        } else
+            finish();
     }
 }

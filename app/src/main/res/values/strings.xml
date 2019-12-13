@@ -100,5 +100,16 @@
     <string name="no_share">我没写分享组件。</string>
     <string name="accept">接受</string>
     <string name="delete_success">删除成功~</string>
-    <string name="default_value_hint">1.0</string>
+    <string name="default_value_hint" translatable="false">1.0</string>
+    <string name="form_necessary">必填</string>
+    <string name="please_input_number">请输入数字</string>
+    <string name="no_more_than_20_words">不能超过20字!</string>
+    <string name="cannot_be_zero">不能为零</string>
+    <string name="score_value_too_high">加太多啦</string>
+    <string name="score_value_too_negative">扣太多啦</string>
+    <string name="calendar_nevermind">👋算了</string>
+    <string name="calendar_ok">🉑以了</string>
+    <string name="subtable">表</string>
+    <string name="create_date">创建日期</string>
+    <string name="last_modified_date">上次修改日期</string>
 </resources>

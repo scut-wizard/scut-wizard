@@ -10,7 +10,6 @@ import java.util.Objects;
  * Utility for {@link com.luck.picture.lib.entity.LocalMedia}
  * to {@link android.database.sqlite.SQLiteDatabase}.
  *
- * @author MinutesSneezer {@literal <minutessneezer@qq.com>}
  * Date: 2019/12/8
  */
 

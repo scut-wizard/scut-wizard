@@ -67,4 +67,14 @@
     <string name="delete">Delete</string>
     <string name="accept">Accept</string>
     <string name="share">Share</string>
+    <string name="calendar_nevermind">Nah</string>
+    <string name="calendar_ok">Okay</string>
+    <string name="cannot_be_zero">Cannot be zero</string>
+    <string name="create_date">Create date</string>
+    <string name="form_necessary">Necessary</string>
+    <string name="no_more_than_20_words">No more than 20 words</string>
+    <string name="please_input_number">Please input numbers</string>
+    <string name="score_value_too_high">Too high</string>
+    <string name="score_value_too_negative">Too negative</string>
+    <string name="subtable">Table</string>
 </resources>

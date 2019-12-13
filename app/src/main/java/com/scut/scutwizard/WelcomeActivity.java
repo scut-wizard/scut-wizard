@@ -11,9 +11,14 @@ import android.widget.VideoView;
 
 import com.rey.material.widget.Button;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+
+/**
+ * @author MinutesSneezer
+ */
 
 public class WelcomeActivity extends Activity {
 
@@ -27,10 +32,10 @@ public class WelcomeActivity extends Activity {
 
 
         videoView = findViewById(R.id.video_view);
-        videoView.setVideoURI(Uri.parse("android.resource://"
-                                        + getPackageName()
-                                        + "/"
-                                        + R.raw.welcome));
+        videoView.setVideoURI(Uri.parse(String.format(Locale.getDefault(),
+                                                      "android.resource://%s/%d",
+                                                      getPackageName(),
+                                                      R.raw.welcome)));
         videoView.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
         videoView.setOnPreparedListener(mediaPlayer -> {
             mediaPlayer.setLooping(true);

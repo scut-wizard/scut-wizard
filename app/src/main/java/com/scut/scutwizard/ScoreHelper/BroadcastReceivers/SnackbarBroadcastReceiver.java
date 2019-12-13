@@ -9,6 +9,10 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class SnackbarBroadcastReceiver extends BroadcastReceiver {
     private CoordinatorLayout mCoordLayout;
 

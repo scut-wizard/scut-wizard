@@ -4,6 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.VideoView;
 
+/**
+ * @author MinutesSneezer
+ */
+
 final public class MyVideoView extends VideoView {
     public MyVideoView(Context context) {
         super(context);

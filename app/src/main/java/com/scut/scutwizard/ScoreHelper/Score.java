@@ -1,17 +1,26 @@
 package com.scut.scutwizard.ScoreHelper;
 
+import com.scut.scutwizard.R;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+/**
+ * @author MinutesSneezer
+ */
 
 public class Score implements Serializable {
-    private int      id;
-    private String   description; // des text
-    private Category category; // category integer
-    private double   value; // value real
-    private Date     createDate, lastModifiedDate, eventDate; // ~Date integer
+    public final static int[]    CAT_IDs = new int[]{R.string.deyu, R.string.zhiyu, R.string.wenti};
+    private             int      id;
+    private             String   description; // des text
+    private             Category category; // category integer
+    private             double   value; // value real
+    private             Date     createDate, lastModifiedDate, eventDate; // ~Date integer
     private String specificCategory; // detail text
     private String comment; // ps text
     private int    subtable; // subtable integer
@@ -76,6 +85,10 @@ public class Score implements Serializable {
         return category.ordinal();
     }
 
+    public int getCategoryRStrId() {
+        return CAT_IDs[category.ordinal()];
+    }
+
     public double getValue() {
         return value;
     }
@@ -88,7 +101,7 @@ public class Score implements Serializable {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(@Nullable Date createDate) {
         if (this.createDate == null)
             this.createDate = createDate;
     }
@@ -116,6 +129,10 @@ public class Score implements Serializable {
 
     public void setSpecificCategory(String specificCategory) {
         this.specificCategory = specificCategory;
+    }
+
+    public String getValueStr() {
+        return String.format(Locale.getDefault(), "%+.1f", value);
     }
 
     public enum Category {DEYU, ZHIYU, WENTI}

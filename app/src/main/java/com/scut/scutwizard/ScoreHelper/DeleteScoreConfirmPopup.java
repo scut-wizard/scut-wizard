@@ -9,6 +9,10 @@ import com.shitij.goyal.slidebutton.SwipeButton;
 
 import androidx.annotation.NonNull;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class DeleteScoreConfirmPopup extends CenterPopupView {
     private int id, category;
     private Context mContext;

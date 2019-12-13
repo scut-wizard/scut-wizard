@@ -8,6 +8,10 @@ import com.scut.scutwizard.R;
 
 import androidx.annotation.NonNull;
 
+/**
+ * @author MinutesSneezer
+ */
+
 public class ScoreDatabaseHelper extends SQLiteOpenHelper {
     public static final String  CREATE_SCORE    = "create table Score (\n"
                                                   + "    id integer primary key autoincrement,\n"
