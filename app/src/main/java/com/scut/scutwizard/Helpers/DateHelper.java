@@ -14,29 +14,26 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class DateHelper {
     public static String dateToStr(@NonNull Date d, boolean withTime) {
-        return String.format(Locale.getDefault(), withTime ? "%tc" : "%tF", d);
+        return new SimpleDateFormat(withTime ? "yyyy-MM-dd hh:mm:ss" : "yyyy-MM-dd",
+                                    Locale.getDefault()).format(d);
     }
 
     public double calcDateDiffFromToday(@NonNull Date date2) {
         Date date1 = new Date();
-        long days = (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
-        return days;
+        return (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
     }
 
-    @Nullable
     public Date strToDate(@NonNull String date_str) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = null;
         try {
-            date = sdf.parse(date_str);
+            return sdf.parse(date_str);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return date;
+        return new Date();
     }
 
     //传入活动的context
@@ -59,8 +56,7 @@ public class DateHelper {
                 //只更新未完成事件
                 if (progress < 100) {
                     //计算DDL与当前日期距离天数
-                    newDaysLeft = (int) (new DateHelper().calcDateDiffFromToday(new DateHelper().strToDate(
-                            ddl_str)));
+                    newDaysLeft = (int) (new DateHelper().calcDateDiffFromToday(strToDate(ddl_str)));
                     //Toast.makeText(AddEventActivity.this,daysLeft+"",Toast.LENGTH_SHORT).show();
                     if (newDaysLeft != daysLeft) {
                         //ddl已过但是未完成任务

@@ -120,7 +120,7 @@ public class PhotoSelectFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mContext = getContext();
         mRv = view.findViewById(R.id.popup_img_rv);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(getContext(),
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext,
                                                                     MAX_IMG_NUM / 2,
                                                                     GridLayoutManager.VERTICAL,
                                                                     false);

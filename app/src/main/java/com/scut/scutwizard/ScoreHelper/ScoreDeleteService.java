@@ -4,7 +4,11 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
+import com.scut.scutwizard.ScoreHelper.ScoreImage.LocalMediaDbUtil;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -51,6 +55,15 @@ public class ScoreDeleteService extends Service {
                 lbIntent.putExtra("id", id);
                 lbIntent.putExtra("cat", category);
                 lbm.sendBroadcast(lbIntent);
+                final String imgPaths = intent.getStringExtra("img");
+                for (String p : imgPaths.split(";")) {
+                    final File img = new File(new LocalMediaDbUtil(this).getDataDir(), p);
+                    System.gc();
+                    final boolean imgDeleted = img.delete();
+                    Log.d("sneezer",
+                          String.format("onStartCommand: Image %sdeleted! @ ScoreDeleteService",
+                                        imgDeleted ? "" : "not "));
+                }
                 stopSelf();
             } catch (Exception e) {
                 e.printStackTrace();

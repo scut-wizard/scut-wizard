@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author MinutesSneezer
  */
 
+@SuppressWarnings("WeakerAccess")
 public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHolder> {
     private List<Score> mScoreList;
 
@@ -42,8 +43,7 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_score_row, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     void setData(ArrayList<Score> newScores) {
@@ -162,7 +162,8 @@ public class ScoreRowAdapter extends RecyclerView.Adapter<ScoreRowAdapter.ViewHo
                                                       new XPopup.Builder(mContext).asCustom(new DeleteScoreConfirmPopup(
                                                               mContext,
                                                               item.getId(),
-                                                              item.getCategoryInt())).show();
+                                                              item.getCategoryInt(),
+                                                              item.getImagePaths())).show();
                                               }
                                           }).show();
                 return true;

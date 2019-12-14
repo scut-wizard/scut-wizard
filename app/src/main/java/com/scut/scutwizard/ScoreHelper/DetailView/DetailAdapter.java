@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author MinutesSneezer
  */
 
+@SuppressWarnings("WeakerAccess")
 public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEWTYPE_PLAIN = 0, VIEWTYPE_PHOTO = 1;
     private static final int TOTAL_FIELDS = 10;
@@ -42,11 +43,12 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            case VIEWTYPE_PHOTO:
+            case VIEWTYPE_PHOTO: {
                 return new PhotoViewHolder(LayoutInflater.from(parent.getContext())
                                                          .inflate(R.layout.score_detail_row_photo,
                                                                   parent,
-                                                                  false));
+                                                                  false), mScore.getImagePaths());
+            }
             case VIEWTYPE_PLAIN:
             default:
                 return new PlainViewHolder(LayoutInflater.from(parent.getContext())
@@ -58,66 +60,57 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()) {
-            case VIEWTYPE_PHOTO: {
-                PhotoViewHolder photoHolder = (PhotoViewHolder) holder;
-                photoHolder.titleTv.setText(R.string.img_certificate);
-//                photoHolder.photoFrag.
-            }
-            break;
-            case VIEWTYPE_PLAIN: {
-                PlainViewHolder plainHolder = (PlainViewHolder) holder;
-                int titleId = 0;
-                String content = "";
-                switch (position) {
-                    // description,value,eventDate,
-                    // category,specificCategory,comment,
-                    // image,subtable,createDate,modifyDate
-                    case 0:
-                        titleId = R.string.title;
-                        content = mScore.getDescription();
-                        break;
-                    case 1:
-                        titleId = R.string.value;
-                        content = mScore.getValueStr();
-                        break;
-                    case 2:
-                        titleId = R.string.date;
-                        content = DateHelper.dateToStr(mScore.getEventDate(), false);
-                        break;
-                    case 3:
-                        titleId = R.string.belong_to;
-                        content = mContext.getString(mScore.getCategoryRStrId());
-                        break;
-                    case 4:
-                        titleId = R.string.specific_category;
-                        content = mScore.getSpecificCategory();
-                        break;
-                    case 5:
-                        titleId = R.string.comment;
-                    {
-                        final String comment = mScore.getComment();
-                        content = comment.isEmpty() ? mContext.getString(R.string.empty_comment)
-                                                    : comment;
-                    }
+        if (holder.getItemViewType() == VIEWTYPE_PLAIN) {
+            PlainViewHolder plainHolder = (PlainViewHolder) holder;
+            int titleId = 0;
+            String content = "";
+            switch (position) {
+                // description,value,eventDate,
+                // category,specificCategory,comment,
+                // image,subtable,createDate,modifyDate
+                case 0:
+                    titleId = R.string.title;
+                    content = mScore.getDescription();
                     break;
-                    case 7:
-                        titleId = R.string.subtable;
-                        content = HelperActivity.getSubtableNameById(mScore.getSubtable());
-                        break;
-                    case 8:
-                        titleId = R.string.create_date;
-                        content = DateHelper.dateToStr(mScore.getCreateDate(), true);
-                        break;
-                    case 9:
-                        titleId = R.string.last_modified_date;
-                        content = DateHelper.dateToStr(mScore.getLastModifiedDate(), true);
-                        break;
+                case 1:
+                    titleId = R.string.value;
+                    content = mScore.getValueStr();
+                    break;
+                case 2:
+                    titleId = R.string.date;
+                    content = DateHelper.dateToStr(mScore.getEventDate(), false);
+                    break;
+                case 3:
+                    titleId = R.string.belong_to;
+                    content = mContext.getString(mScore.getCategoryRStrId());
+                    break;
+                case 4:
+                    titleId = R.string.specific_category;
+                    content = mScore.getSpecificCategory();
+                    break;
+                case 5:
+                    titleId = R.string.comment;
+                {
+                    final String comment = mScore.getComment();
+                    content = comment.isEmpty() ? mContext.getString(R.string.empty_comment)
+                                                : comment;
                 }
-                plainHolder.titleTv.setText(titleId);
-                plainHolder.contentTv.setText(content);
+                break;
+                case 7:
+                    titleId = R.string.subtable;
+                    content = HelperActivity.getSubtableNameById(mScore.getSubtable());
+                    break;
+                case 8:
+                    titleId = R.string.create_date;
+                    content = DateHelper.dateToStr(mScore.getCreateDate(), true);
+                    break;
+                case 9:
+                    titleId = R.string.last_modified_date;
+                    content = DateHelper.dateToStr(mScore.getLastModifiedDate(), true);
+                    break;
             }
-            break;
+            plainHolder.titleTv.setText(titleId);
+            plainHolder.contentTv.setText(content);
         }
     }
 
@@ -145,10 +138,12 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView          titleTv;
         PhotoShowFragment photoFrag;
 
-        public PhotoViewHolder(@NonNull View itemView) {
+        public PhotoViewHolder(@NonNull View itemView, @NonNull String filenamesStr) {
             super(itemView);
             titleTv = itemView.findViewById(R.id.score_dtr_photo_title);
             photoFrag = (PhotoShowFragment) mFragManager.findFragmentById(R.id.detail_img_frag);
+            //noinspection ConstantConditions
+            photoFrag.setImages(filenamesStr);
         }
     }
 }

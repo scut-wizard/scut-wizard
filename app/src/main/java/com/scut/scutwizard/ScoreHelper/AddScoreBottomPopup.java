@@ -24,7 +24,6 @@ import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
-import com.mobsandgeeks.saripaar.exception.ConversionException;
 import com.rey.material.widget.Button;
 import com.scut.scutwizard.Helpers.FileHelper;
 import com.scut.scutwizard.R;
@@ -118,6 +117,7 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
 
     abstract public int fetchSubtable();
 
+    @SuppressWarnings({"Convert2Lambda", "Anonymous2MethodRef"})
     @Override
     protected void onCreate() {
         super.onCreate();
@@ -183,18 +183,16 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
         iPs = findViewById(R.id.popup_ps_input);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        validator.registerAdapter(SpinnerEditText.class,
-                                  new ViewDataAdapter<SpinnerEditText, String>() {
-                                      @Override
-                                      public String getData(SpinnerEditText spinnerEditText) throws
-                                              ConversionException {
-                                          return spinnerEditText.getValue();
-                                      }
-                                  });
+        validator.registerAdapter(SpinnerEditText.class, new ViewDataAdapter<SpinnerEditText, String>() {
+            @Override
+            public String getData(SpinnerEditText spinnerEditText) {
+                return spinnerEditText.getValue();
+            }
+        });
 //        validator.registerAdapter(Spinner.class, view -> view.getSelectedItem().toString());
         validator.registerAdapter(EditText.class, new ViewDataAdapter<EditText, Boolean>() {
             @Override
-            public Boolean getData(EditText view) throws ConversionException {
+            public Boolean getData(EditText view) {
                 try {
                     return Double.valueOf(view.getText().toString()) != 0;
                 } catch (Exception e) {
@@ -231,7 +229,11 @@ public abstract class AddScoreBottomPopup extends BottomPopupView implements
                     File f = new File(img.getCompressPath());
 
                     // dest file
-                    File tmp = File.createTempFile("", ".jpeg", DATA_DIR);
+                    File tmp = File.createTempFile(String.format(Locale.getDefault(),
+                                                                 "%d_",
+                                                                 new Date().getTime()),
+                                                   ".jpeg",
+                                                   DATA_DIR);
 //                final String TMP_PATH = tmp.getPath();
                     final String TMP_FILENAME = tmp.getName();
 
