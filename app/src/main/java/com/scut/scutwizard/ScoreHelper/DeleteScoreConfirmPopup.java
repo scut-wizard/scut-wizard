@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 
 public class DeleteScoreConfirmPopup extends CenterPopupView {
     private int id, category;
+    private String  imgPaths;
     private Context mContext;
 //    private ScoreDeleteService.MyBinder deleteBinder;
 //
@@ -29,11 +30,20 @@ public class DeleteScoreConfirmPopup extends CenterPopupView {
 //        }
 //    };
 
-    public DeleteScoreConfirmPopup(@NonNull Context context, int scoreId, int scoreCat) {
+    public DeleteScoreConfirmPopup(@NonNull Context context,
+                                   int scoreId,
+                                   int scoreCat,
+                                   String scoreImgPaths) {
         super(context);
         this.mContext = context;
         this.id = scoreId;
         this.category = scoreCat;
+        this.imgPaths = scoreImgPaths;
+    }
+
+    public DeleteScoreConfirmPopup(@NonNull Context context) {
+        super(context);
+        this.mContext = context;
     }
 
     @Override
@@ -59,6 +69,7 @@ public class DeleteScoreConfirmPopup extends CenterPopupView {
                 Intent deleteIntent = new Intent(mContext, ScoreDeleteService.class);
                 deleteIntent.putExtra("id", id);
                 deleteIntent.putExtra("cat", category);
+                deleteIntent.putExtra("img", imgPaths);
                 DeleteScoreConfirmPopup.this.delayDismissWith(500,
                                                               () -> mContext.startService(
                                                                       deleteIntent));
