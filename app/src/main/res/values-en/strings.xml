@@ -78,4 +78,7 @@
     <string name="subtable">Table</string>
     <string name="empty_comment">[Empty]</string>
     <string name="last_modified_date">Last modified date</string>
+    <string name="ask_delete_confirm">Sure to delete?</string>
+    <string name="delete_slide_tip">Swipe right to delete</string>
+    <string name="delete_cancel">Cancel</string>
 </resources>

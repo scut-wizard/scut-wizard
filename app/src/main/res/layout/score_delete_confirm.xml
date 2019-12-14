@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginBottom="20sp"
-        android:text="确定删除记录?" />
+        android:text="@string/ask_delete_confirm" />
 
     <com.shitij.goyal.slidebutton.SwipeButton
         android:id="@+id/delete_confirm_swipe"
@@ -23,20 +23,20 @@
         android:background="#999"
         android:gravity="center"
         android:padding="3sp"
-        android:text="右划以确认删除"
+        android:text="@string/delete_slide_tip"
         android:textColor="#fff"
         app:button_confirm_text="已确认，即将删除..."
         app:gradient_color_1="#f00"
         app:gradient_color_2="#eee"
         app:gradient_color_2_width="50sp"
         app:gradient_color_3="#0f0"
-        app:threshold="1.0" />
+        app:threshold="0.95" />
 
     <Button
         android:id="@+id/delete_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="点错了" />
+        android:text="@string/delete_cancel" />
 
 </LinearLayout>
