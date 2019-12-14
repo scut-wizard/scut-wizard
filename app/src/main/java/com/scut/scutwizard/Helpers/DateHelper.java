@@ -23,7 +23,7 @@ public class DateHelper {
 
     public double calcDateDiffFromToday(@NonNull Date date2) {
         Date date1 = new Date();
-        long days = (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
+        double days = (date2.getTime() - date1.getTime()) / (24 * 3600 * 1000);
         return days;
     }
 

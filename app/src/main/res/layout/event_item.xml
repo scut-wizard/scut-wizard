@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="0dp"
                 android:layout_toEndOf="@+id/event_daysLeft_tv"
                 android:text="放弃"
                 android:textSize="12sp" />

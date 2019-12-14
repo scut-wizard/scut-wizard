@@ -32,7 +32,7 @@
                 android:padding="10dp"
                 android:paddingStart="15dp"
                 android:text="xxxx年 xx月xx日"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -56,7 +56,7 @@
                         android:background="#70ffffff"
                         android:paddingStart="15dp"
                         android:text="宜"
-                        android:textSize="40sp"
+                        android:textSize="32sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -76,7 +76,7 @@
                         android:paddingLeft="0dp"
                         android:paddingTop="15dp"
                         android:paddingBottom="0dp"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -97,7 +97,7 @@
                         android:background="#70ffffff"
                         android:paddingStart="15dp"
                         android:text="忌"
-                        android:textSize="40sp"
+                        android:textSize="32sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -107,7 +107,7 @@
                         android:layout_toEndOf="@+id/ji_text_tv"
                         android:background="#aaffffff"
                         android:padding="15dp"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 

@@ -42,7 +42,7 @@ public class StringHelper {
 
         String today_str = getTodayStr();
         SharedPreferences pref = context.getSharedPreferences("yi_data",Context.MODE_PRIVATE);
-        String temp_str = pref.getString("yi_data","");
+        String temp_str = pref.getString("date","");
         SharedPreferences.Editor editor =  context.getSharedPreferences("yi_data",Context.MODE_PRIVATE).edit();
 
         if(temp_str.equals(today_str)){
@@ -50,7 +50,7 @@ public class StringHelper {
             //不同一天//第一次
         }else{
             int prev_t=pref.getInt("No.",0);
-            editor.putString("date",today_str);
+
             t = new Random().nextInt(100);
             while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)){
                 t = new Random().nextInt(100);
@@ -64,7 +64,7 @@ public class StringHelper {
         String[] yi_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] yi_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        yi = yi_1[(int)(t/10)]+"\n\n\n"+yi_2[(int)(t%10)];
+        yi = yi_1[(int)(t/10)]+"\n\n"+yi_2[(int)(t%10)];
         return yi;
     }
 
@@ -74,7 +74,7 @@ public class StringHelper {
 
         String today_str = getTodayStr();
         SharedPreferences pref = context.getSharedPreferences("ji_data",Context.MODE_PRIVATE);
-        String temp_str = pref.getString("ji_data","");
+        String temp_str = pref.getString("date","");
         SharedPreferences.Editor editor =  context.getSharedPreferences("ji_data",Context.MODE_PRIVATE).edit();
 
         if(temp_str.equals(today_str)){
@@ -84,7 +84,7 @@ public class StringHelper {
             SharedPreferences pref_yi = context.getSharedPreferences("yi_data",Context.MODE_PRIVATE);
             int No_yi = pref_yi.getInt("No.",0);
             int prev_t=pref.getInt("No.",0);
-            editor.putString("date",today_str);
+
             t = new Random().nextInt(100);
             while((int)(prev_t/10)==(int)(t/10)||(int)(prev_t%10)==(int)(t%10)||(int)(No_yi/10)==(int)(t/10)||(int)(No_yi%10)==(int)(t%10)){
                t = new Random().nextInt(100);
@@ -97,7 +97,7 @@ public class StringHelper {
         String[] ji_1={"吃二饭一楼","吃麻辣香锅","吃二饭三楼","吃烧卤","吃一饭二楼","吃清真食堂","吃外卖","吃扬州炒饭","步道乐跑","球类活动"};
         String[] ji_2= {"打代码","上课睡觉","做数学题","剪头发","咕咕咕","落地成盒","认真听课","熬夜学习","观察大自然","去图书馆"};
 
-        ji = ji_1[(int)(t/10)]+"\n\n\n"+ji_2[(int)(t%10)];
+        ji = ji_1[(int)(t/10)]+"\n\n"+ji_2[(int)(t%10)];
 
         return ji;
     }
@@ -106,7 +106,7 @@ public class StringHelper {
 
         String today_str = getTodayStr();
         SharedPreferences pref = context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE);
-        String temp_str = pref.getString("slogan_data","");
+        String temp_str = pref.getString("date","");
         SharedPreferences.Editor editor =  context.getSharedPreferences("slogan_data",Context.MODE_PRIVATE).edit();
 
         if(temp_str.equals(today_str)){
@@ -114,7 +114,7 @@ public class StringHelper {
 
         }else{//不同一天//第一次
             int prev_t=pref.getInt("No.",0);
-            editor.putString("date",today_str);
+
             t = new Random().nextInt(7);
             while(prev_t==t){
                 t = new Random().nextInt(7);
